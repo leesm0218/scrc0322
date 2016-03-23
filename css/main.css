@@ -19,4 +19,13 @@ nav { display:inline-block; }
 
 #work-space #script-tab > section { display:block; float:left; width:auto; height:100%; border:1px solid #ccc; }
 #work-space #script-tab #tool-sec { width:25%; }
+#work-space #script-tab #tool-sec #tools { height:30% }
+#work-space #script-tab #tool-sec #blocks { height:70% }
 #work-space #script-tab #code-sec { width:74%; }
+
+.code-piece {  display: inline-block; padding:2px; color:white; cursor:pointer; }
+.code-piece.operator { background-color:forestgreen; }
+.element {}
+.element.plus {}
+.element.space { background-color:gray; }
+.default.element { background-color:white; margin:0px; border:0px; padding:0px 2px; color:black; width:11px; white-space: nowrap; font-size: large; }
