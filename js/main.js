@@ -1,3 +1,5 @@
+// TODO: html 코드 생성을 자동화시켜야 함(operator element 템플릿화하기 등).
+
 $(function(){
 	// 드래그 기능 활용 시 필요한 부분
 
@@ -84,24 +86,26 @@ $(function () {
 });
 
 var operators = {
-	"plus" : function (lhs, rhs) {
-		return lhs + rhs;
-	},
-	"minus" : function (lhs, rhs) {
-		return lhs - rhs;
+	binary : {
+		"plus": function (lhs, rhs) {
+			return lhs + rhs;
+		},
+		"minus": function (lhs, rhs) {
+			return lhs - rhs;
+		}
 	}
 };
 
 $(function () {
-	// plus element의 기능 구현(기타 기능 구현도 여기에 하면 좋을 것이다)
-	// 내부에 2개의 space element가 있고 그것을 더하는 element이다.
-	
-	$(".operator").each(function () {
+	// operator element의 기능 구현
+
+	// 이항연산자 구현부
+	$(".binary.operator").each(function () {
 		this.calc = function () {
 			var $this = $(this);
 			var $space = $this.find(".space");
 
-			return operators[$this.attr("operator")]($space[0].calc(), $space[1].calc());
+			return operators.binary[$this.attr("operator")]($space[0].calc(), $space[1].calc());
 		}
 	});
 });
