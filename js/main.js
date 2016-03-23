@@ -28,8 +28,8 @@ $(function () {
 	$(".code-piece").attr("draggable", true);
 	$(".code-piece").on("dragstart", drag);
 
-	$("#blocks").on("drop", drop);
-	$("#code-sec").on("drop", drop);
+	$(".blocks").on("drop", drop);
+	$(".code-sec").on("drop", drop);
 
 	//드래그 시작시 호출 할 함수
 	function drag(event) {
@@ -83,23 +83,25 @@ $(function () {
 	});
 });
 
+var operators = {
+	"plus" : function (lhs, rhs) {
+		return lhs + rhs;
+	},
+	"minus" : function (lhs, rhs) {
+		return lhs - rhs;
+	}
+};
+
 $(function () {
 	// plus element의 기능 구현(기타 기능 구현도 여기에 하면 좋을 것이다)
 	// 내부에 2개의 space element가 있고 그것을 더하는 element이다.
-	$(".element.plus").each(function () {
+	
+	$(".operator").each(function () {
 		this.calc = function () {
-			var $space = $(this).find(".space");
+			var $this = $(this);
+			var $space = $this.find(".space");
 
-			return $space[0].calc() + $space[1].calc();
-		};
-	});
-
-	// minus element의 기능 구현
-	$(".element.minus").each(function () {
-		this.calc = function () {
-			var $space = $(this).find(".space");
-
-			return $space[0].calc() - $space[1].calc();
-		};
+			return operators[$this.attr("operator")]($space[0].calc(), $space[1].calc());
+		}
 	});
 });
