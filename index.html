@@ -1,14 +1,14 @@
 ﻿<!DOCTYPE html>
 <html lang="ko">
-	<head>
-		<title> UI </title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
-		<link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
-		<script src="lib/jquery-1.12.1.min.js"></script>
-		<script src="js/main.js"></script>
-	</head>
-	<body>
+<head>
+	<title> UI </title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
+	<script src="lib/jquery-1.12.1.min.js"></script>
+	<script src="js/main.js"></script>
+</head>
+<body>
 <main role="main">
 	<header>
 		<h1>SCRACH</h1>
@@ -50,6 +50,14 @@
 							-
 							<span class="element space"><input type="text"  class="default element number" return-type="number"></span>
 						</span>
+						<span class="code-piece sound element" id="play-elmt" >
+							<audio id="myaudio">
+							</audio>
+							<button id="play" onclick="audio_play();">
+								Play
+							</button>
+
+						</span>
 					</section>
 				</section>
 				<section class="code-sec">
@@ -75,5 +83,5 @@
 	<footer>
 	</footer>
 </main>
-	</body>
+</body>
 </html>

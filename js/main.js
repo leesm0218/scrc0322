@@ -14,11 +14,11 @@ $(function() {
 
 	$("#work-space nav a:first").addClass("active");
 	$("#work-space #script-tab").show();
-	
+
 	$("#work-space nav a").click(function() {
 		$("#work-space nav a.active").removeClass("active");
 		$("#work-space .tab").hide();
-		
+
 		$(this).addClass("active");
 		$("#work-space " + this.target).fadeIn();
 	});
@@ -109,3 +109,19 @@ $(function () {
 		}
 	});
 });
+
+
+function audio_play(){
+	var oAudio = document.getElementById('myaudio');
+	var btn = document.getElementById('play');
+
+	if (oAudio.paused) {
+		oAudio.src = "http://ggumimugg.cafe24.com/audio/You_Raise_Me_Up.mp3";
+		oAudio.play();
+		btn.textContent = "Pause";
+	}
+	else {
+		oAudio.pause();
+		btn.textContent = "Play ";
+	}
+}

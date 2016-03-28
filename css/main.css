@@ -25,6 +25,7 @@ nav { display:inline-block; }
 
 .code-piece {  display: inline-block; padding:2px; color:white; cursor:pointer; }
 .code-piece.operator { background-color:forestgreen; }
+.code-piece.sound { background-color:rebeccapurple; }
 .element {}
 .element.plus {}
 .element.space { background-color:gray; }
