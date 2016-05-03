@@ -6,12 +6,15 @@
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
 	<link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
 	<script src="lib/jquery-1.12.1.min.js"></script>
+	<script src="js/util.js"></script>
+	<script src="js/blocks.js"></script>
+	<script src="js/drag.js"></script>
 	<script src="js/main.js"></script>
 </head>
 <body>
 <main role="main">
 	<header>
-		<h1>SCRACH</h1>
+		<h1>SCRATCH</h1>
 		<nav>
 			<ul>
 				<li><a>파일</a></li>
@@ -35,32 +38,23 @@
 				</nav>
 			</header>
 			<article id="script-tab" class="tab">
-				<section class="tool-sec">
-					<section class="tools">
+				<section id="tool-sec">
+					<section id="tools">
 						블럭  도구
 					</section>
-					<section class="blocks">
-						<span class="code-piece binary operator element" id="plus-elmt" operator="plus" return-type="number">
-							<span class="element space"><input type="text" class="default element number" return-type="number"/></span>
-							+
-							<span class="element space"><input type="text"  class="default element number" return-type="number"></span>
-						</span>
-						<span class="code-piece binary operator element" id="minus-elmt" operator="minus" return-type="number">
-							<span class="element space"><input type="text" class="default element number" return-type="number"/></span>
-							-
-							<span class="element space"><input type="text"  class="default element number" return-type="number"></span>
-						</span>
+					<section id="blocks">
+						<!--
 						<span class="code-piece sound element" id="play-elmt" >
 							<audio id="myaudio">
 							</audio>
 							<button id="play" onclick="audio_play();">
 								Play
 							</button>
-
 						</span>
+						-->
 					</section>
 				</section>
-				<section class="code-sec">
+				<section id="code-sec">
 					코드블럭
 				</section>
 			</article>
@@ -71,11 +65,11 @@
 				<section class="??">
 				</section>
 			</article>
-			<article class="sound-tab" class="tab">
-				<section class="tool-sec">
+			<article id="sound-tab" class="tab">
+				<section id="tool-sec">
 					소리 도구
 				</section>
-				<section class="???">
+				<section id="???">
 				</section>
 			</article>
 		</article>

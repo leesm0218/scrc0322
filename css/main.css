@@ -4,7 +4,7 @@ main { width:200%; height:100%; }
 a { text-decoration:none; color:#000; font-size:12px; cursor:pointer; }
 ul { list-style:none; }
 nav li { display:inline; }
-nav li a { float:left; margin-right:5px; padding:0px 20px; background:#ddd; }
+nav li a { float:left; margin-right:5px; padding:0 20px; background:#ddd; }
 h1 { display:inline-block; }
 nav { display:inline-block; }
 #column1 { display:block; float:left; }
@@ -12,16 +12,16 @@ nav { display:inline-block; }
 #screen { display:block; width:400px; height:300px; border:1px solid #ccc; margin:5px; }
 #stage { display:block; width:400px; height:250px; border:1px solid #ccc; margin:5px; }
 #work-space { display:block; width:900px; height:557px; margin:5px; }
-#work-space > header { height:16px; margin:0px; padding:0px; }
+#work-space > header { height:16px; margin:0; padding:0; }
 #work-space > header a { color:#999; }
 #work-space > header a.active { color:#000; }
-#work-space > article { display:none; height:540px; border:1px solid #ccc; margin:0px; padding:0px; }
+#work-space > article { display:none; height:540px; border:1px solid #ccc; margin:0; padding:0; }
 
 #work-space #script-tab > section { display:block; float:left; width:auto; height:100%; border:1px solid #ccc; }
-#work-space #script-tab .tool-sec { width:25%; }
-#work-space #script-tab .tool-sec .tools { height:30% }
-#work-space #script-tab .tool-sec .blocks { height:70% }
-#work-space #script-tab .code-sec { width:74%; }
+#work-space #script-tab #tool-sec { width:25%; }
+#work-space #script-tab #tool-sec #tools { height:30% }
+#work-space #script-tab #tool-sec #blocks { height:70% }
+#work-space #script-tab #code-sec { width:74%; }
 
 .code-piece {  display: inline-block; padding:2px; color:white; cursor:pointer; }
 .code-piece.operator { background-color:forestgreen; }
@@ -29,4 +29,4 @@ nav { display:inline-block; }
 .element {}
 .element.plus {}
 .element.space { background-color:gray; }
-.default.element { background-color:white; margin:0px; border:0px; padding:0px 2px; color:black; width:11px; white-space: nowrap; font-size: large; }
+.default.element { background-color:white; margin:0; border:0; padding:0 2px; color:black; width:21px; white-space: nowrap; font-size: large; }
