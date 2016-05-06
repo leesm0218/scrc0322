@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title> UI </title>
+
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+
+	<link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/blocks.css" media="all" />
+
+	<script src="lib/jquery-1.12.1.min.js"></script>
+
+	<script src="js/util.js"></script>
+	<script src="js/main-screen.js"></script>
+	<script src="js/blocks.js"></script>
+	<script src="js/drag.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/sound.js"></script>
+	<script src="js/image.js"></script>
+</head>
+<body>
+<main role="main">
+	<header>
+		<h1>SCRATCH</h1>
+		<nav>
+			<ul>
+				<li><a>파일</a></li>
+				<li><a>편집</a></li>
+			</ul>
+		</nav>
+	</header>
+	<section id="column1">
+		<article id="screen">
+			<canvas id="main-screen" style="height: 100%; width: 100%;"></canvas>
+		</article>
+		<article id="stage">배경, 이미지 등
+			<form id="form1" runat="server">
+				<input type='file' id="imgInp" />
+			</form>
+			<img id="myimage" src="#" alt="image" />
+		</article>
+	</section>
+	<section id="column2">
+		<article id="work-space">
+			<header>
+				<nav>
+					<ul>
+						<li><a target="#script-tab">스크립트</a></li>
+						<li><a target="#shape-tab">모양</a></li>
+						<li><a target="#sound-tab">소리</a></li>
+					</ul>
+				</nav>
+			</header>
+			<article id="script-tab" class="tab">
+				<section id="tool-sec">
+					<section id="tools">
+						블럭  도구
+					</section>
+					<section id="blocks">
+						<!--
+						<span class="code-piece sound element" id="play-elmt" >
+							<audio id="myaudio">
+							</audio>
+							<button id="play" onclick="audio_play();">
+								Play
+							</button>
+						</span>
+						-->
+					</section>
+				</section>
+				<section id="code-sec">
+					코드블럭
+				</section>
+			</article>
+			<article id="shape-tab" class="tab">
+				<section class="tool-sec">
+					도형 도구
+				</section>
+				<section class="??">
+				</section>
+			</article>
+			<article id="sound-tab" class="tab">
+				<section id="tool-sec">
+					소리 도구
+				</section>
+				<section id="???">
+				</section>
+			</article>
+		</article>
+	</section>
+	<footer>
+	</footer>
+</main>
+</body>
+</html>
