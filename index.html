@@ -2,11 +2,18 @@
 <html lang="ko">
 <head>
 	<title> UI </title>
+
 	<meta charset="utf-8">
+
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+
 	<link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/blocks.css" media="all" />
+
 	<script src="lib/jquery-1.12.1.min.js"></script>
+
 	<script src="js/util.js"></script>
+	<script src="js/main-screen.js"></script>
 	<script src="js/blocks.js"></script>
 	<script src="js/drag.js"></script>
 	<script src="js/main.js"></script>
@@ -23,7 +30,9 @@
 		</nav>
 	</header>
 	<section id="column1">
-		<article id="screen">프로그램 화면</article>
+		<article id="screen">
+			<canvas id="main-screen" style="height: 100%; width: 100%;"></canvas>
+		</article>
 		<article id="stage">배경, 이미지 등</article>
 	</section>
 	<section id="column2">
