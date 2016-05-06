@@ -1,0 +1,94 @@
+* { margin:0px; padding:0px; border:1px solid #ccc;}
+
+html{ display:flex; flex-wrap: nowrap;}
+
+.tempfooter{flex:1; max-width:0; max-height:0; margin:0px; padding:0px; border:0px;}
+
+.body { 
+	flex:1; width:99%; height:99%; min-width:1000px; min-height:750px; 
+	display:flex; flex-wrap: nowrap; flex-direction: column;}
+	
+.menubar{
+	flex:1; min-height:30px; max-height:30px; 
+	display:flex; flex-wrap: nowrap; }
+	
+.main{
+	flex:1; 
+	display:flex; flex-wrap: nowrap;}
+
+.column1 {
+	flex:1; max-width:410px;
+	display:flex; flex-flow:center; flex-direction: column; flex-wrap: nowrap;}
+.screenbar{
+	flex:0; min-width:400px; max-width:400px; min-height:40px; max-height:40px;}
+.screen-fullscreen{  
+	min-width:40px; max-width:40px; min-height:40px; max-height:40px;
+	content: url('../img/UI/buttons/fullScreenOff.png');
+}
+.screen-start{  
+	float:right; min-width:40px; max-width:40px; min-height:40px; max-height:40px;
+	content: url('../img/UI/buttons/greenFlagOff.png');
+}
+.screen-stop{  
+	float:right; min-width:40px; max-width:40px; min-height:40px; max-height:40px;
+	content: url('../img/UI/buttons/stopOff.png');
+}
+.screen {
+	flex:0; min-width:400px; max-width:400px; min-height:400px; max-height:400px; }
+.screenxy{
+	flex:0; min-width:400px; max-width:400px; min-height:20px; max-height:20px; 
+	text-align:right;
+}
+.spritebar{
+	flex:0; min-width:400px; max-width:400px; min-height:30px; max-height:30px; 
+}
+.sprite-library{
+	float:right; min-width:30px; max-width:30px; min-height:30px; max-height:30px;
+	content: url('../img/UI/newsprite/libraryOff.png');
+}
+.sprite-paintbrush{
+	float:right; min-width:30px; max-width:30px; min-height:30px; max-height:30px;
+	content: url('../img/UI/newsprite/paintbrushOff.png');
+}
+.sprite-import{
+	float:right; min-width:30px; max-width:30px; min-height:30px; max-height:30px;
+	content: url('../img/UI/newsprite/importOff.png');
+}
+.sprite-camera{
+	float:right; min-width:30px; max-width:30px; min-height:30px; max-height:30px;
+	content: url('../img/UI/newsprite/cameraOff.png');
+}
+.sprite-wrap{
+	flex:1;  max-width:400px; display:flex; flex-direction: row; flex-wrap: nowrap;}
+.sprite {
+	flex:1;  max-width:320px;  }
+.spritebackground{
+	flex:1;  max-width:80px;  }
+
+
+.column2 {
+	flex:1; 
+	display:flex;  flex-direction: row; flex-wrap: nowrap;}
+.tools{
+	flex:1; min-width:220px; max-width:220px; 
+	display:flex;  align-items: flex-start; align-content: flex-start; flex-direction:column; flex-wrap: wrap;}
+.tooltabs {
+	flex:0; width:100%; 
+	display:flex;  align-items: flex-start; align-content: flex-start; flex-direction:row; flex-wrap: wrap; 
+	margin:0px; border:0px solid #c00;}
+.tooltab {
+	width:50%; max-height:40px; 
+	margin:0px; padding:0px; border:0px solid #c00;}
+.toolbox:target{
+	visibility: visible; 
+	flex:1; width:100%; max-width:none; max-height:none; 
+	display:flex;  flex-direction:row; flex-wrap: wrap; 
+	margin:0px; border:0px solid #c00;}
+.toolbox{
+	visibility: hidden; 
+	flex:0;  min-width:0px; max-width:0px; min-height:0px; max-height:0px; 
+	display:flex;  flex-direction:row; flex-wrap: wrap; 
+	margin:0px; border:0px solid #ccc;}
+
+.code{
+	flex:1; display:flex;  flex-direction: row; flex-wrap: nowrap;}
