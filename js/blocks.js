@@ -9,7 +9,7 @@ $(function () {
     // 코드 조각들을 클릭하면 코드가 동작한다.
     // TODO: 말풍선으로 출력하도록 바꾼다.
     // TODO: 제어부의 경우 타이머를 통해 불연속적으로 동작해야 하므로 바꿔야 한다.
-    var $script_tab = $("#script-tab");
+    var $script_tab = $("#code-sec");
 
     $script_tab.on("dblclick", ".code-piece.operator", function (event) {
         var binary = scrc.namespace("blocks.element.operator.binary");
@@ -45,8 +45,6 @@ $(function () {
 
     // 여러 엘리먼트들이 들어갈 수 있는 빈공간.
     // 내부에는 '하나'의 엘리먼트만 들어갈 수 있다.
-    /*scrc.blocks = scrc.blocks || {};
-    scrc.blocks.element = scrc.blocks.element || {};*/
     scrc.namespace("blocks.element.space").calc = function (elmt) {
         var number = scrc.namespace("blocks.element.default.number");
         var calc = number.calc;
@@ -125,7 +123,7 @@ $(function () {
         "id" : scrc.util.uniqueId(),
         "operator" : "plus",
         "return-type" : "number",
-        "draggable" : true
+        //"draggable" : true
     })
         .append(scrc.blocks.element.space.number.elmt.clone())
         .append(" + ")
@@ -136,7 +134,7 @@ $(function () {
         "id" : scrc.util.uniqueId(),
         "operator" : "minus",
         "return-type" : "number",
-        "draggable" : true
+        //"draggable" : true
     })
         .append(scrc.blocks.element.space.number.elmt.clone())
         .append(" - ")
@@ -146,7 +144,7 @@ $(function () {
         "class" : "code-piece movement",
         "id" : scrc.util.uniqueId(),
         "movement" : "move",
-        "draggable" : true
+        //"draggable" : true
     })
         .append(scrc.blocks.element.space.number.elmt.clone())
         .append(" 만큼 움직이기");
@@ -155,13 +153,32 @@ $(function () {
         "class" : "code-piece movement",
         "id" : scrc.util.uniqueId(),
         "movement" : "rotate",
-        "draggable" : true
+        //"draggable" : true
     })
         .append(scrc.blocks.element.space.number.elmt.clone())
         .append(" 도 돌기");
 });
 
 $(function () {
+    $("#script-tab").on("mouseover", ".code-piece", function (event) {
+        var $target = $(event.target);
+
+        if (!$target.hasClass("code-piece")) {
+            $target = $target.parents(".code-piece");
+        }
+
+        $target.addClass("mouseover");
+    });
+
+    $("#script-tab").on("mouseout", ".code-piece", function (event) {
+        var $target = $(event.target);
+
+        if (!$target.hasClass("code-piece")) {
+            $target = $target.parents(".code-piece");
+        }
+
+        $target.removeClass("mouseover");
+    });
 });
 
 $(function () {

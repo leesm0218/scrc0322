@@ -1,4 +1,5 @@
 .code-piece { display: inline-block; padding:2px; margin: 1px; color:white; cursor:pointer; }
+.code-piece.mouseover { border: solid 2px gold; margin: -1px; }
 #script-tab #code-sec .code-piece { position: absolute; }
 #script-tab #blocks .code-piece { position: relative; }
 .code-piece.operator { background-color:forestgreen; }
