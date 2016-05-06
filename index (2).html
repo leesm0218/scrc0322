@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>
+            UI
+        </title>
+        <meta charset="utf-8">
+        <meta
+            name="viewport"
+            content="width=device-width, height=device-height, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="css/main.css" media="all"/>
+        <script src="lib/jquery-1.12.1.min.js"></script>
+        <script src="js/main.js"></script>
+    </head>
+		
+    <body class="body">  
+		<div class="menubar">
+        <a>SCRACH</a>
+        <a>파일</a>
+        <a>편집</a>
+		</div>
+		<div class="main">
+            <div class="column1">
+				<div class="screenbar">
+					<img class="screen-fullscreen"></img>
+					<img class="screen-stop"></img>
+					<img class="screen-start"></img>
+				</div>
+				<canvas id="myCanvas" class="screen"></canvas>
+				<div class="screenxy"></div>
+				<div class="spritebar">
+					<img class="sprite-camera"></img>
+					<img class="sprite-import"></img>
+					<img class="sprite-paintbrush"></img>
+					<img class="sprite-library"></img>
+				</div>
+                <div class="sprite-wrap">
+					<div class="spritebackground"></div>
+					<div class="sprite"></div>
+				</div>
+				<footer class="tempfooter"></footer>
+            </div>
+			<div class="column2">
+				<div class="tools">
+					<div class="tooltabs">
+						<a href="#link1" class="tooltab">Link 1</a>   
+						<a href="#link2" class="tooltab">Link 2</a>
+						<a href="#link3" class="tooltab">Link 3</a>
+					</div>
+					<div id="link1" class="toolbox">qwer</div>
+					<div id="link2" class="toolbox">asdf</div>
+					<div id="link3" class="toolbox">zxcv</div>
+					<footer class="tempfooter"></footer>
+				</div>
+                <div class="code">코드</div>
+				<footer class="tempfooter"></footer>
+			</div>
+			<footer class="tempfooter"></footer>
+		</div> 
+		<footer class="tempfooter"></footer>
+    </body>
+	<footer class="tempfooter"></footer>
+</html>
