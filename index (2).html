@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>
+            UI
+        </title>
+        <meta charset="utf-8">
+        <meta
+            name="viewport"
+            content="width=device-width, height=device-height, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="css/main.css" media="all"/>
+        <script src="lib/jquery-1.12.1.min.js"></script>
+        <script src="js/main.js"></script>
+    </head>
+		
+    <body class="body">  
+		<div class="menubar">
+        <a>SCRACH</a>
+        <a>파일</a>
+        <a>편집</a>
+		</div>
+		<div class="main">
+            <div class="column1">
+				<div class="screenbar">
+					<a href="#popup1" class="screenbutton fullscreenbutton">
+						<div id="popup1" class="overlay">
+							<div class="popup">
+								<a class="close" href="#">&times;</a>
+								<div class="content">	</div>
+							</div>
+						</div>
+					</a>
+					<img class="screenbutton stopbutton floatright"></img>
+					<img class="screenbutton startbutton floatright"></img>
+				</div>
+				<canvas id="myCanvas" class="screen"></canvas>
+				<div class="screenxy"></div>
+				<div class="spritebar">
+					<img class="spritebutton camera"></img>
+					<img class="spritebutton import"></img>
+					<img class="spritebutton paintbrush"></img>
+					<img class="spritebutton library"></img>
+				</div>
+                <div class="sprite-wrap">
+					<div class="spritebackground"></div>
+					<div class="sprite"></div>
+				</div>
+				<footer class="tempfooter"></footer>
+            </div>
+			<div class="column2">
+				<input type="radio" id="workmenutab01" name="workmenugroup" value="workmenutab01" checked>
+				<input type="radio" id="workmenutab02" name="workmenugroup" value="workmenutab02">
+				<input type="radio" id="workmenutab03" name="workmenugroup" value="workmenutab03">
+				<div class="workmenubar">		
+							<label for="workmenutab01" class="tooltab">Tab 1</label> 
+							<label for="workmenutab02" class="tooltab">Tab 2</label> 
+							<label for="workmenutab03" class="tooltab">Tab 3</label> 
+				</div>
+
+				<div class="workmenu" id="workmenu01">
+					<div class="tools">
+						<input type="radio" id="tooltab01" name="toolboxgroup" value="tooltab01" checked>
+						<input type="radio" id="tooltab02" name="toolboxgroup" value="tooltab02">
+						<input type="radio" id="tooltab03" name="toolboxgroup" value="tooltab03">	
+						<input type="radio" id="tooltab04" name="toolboxgroup" value="tooltab04">						
+						<input type="radio" id="tooltab05" name="toolboxgroup" value="tooltab05">
+						<input type="radio" id="tooltab06" name="toolboxgroup" value="tooltab06">
+						<input type="radio" id="tooltab07" name="toolboxgroup" value="tooltab07">
+						<input type="radio" id="tooltab08" name="toolboxgroup" value="tooltab08">
+					
+						<div class="tooltabs">
+							<label for="tooltab01" class="tooltab">Tab 1</label> 
+							<label for="tooltab02" class="tooltab">Tab 2</label> 
+							<label for="tooltab03" class="tooltab">Tab 3</label> 
+							<label for="tooltab04" class="tooltab">Tab 4</label> 
+							<label for="tooltab05" class="tooltab">Tab 5</label> 
+							<label for="tooltab06" class="tooltab">Tab 6</label> 
+							<label for="tooltab07" class="tooltab">Tab 7</label> 
+							<label for="tooltab08" class="tooltab">Tab 8</label> 	
+						</div>
+					
+						<div id="toolbox01" class="toolbox">SDFASDFAGWAREFADSFAWERQEW1</div>
+						<div id="toolbox02" class="toolbox">SDFASDFAGWAREFADSFAWERQEW2</div>
+						<div id="toolbox03" class="toolbox">SDFASDFAGWAREFADSFAWERQEW3</div>
+						<div id="toolbox04" class="toolbox">SDFASDFAGWAREFADSFAWERQEW4</div>
+						<div id="toolbox05" class="toolbox">SDFASDFAGWAREFADSFAWERQEW5</div>
+						<div id="toolbox06" class="toolbox">SDFASDFAGWAREFADSFAWERQEW6</div>
+						<div id="toolbox07" class="toolbox">SDFASDFAGWAREFADSFAWERQEW7</div>
+						<div id="toolbox08" class="toolbox">SDFASDFAGWAREFADSFAWERQEW8</div>
+					
+						<footer class="tempfooter"></footer>
+					</div>
+					<div class="code">코드</div>
+					<footer class="tempfooter"></footer>
+				</div> 
+				<div class="workmenu" id="workmenu02">
+					
+				</div>
+				<div class="workmenu" id="workmenu03">
+					
+				</div>
+			</div>
+		<footer class="tempfooter"></footer>
+    </body>
+	<footer class="tempfooter"></footer>
+</html>
