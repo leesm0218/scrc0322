@@ -1,0 +1,240 @@
+* { 
+	margin:0px; padding:0px; border:1px solid #ccc;
+}
+
+html{
+	display:flex; flex-wrap: nowrap;
+}
+
+[type=radio] {
+  display: none;   
+}
+
+.tempfooter{
+	flex:1; max-width:0; max-height:0; margin:0px; padding:0px; border:0px;
+}
+
+.body { 
+	flex:1; width:99%; height:99%; min-width:1000px; min-height:750px; 
+	display:flex; flex-wrap: nowrap; flex-direction: column;
+}
+	
+.menubar{
+	flex:1; min-height:30px; max-height:30px; 
+	display:flex; flex-wrap: nowrap; 
+}
+	
+.main{
+	flex:1; 
+	display:flex; flex-wrap: nowrap;
+}
+
+
+.column1 {
+	flex:1; max-width:410px;
+	display:flex; flex-flow:center; flex-direction: column; flex-wrap: nowrap;
+}
+.screenbar{
+	flex0; min-width:400px; max-width:400px; min-height:40px; max-height:40px;
+}
+.floatright{
+	float:right;
+}
+.screenbutton{  
+	min-width:40px; max-width:40px; min-height:40px; max-height:40px;
+}
+.fullscreenbutton{  
+	content: url('../img/UI/buttons/fullScreenOff.png');
+}
+.startbutton{  
+	content: url('../img/UI/buttons/greenFlagOff.png');
+}
+.stopbutton{  
+	content: url('../img/UI/buttons/stopOff.png');
+}
+.screen {
+	flex:0; min-width:400px; max-width:400px; min-height:400px; max-height:400px; 
+}
+.screenxy{
+	flex:0; min-width:400px; max-width:400px; min-height:20px; max-height:20px; 
+	text-align:right;
+}
+.spritebar{
+	flex:0; min-width:400px; max-width:400px; min-height:30px; max-height:30px; 
+}
+.spritebutton{
+	float:right; min-width:30px; max-width:30px; min-height:30px; max-height:30px;
+}
+.library{
+	content: url('../img/UI/newsprite/libraryOff.png');
+}
+.paintbrush{
+	content: url('../img/UI/newsprite/paintbrushOff.png');
+}
+.import{
+	content: url('../img/UI/newsprite/importOff.png');
+}
+.camera{
+	content: url('../img/UI/newsprite/cameraOff.png');
+}
+.sprite-wrap{
+	flex:1;  max-width:400px; display:flex; flex-direction: row; flex-wrap: nowrap;
+}
+.sprite {
+	flex:1;  max-width:320px;  
+}
+.spritebackground{
+	flex:1;  max-width:80px;  
+}
+
+
+.column2 {
+	flex:1; 
+	display:flex;  flex-direction: column; flex-wrap: nowrap;
+}
+.workmenu{
+	visibility: hidden;
+	flex:1; 
+	min-width:0px; max-width:0px; min-height:0px; max-height:0px; 
+	margin:0px; border:0px solid #ccc;
+	display:flex;  flex-direction: row; flex-wrap: nowrap;
+}
+[value=workmenutab01]:checked ~ #workmenu01,
+[value=workmenutab02]:checked ~ #workmenu02,
+[value=workmenutab03]:checked ~ #workmenu03{
+	visibility: visible; 
+	min-width:0px; max-width:none; min-height:0px; max-height:none; 
+	border:0px solid #ccc;
+}
+.workmenubar{
+	max-height:30px; 
+}
+.tools{
+	visibility:inherit;
+	flex:1; min-width:220px; max-width:220px; 
+	display:flex;  align-items: flex-start; align-content: flex-start; flex-direction:column; flex-wrap: wrap;
+}
+.tooltabs {
+	flex:0; width:100%; 
+	display:flex;  align-items: flex-start; align-content: flex-start; flex-direction:row; flex-wrap: wrap;
+	margin:0px; border:0px solid #c00;
+}
+.tooltab {
+	flex:0; min-width:50%; max-height:40px; 
+	margin:0px; padding:0px; border:0px solid #c00;
+}
+.code{
+	flex:1; display:flex;  flex-direction: row; flex-wrap: nowrap;
+}
+.toolbox{
+	visibility: hidden; 
+	flex:0;  min-width:0px; max-width:0px; min-height:0px; max-height:0px; 
+	display:flex;  flex-direction:row; flex-wrap: wrap; 
+	margin:0px; border:0px solid #ccc;
+	}	
+[value=tooltab01]:checked ~ #toolbox01,
+[value=tooltab02]:checked ~ #toolbox02,
+[value=tooltab03]:checked ~ #toolbox03,
+[value=tooltab04]:checked ~ #toolbox04,
+[value=tooltab05]:checked ~ #toolbox05,
+[value=tooltab06]:checked ~ #toolbox06,
+[value=tooltab07]:checked ~ #toolbox07,
+[value=tooltab08]:checked ~ #toolbox08{
+	visibility: inherit; 
+	flex:1; min-width:100%; max-height:100%;
+	display:flex;  flex-direction:row; flex-wrap: wrap; 
+	margin:0px; border:0px solid #c00;
+}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  visibility: hidden;
+}
+.overlay .screenbutton{  
+	min-width:0px; max-width:0px; min-height:0px; max-height:0px;
+	visibility: hidden;
+	margin:0px; padding:0px; border:0px solid #ccc;
+}
+
+.overlay:target {
+  visibility: visible;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+}
+
+.popup  .screenbutton{  
+	min-width:0px; max-width:0px; min-height:0px; max-height:0px;
+	visibility: hidden;
+	margin:0px; padding:0px; border:0px solid #ccc;
+}
+
+.close {
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+.close:hover {
+  color: #06D85F;
+}
+
+.content {
+  max-height: 30%;
+  overflow: auto;
+}
