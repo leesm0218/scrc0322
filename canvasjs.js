@@ -7,7 +7,7 @@ $(function(){
         var img = new Image;
         img.src = URL.createObjectURL(e.target.files[0]);
         img.onload = function() {
-            ctx.drawImage(img, 128,120,128,120);
+            ctx.drawImage(img, 128,120,128,120);    // 이미지 위치x, 위치y, 크기x, 크기y
 
         }
 
