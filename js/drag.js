@@ -22,7 +22,7 @@ $(function () {
         //.on("drag", ".code-piece", drag)
         .on("drop", drop_blocks);
 
-    $("#code-sec")
+    $("#script-tab .code-sec")
         .on("dragstart", ".code-piece", dragstart_code_sec)
         //.on("drag", ".code-piece", drag)
         .on("drop", drop_code_sec);
@@ -50,7 +50,7 @@ $(function () {
     function dragstart_code_sec(event)
     {
         var $this = $(this);
-        var $code_sec = $("#code-sec");
+        var $code_sec = $("#script-tab .code-sec");
 
         id = $this.attr("id");
         pickX = event.clientX - $code_sec.position().left - $this.position().left;
@@ -63,8 +63,8 @@ $(function () {
     {
         console.log(id);
         $("#" + id).css({
-            left: event.clientX - $("#code-sec").position().left - pickX,
-            top: event.clientY - $("#code-sec").position().top - pickY
+            left: event.clientX - $("#script-tab .code-sec").position().left - pickX,
+            top: event.clientY - $("#script-tab .code-sec").position().top - pickY
         });
     }
     */
@@ -82,7 +82,7 @@ $(function () {
     function drop_code_sec(event)
     {
         var id = event.dataTransfer.getData('piece');
-        var $code_sec = $("#code-sec");
+        var $code_sec = $("#script-tab .code-sec");
         var px = $code_sec.position().left,
             py = $code_sec.position().top;
 

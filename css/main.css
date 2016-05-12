@@ -18,7 +18,7 @@ nav { display:inline-block; }
 #work-space > article { display:none; height:540px; border:1px solid #ccc; margin:0; padding:0; }
 
 #work-space #script-tab > section { display:block; float:left; width:auto; height:100%; border:1px solid #ccc; }
-#work-space #script-tab #tool-sec { width:25%; }
-#work-space #script-tab #tool-sec #tools { height:30% }
-#work-space #script-tab #tool-sec #blocks { height:70% }
-#work-space #script-tab #code-sec { width:74%; position: relative; }
+#work-space #script-tab .tool-sec { width:25%; }
+#work-space #script-tab .tool-sec #tools { height:30% }
+#work-space #script-tab .tool-sec #blocks { height:70% }
+#work-space #script-tab .code-sec { width:74%; position: relative; }

@@ -9,7 +9,7 @@ $(function () {
     // 코드 조각들을 클릭하면 코드가 동작한다.
     // TODO: 말풍선으로 출력하도록 바꾼다.
     // TODO: 제어부의 경우 타이머를 통해 불연속적으로 동작해야 하므로 바꿔야 한다.
-    var $script_tab = $("#code-sec");
+    var $script_tab = $("#script-tab .code-sec");
 
     $script_tab.on("dblclick", ".code-piece.operator", function (event) {
         var binary = scrc.namespace("blocks.element.operator.binary");
