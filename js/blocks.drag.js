@@ -99,12 +99,14 @@ $(function () {
 
     $(".code-piece", $tool_sec).draggable({
         cursor : "move",
+        addClasses : "draging",
         helper : "clone",
         drag : drag
     });
 
     $code_sec.droppable({
         accept : "#script-tab .code-piece",
+        addClasses : "draging",
         drop : function (event, ui) {
             var $elmt = ui.helper;
 
@@ -132,22 +134,41 @@ $(function () {
             }
 
             // 자석 기능
-            var $magnet = $code_sec.find(".code-piece.magnet-bottom");
+            var $magnet = $code_sec.find(".code-piece.magnet-bottom:first");
 
             if ($magnet.length > 0) {
+                var npid = $magnet.attr("next-piece-id");
+
                 $magnet
                     .attr({
                         "next-piece-id" : $elmt.attr("id")
                     });
 
                 $elmt
-                    .css({
-                        left: $magnet.position().left,
-                        top: $magnet.position().top + $magnet.height()
-                    })
                     .attr({
                         "prev-piece-id" : $magnet.attr("id")
                     });
+
+                if (npid) {
+                    var pid, $e = $elmt;
+
+                    while (pid = $e.attr("next-piece-id")) {
+                        $e = $("#" + pid);
+                    }
+
+                    var $next = $("#" + npid);
+
+                    $e
+                        .attr({
+                            "next-piece-id" : npid
+                        });
+
+                    $next
+                        .attr({
+                            "prev-piece-id" : $e.attr("id")
+                        })
+                }
+                extrude($magnet, $elmt);
             }
 
             $code_sec.find(".code-piece").removeClass("magnet-bottom");
@@ -161,6 +182,21 @@ $(function () {
         }
     });
 
+    function extrude ($prev, $this)
+    {
+        $this
+            .css({
+                left: $prev.position().left,
+                top: $prev.position().top + $prev.height()
+            });
+
+        var pid = $this.attr("next-piece-id");
+
+        if (pid) {
+            extrude($this, $("#" + pid));
+        }
+    }
+
     function drag (event, ui)
     {
         var $elmts = $(".code-sec .code-piece"),
@@ -170,23 +206,26 @@ $(function () {
 
         // 마그넷 기능
         //console.log("code-sec 내부 N: " + $elmts.length + "{");
-        $elmts.each(function (i) {
-            var $this = $(this);
+        for (var i = 0; i < $elmts.length; i++) {
+            var $this = $($elmts[i]);
 
             if ($this.attr("id") != $that.attr("id")) {
                 var ex = $this.position().left + $code_sec.position().left,
                     ey = $this.position().top + $code_sec.position().top,
                     ew = $this.width(),
-                    eh = $this.height();
+                    eh = $this.height(),
+                    aw = $that.width();
 
-                if (ey + eh - 5 <= oy && oy <= ey + eh + 20 &&
-                    ex - 20 <= ox && ox <= ex + ew + 5) {
+                if (ey + eh - 5 <= oy && oy <= ey + eh + 10 &&
+                    ex - aw - 5 <= ox && ox <= ex + ew + 5) {
+                    $elmts.removeClass("magnet-bottom");
                     $this.addClass("magnet-bottom");
+                    break;
                 } else {
                     $this.removeClass("magnet-bottom");
                 }
             }
-        });
+        }
        // console.log("}\n" + ox + ", " + oy);
 
         // 함께 이동

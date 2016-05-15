@@ -42,8 +42,8 @@ $(function () {
         ctx.translate(-p.x, -p.y);
         ctx.beginPath();
         ctx.moveTo(p.x, p.y);
-        ctx.lineTo(p.x - 10, p.y - 10);
-        ctx.lineTo(p.x - 10, p.y + 10);
+        ctx.lineTo(p.x - 20, p.y - 10);
+        ctx.lineTo(p.x - 20, p.y + 10);
         ctx.closePath();
         ctx.fillStyle = "red";
         ctx.fill();

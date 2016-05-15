@@ -23,27 +23,40 @@ $(function () {
 
     $script_tab.on("dblclick", ".code-piece.movement", function (event) {
         var movement = scrc.namespace("blocks.movement");
-        var $this = $(this), ppid;
+        var $this = $(this), pid;
 
-        while (ppid = $this.attr("prev-piece-id")) {
-            $this = $("#" + ppid);
+        while (pid = $this.attr("prev-piece-id")) {
+            $this = $("#" + pid);
         }
 
-        var timer = function ($this) {
+        var timer = function ($that) {
             return function () {
-                var npid;
+                var pid;
 
-                var action = movement[$this.attr("movement")].action;
-                action($this[0]);
+                var action = movement[$that.attr("movement")].action;
+                action($that[0]);
 
-                if (npid = $this.attr("next-piece-id")) {
+                if (pid = $that.attr("next-piece-id")) {
                     console.log(3);
-                    timer($("#" + npid))();
+                    setTimeout(timer($("#" + pid)), 1);
+                } else {
+                    var $t = $that;
+                    while (pid = $t.attr("prev-piece-id")) {
+                        $t.removeClass("acting");
+                        $t = $("#" + pid);
+                    }
+                    $t.removeClass("acting");
                 }
             }
         };
 
-        timer($this)();
+        var $t = $this;
+        $t.addClass("acting");
+        while (pid = $t.attr("next-piece-id")) {
+            $t = $("#" + pid);
+            $t.addClass("acting");
+        }
+        setTimeout(timer($this), 1);
 
         return false;
     });
