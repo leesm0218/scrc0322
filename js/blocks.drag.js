@@ -97,6 +97,25 @@ $(function () {
     var $tool_sec = $("#script-tab .tool-sec");
     var $code_sec = $("#script-tab .code-sec");
 
+    var parents = function  (target, parent) {
+        var $target = $(target);
+
+        if (!$target.is(parent)) {
+            $target = $target.parents(parent);
+        }
+
+        return $target;
+    };
+
+    $("#script-tab")
+        .on("mouseover", ".code-piece", function (event) {
+            console.log("mouseover");
+            parents(event.target, ".code-piece").addClass("mouseover");
+        })
+        .on("mouseout", ".code-piece", function (event) {
+            parents(event.target, ".code-piece").removeClass("mouseover");
+        });
+
     $(".code-piece", $tool_sec).draggable({
         cursor : "move",
         addClasses : "draging",
