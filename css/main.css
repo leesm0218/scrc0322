@@ -10,6 +10,7 @@ nav { display:inline-block; }
 #column1 { display:block; float:left; }
 #column2 { display:block; float:left; }
 #screen { display:block; width:400px; height:300px; border:1px solid #ccc; margin:5px; }
+#screen .main-screen { width:400px; height:300px; }
 #stage { display:block; width:400px; height:250px; border:1px solid #ccc; margin:5px; }
 #work-space { display:block; width:900px; height:557px; margin:5px; }
 #work-space > header { height:16px; margin:0; padding:0; }

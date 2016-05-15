@@ -18,6 +18,7 @@ $(function() {
 
 			$work_space
 				.find("nav a.active").removeClass("active")
+				.end()
 				.find(".tab").hide();
 
 			$(this).addClass("active");

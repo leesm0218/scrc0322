@@ -6,9 +6,16 @@ scrc = scrc || {};
 
 $(function () {
     var main_screen = scrc.namespace("main_screen");
-    var canvas = $("#main-screen")[0];
+    var util = scrc.namespace("util");
+    var $main_screen = $("#main-screen");
+    var canvas = $main_screen[0];
 
     if (canvas == null || canvas.getContext == null) return;
+
+    $(canvas).attr({
+        width : 400,
+        height : 300
+    });
 
     var ctx = canvas.getContext("2d");
 
@@ -29,10 +36,18 @@ $(function () {
         var p = main_screen.one_point;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle);
+        ctx.translate(-p.x, -p.y);
         ctx.beginPath();
         ctx.moveTo(p.x, p.y);
-        ctx.lineTo(p.x + 1, p.y + 1);
-        ctx.stroke();
+        ctx.lineTo(p.x - 10, p.y - 10);
+        ctx.lineTo(p.x - 10, p.y + 10);
+        ctx.closePath();
+        ctx.fillStyle = "red";
+        ctx.fill();
+        ctx.restore();
     };
 
     main_screen.draw();
