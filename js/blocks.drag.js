@@ -179,8 +179,8 @@ $(function () {
                     ew = $this.width(),
                     eh = $this.height();
 
-                if (ey + eh - 5 <= oy && oy <= ey + eh + 10 &&
-                    ex - 10 <= ox && ox <= ex + ew + 10) {
+                if (ey + eh - 5 <= oy && oy <= ey + eh + 20 &&
+                    ex - 20 <= ox && ox <= ex + ew + 5) {
                     $this.addClass("magnet-bottom");
                 } else {
                     $this.removeClass("magnet-bottom");
