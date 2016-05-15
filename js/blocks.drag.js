@@ -4,6 +4,7 @@ scrc = scrc || {};
 
 
 $(function () {
+    /*
     var util = scrc.namespace("util");
     var blocks = scrc.namespace("blocks");
 
@@ -87,32 +88,133 @@ $(function () {
             }
             drag_info = {};
         });
+        */
 });
 
 $(function () {
-    /*
+    var util = scrc.namespace("util");
+
     var $tool_sec = $("#script-tab .tool-sec");
     var $code_sec = $("#script-tab .code-sec");
 
     $(".code-piece", $tool_sec).draggable({
         cursor : "move",
-        drag : function (event, ui) {
-            console.log("drag");
-        }
+        helper : "clone",
+        drag : drag
     });
 
     $code_sec.droppable({
-        accept : ".tool-sec .code-piece",
+        accept : "#script-tab .code-piece",
         drop : function (event, ui) {
+            var $elmt = ui.helper;
 
+            // 새것이라면 클론 생성
+            if (!$elmt.hasClass("created")) {
+                /*$elmt = ui.helper.clone();
+                $elmt.attr("id", util.uniqueId())
+                    .addClass("created");*/
+                $elmt = scrc.blocks.create($elmt).addClass("created");
+
+                $code_sec.append($elmt);
+
+                $elmt.css({
+                    left: ui.offset.left - $code_sec.position().left,
+                    top: ui.offset.top - $code_sec.position().top
+                });
+
+                $($elmt, $code_sec).draggable({
+                    cursor: "move",
+                    revert: "invalid",
+                    helper: "original",
+                    drag: drag
+                });
+                //console.log($elmt.attr("id"));
+            }
+
+            // 자석 기능
+            var $magnet = $code_sec.find(".code-piece.magnet-bottom");
+
+            if ($magnet.length > 0) {
+                $magnet
+                    .attr({
+                        "next-piece-id" : $elmt.attr("id")
+                    });
+
+                $elmt
+                    .css({
+                        left: $magnet.position().left,
+                        top: $magnet.position().top + $magnet.height()
+                    })
+                    .attr({
+                        "prev-piece-id" : $magnet.attr("id")
+                    });
+            }
+
+            $code_sec.find(".code-piece").removeClass("magnet-bottom");
         }
     });
 
     $tool_sec.droppable({
         accept: ".code-sec .code-piece",
         drop : function (event, ui) {
-
+            ui.draggable.remove();
         }
-    })
-    */
+    });
+
+    function drag (event, ui)
+    {
+        var $elmts = $(".code-sec .code-piece"),
+            $that = ui.helper;
+        var ox = ui.offset.left,
+            oy = ui.offset.top;
+
+        // 마그넷 기능
+        //console.log("code-sec 내부 N: " + $elmts.length + "{");
+        $elmts.each(function (i) {
+            var $this = $(this);
+
+            if ($this.attr("id") != $that.attr("id")) {
+                var ex = $this.position().left + $code_sec.position().left,
+                    ey = $this.position().top + $code_sec.position().top,
+                    ew = $this.width(),
+                    eh = $this.height();
+
+                if (ey + eh - 5 <= oy && oy <= ey + eh + 10 &&
+                    ex - 10 <= ox && ox <= ex + ew + 10) {
+                    $this.addClass("magnet-bottom");
+                } else {
+                    $this.removeClass("magnet-bottom");
+                }
+            }
+        });
+       // console.log("}\n" + ox + ", " + oy);
+
+        // 함께 이동
+        moveTogether($that);
+
+        // 자석 분리 시
+        var prev_piece_id = $that.attr("prev-piece-id");
+        if (prev_piece_id) {
+            $("#" + prev_piece_id)
+                .removeAttr("next-piece-id");
+
+            $that
+                .removeAttr("prev-piece-id");
+        }
+    }
+
+    function moveTogether ($this)
+    {
+        var next_piece_id = $this.attr("next-piece-id");
+        if (next_piece_id) {
+            var $that = $("#" + next_piece_id);
+
+            $that.css({
+                left: $this.position().left,
+                top: $this.position().top + $this.height()
+            });
+
+            moveTogether($that);
+        }
+    }
 });
