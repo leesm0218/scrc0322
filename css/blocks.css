@@ -5,16 +5,21 @@ main { position : relative; }
 .code-sec .code-piece.acting[next-piece-id] {
     box-shadow:
             -5px -5px 10px -3px gold,
-            5px 1px 10px -5px gold,
-            -5px 1px 10px -5px gold,
+            7px 3px 5px -5px gold,
+            -7px 3px 5px -5px gold,
             5px -5px 10px -3px gold;
 }
 .code-sec .code-piece.acting[prev-piece-id] {
     box-shadow:
             -5px 5px 10px -3px gold,
-            5px -1px 10px -5px gold,
-            -5px -1px 10px -5px gold,
+            7px -3px 5px -5px gold,
+            -7px -3px 5px -5px gold,
             5px 5px 10px -3px gold;
+}
+.code-sec .code-piece.acting[prev-piece-id][next-piece-id] {
+    box-shadow:
+            5px 0px 10px -3px gold,
+            -5px 0px 10px -3px gold;
 }
 
 .code-sec .code-piece { z-index: 2; }

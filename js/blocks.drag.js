@@ -121,7 +121,7 @@ $(function () {
 
                 $elmt.css({
                     left: ui.offset.left - $code_sec.position().left,
-                    top: ui.offset.top - $code_sec.position().top
+                    top: ui.offset.top - $code_sec.position().top + 4
                 });
 
                 $($elmt, $code_sec).draggable({
@@ -187,7 +187,7 @@ $(function () {
         $this
             .css({
                 left: $prev.position().left,
-                top: $prev.position().top + $prev.height()
+                top: $prev.position().top + $prev.height() + 4
             });
 
         var pid = $this.attr("next-piece-id");
@@ -250,7 +250,7 @@ $(function () {
 
             $that.css({
                 left: $this.position().left,
-                top: $this.position().top + $this.height()
+                top: $this.position().top + $this.height() + 4
             });
 
             moveTogether($that);
