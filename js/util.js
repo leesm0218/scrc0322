@@ -24,7 +24,7 @@ scrc.namespace = function (ns_string) {
     return parent;
 };
 
-$(function () {
+(function () {
     var util = scrc.namespace("util");
 
     util.uniqueId = (function(){
@@ -32,4 +32,16 @@ $(function () {
 
         return function(){ return "--uq--id--" + id++;}
     })();
-});
+
+    util.distance = function (x, y, px, py) {
+        return Math.pow(Math.pow(px - x, 2) + Math.pow(py - y, 2), 0.5);
+    };
+
+    util.rad2deg = function (angle) {
+        return angle * Math.PI / 180;
+    };
+
+    util.deg2rad = function (angle) {
+        return angle / Math.PI * 180;
+    };
+}());

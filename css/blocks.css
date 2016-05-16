@@ -1,5 +1,38 @@
-.code-piece { display: inline-block; padding:2px; margin: 1px; color:white; cursor:pointer; }
-#script-tab #code-sec .code-piece { position: absolute; }
+main { position : relative; }
+.code-piece { display: inline-block; position : absolute; padding:2px; margin: 1px; color:white; cursor:pointer; z-index: 4; }
+
+.tool-sec .code-piece.mouseover {
+    box-shadow: 0px 0px 10px 2px gold;
+}
+
+.code-sec .code-piece.acting { box-shadow: 0px 0px 10px 2px gold; }
+.code-sec .code-piece.acting[next-piece-id] {
+    box-shadow:
+            -5px -5px 10px -3px gold,
+            7px 3px 5px -5px gold,
+            -7px 3px 5px -5px gold,
+            5px -5px 10px -3px gold;
+}
+.code-sec .code-piece.acting[prev-piece-id] {
+    box-shadow:
+            -5px 5px 10px -3px gold,
+            7px -3px 5px -5px gold,
+            -7px -3px 5px -5px gold,
+            5px 5px 10px -3px gold;
+}
+.code-sec .code-piece.acting[prev-piece-id][next-piece-id] {
+    box-shadow:
+            5px 0px 10px -3px gold,
+            -5px 0px 10px -3px gold;
+}
+
+.code-sec .code-piece { z-index: 2; }
+.code-sec .code-piece.magnet-bottom {
+    box-shadow: -10px 15px 10px -10px gold, 10px 15px 10px -10px gold; z-index: 3;
+}
+.code-sec .code-piece.draging { z-index: 5; }
+
+#script-tab .code-sec .code-piece { position: absolute; }
 #script-tab #blocks .code-piece { position: relative; }
 .code-piece.operator { background-color:forestgreen; }
 .code-piece.sound { background-color:rebeccapurple; }
