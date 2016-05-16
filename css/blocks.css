@@ -1,8 +1,12 @@
 main { position : relative; }
 .code-piece { display: inline-block; position : absolute; padding:2px; margin: 1px; color:white; cursor:pointer; z-index: 4; }
 
-.tool-sec .code-piece.mouseover {
-    box-shadow: 0px 0px 10px 2px gold;
+#script-tab .code-piece.movement.mouseover {
+    box-shadow: 0px 0px 5px 0px dodgerblue;
+}
+
+#script-tab .code-piece.operator.mouseover {
+    box-shadow: 0px 0px 5px 0px greenyellow;
 }
 
 .code-sec .code-piece.acting { box-shadow: 0px 0px 10px 2px gold; }
