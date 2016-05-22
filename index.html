@@ -22,8 +22,11 @@
 	<script src="js/blocks.drag.js"></script>
 	<script src="js/sound.js"></script>
 	<script src="js/main.js"></script>
+	<script src="https://cdn.rawgit.com/konvajs/konva/0.13.0/konva.min.js"></script>
+
 </head>
 <body>
+
 <main role="main">
 	<header>
 		<h1>SCRATCH</h1>
@@ -36,10 +39,19 @@
 	</header>
 	<section id="column1">
 		<article id="screen">
+			<!-- 원본 (main-screen.js 사용, 하나의 이미지, 블록과 connect 됨)
 			<canvas id="main-screen"></canvas>
+			-->
+			<!-- 수정본 (konvadiv.js 사용. 여러개의 이미지, 아직 블록과 connect 안됨)
+			<div id="container"></div>
+			-->
+			<div id="container"></div>
+
+
 		</article>
 		<article id="stage">
 			<input type="file" id="input"/>
+
 		</article>
 	</section>
 	<section id="column2">
@@ -94,4 +106,5 @@
 	</footer>
 </main>
 </body>
+<script src="js/konvadiv.js"></script>
 </html>
