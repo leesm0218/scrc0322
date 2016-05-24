@@ -38,6 +38,10 @@ $(function () {
                 draggable: true,
                 width: 100,
                 height: 100,
+                offset: {
+                    x: 50,
+                    y: 50
+                },
                 stroke:"red",
                 strokeWidth: 2,
                 strokeEnabled: false
@@ -67,6 +71,10 @@ $(function () {
             draggable: true,
             width: 100,
             height: 50,
+            offset: {
+                x: 50,
+                y: 25
+            },
             stroke:"red",
             strokeWidth: 2,
             strokeEnabled: false
