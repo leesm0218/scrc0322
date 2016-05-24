@@ -37,7 +37,7 @@ $(function () {
                 action($that[0]);
 
                 if (pid = $that.attr("next-piece-id")) {
-                    console.log(3);
+                    //console.log(3);
                     setTimeout(timer($("#" + pid)), 1);
                 } else {
                     var $t = $that;
@@ -63,6 +63,7 @@ $(function () {
 });
 
 $(function () {
+    var main_screen = scrc.namespace("main_screen");
     //
     // 블럭 동작 정의
     //
@@ -110,14 +111,17 @@ $(function () {
         var $this = $(elmt);
         var $space = $this.find(".space");
         var dist = calc($space[0]);
-        var angle = scrc.main_screen.one_point.angle;
+        var id = $this.attr("target-id") || main_screen.select_img_index;
+        //console.log(id);
+        var angle = main_screen.imgs[id].rotation() * Math.PI / 180;
+        //console.log(angle);
         var dx = Math.round(Math.cos(angle) * dist);
         var dy = Math.round(Math.sin(angle) * dist);
 
-        console.log(angle + "도로 " + dist + " 이동");
-        console.log("move(" + dx + ", " + dy + ")");
-        scrc.main_screen.one_point.move(dx, dy);
-        scrc.main_screen.draw();
+        //console.log(angle + "도로 " + dist + " 이동");
+        //console.log("move(" + dx + ", " + dy + ")");
+        main_screen.imgs[id].move({x:dx,y:dy});
+        main_screen.draw();
     };
 
     scrc.namespace("blocks.movement.rotate").action = function (elmt) {
@@ -125,10 +129,16 @@ $(function () {
         var $this = $(elmt);
         var $space = $this.find(".space");
         var angle = calc($space[0]);
+        var id = $this.attr("target-id") || main_screen.select_img_index;
+        var img = main_screen.imgs[id];
 
-        console.log(angle + "도 회전");
-        console.log("rotate(" + angle + ")");
-        scrc.main_screen.one_point.rotate(angle);
-        scrc.main_screen.draw();
+        //console.log(angle + "도 회전");
+        //console.log("rotate(" + angle + ")");
+
+        //console.log(main_screen.imgs[id]);
+        //img.setPosition({x:-img.width() / 2, y:-img.height() / 2});
+        main_screen.imgs[id].rotate(angle);
+        //img.setPosition({x:img.width() / 2, y:img.height() / 2});
+        main_screen.draw();
     };
 });

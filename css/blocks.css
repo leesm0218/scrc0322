@@ -1,7 +1,7 @@
 main { position : relative; }
 .code-piece { display: inline-block; position : absolute; padding:2px; margin: 1px; color:white; cursor:pointer; z-index: 4; }
 
-#script-tab .code-piece.movement.mouseover {
+#script-tab .code-piece.movement.mouseover:not(.acting){
     box-shadow: 0px 0px 5px 0px dodgerblue;
 }
 

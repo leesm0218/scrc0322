@@ -92,6 +92,7 @@ $(function () {
 });
 
 $(function () {
+    var main_screen = scrc.namespace("main_screen");
     var util = scrc.namespace("util");
 
     var $tool_sec = $("#script-tab .tool-sec");
@@ -135,7 +136,10 @@ $(function () {
                 $elmt.attr("id", util.uniqueId())
                     .addClass("created");*/
                 $elmt = scrc.blocks.create($elmt).addClass("created");
-
+                if ($elmt.hasClass("movement")) {
+                    console.log(main_screen.select_img_index)
+                    $elmt.attr("target-id", main_screen.select_img_index);
+                }
                 $code_sec.append($elmt);
 
                 $elmt.css({
