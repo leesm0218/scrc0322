@@ -128,6 +128,7 @@ $(function () {
     });
     layer.on("click", function (evt) {
         var shape = evt.target;
+        shape.moveToTop();
         main_screen.select(shape._id);
         layer.draw();
     });
