@@ -9,15 +9,16 @@ $(function () {
     var util = scrc.namespace("util");
 
     main_screen.imgs = main_screen.imgs || {};
-    main_screen.n_of_img = scrc.n_of_img ? scrc.n_of_img : 0;
-    main_screen.select_img_index = scrc.select_img_index ? scrc.select_img_index : 0;
+    main_screen.n_of_img = scrc.n_of_img || 0;
+    main_screen.select_img_id = scrc.select_img_id || 0;
+
     main_screen.draw = function () {
         main_screen.stage.draw();
     };
     main_screen.select = function (id) {
         //console.log(main_screen.select_img_index)
-        $(".code-sec .code-piece[target-id=" + main_screen.select_img_index + "]").hide();
+        $(".code-sec .code-piece[target-id=" + main_screen.select_img_id + "]").hide();
         $(".code-sec .code-piece[target-id=" + id + "]").show();
-        main_screen.select_img_index = id;
+        main_screen.select_img_id = id;
     }
 });

@@ -8,78 +8,32 @@ scrc = scrc || {};
 
 $(function () {
     var blocks = scrc.namespace("blocks");
+    var main_screen = scrc.namespace("main_screen");
 
-    blocks.create = function (elmt) {
-        return elmt.clone().attr("id", scrc.util.uniqueId());
+    blocks.create = function ($elmt) {
+        $elmt = $elmt.clone ? $elmt : $($elmt);
+
+        var $elmt_copy = $elmt.clone().attr("id", scrc.util.uniqueId());
+
+        if ($elmt.hasClass("movement")) {
+            $elmt_copy.attr("target-id", main_screen.select_img_id);
+        }
+
+        return $elmt_copy;
     };
 });
 
 $(function () {
-    //
-    // 블럭 형태 정의
-    //
-    scrc.namespace("blocks.element.space").elmt = $("<span>", {
-        "class": "element space"
-    });
-
-
-    scrc.namespace("blocks.element.default.number").elmt = $("<input>", {
-        "class" : "default element number",
-        "type" : "text",
-        "return-type" : "number"
-    }).val(0);
-
-    scrc.namespace("blocks.element.space.number").elmt =
-        scrc.blocks.element.space.elmt.clone()
-            .append(scrc.blocks.element.default.number.elmt.clone());
-
-    scrc.namespace("blocks.element.operator.binary.plus").elmt = $("<span>", {
-        "class" : "code-piece binary operator element",
-        "id" : scrc.util.uniqueId(),
-        "operator" : "plus",
-        "return-type" : "number",
-        //"draggable" : true
-    })
-        .append(scrc.blocks.element.space.number.elmt.clone())
-        .append(" + ")
-        .append(scrc.blocks.element.space.number.elmt.clone());
-
-    scrc.namespace("blocks.element.operator.binary.minus").elmt = $("<span>", {
-        "class" : "code-piece binary operator element",
-        "id" : scrc.util.uniqueId(),
-        "operator" : "minus",
-        "return-type" : "number",
-        //"draggable" : true
-    })
-        .append(scrc.blocks.element.space.number.elmt.clone())
-        .append(" - ")
-        .append(scrc.blocks.element.space.number.elmt.clone());
-
-    scrc.namespace("blocks.movement.move").elmt = $("<span>", {
-        "class" : "code-piece movement",
-        "id" : scrc.util.uniqueId(),
-        "movement" : "move",
-        //"draggable" : true
-    })
-        .append(scrc.blocks.element.space.number.elmt.clone())
-        .append(" 만큼 움직이기");
-
-    scrc.namespace("blocks.movement.rotate").elmt = $("<span>", {
-        "class" : "code-piece movement",
-        "id" : scrc.util.uniqueId(),
-        "movement" : "rotate",
-        //"draggable" : true
-    })
-        .append(scrc.blocks.element.space.number.elmt.clone())
-        .append(" 도 돌기");
-});
-
-$(function () {
     var blocks = scrc.namespace("blocks");
+    var util = scrc.namespace("util");
 
-    $("#blocks")
-        .append(blocks.create(blocks.element.operator.binary.plus.elmt))
-        .append(blocks.create(blocks.element.operator.binary.minus.elmt))
-        .append(blocks.create(blocks.movement.move.elmt))
-        .append(blocks.create(blocks.movement.rotate.elmt));
+    util
+        .loadTemplate("template.code-piece.operator", function (template) {
+            $("#blocks").append(template);
+            blocks.draggable(".code-piece.operator", ".tool-sec");
+        })
+        .loadTemplate("template.code-piece.movement", function (template) {
+            $("#blocks").append(template);
+            blocks.draggable(".code-piece.movement", ".tool-sec");
+        });
 });

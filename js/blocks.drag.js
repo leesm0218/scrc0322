@@ -1,97 +1,8 @@
 var scrc;
 scrc = scrc || {};
 
-
-
 $(function () {
-    /*
-    var util = scrc.namespace("util");
     var blocks = scrc.namespace("blocks");
-
-    var parents = function  (target, parent) {
-        var $target = $(target);
-
-        if (!$target.is(parent)) {
-            $target = $target.parents(parent);
-        }
-
-        return $target;
-    };
-
-    var drag_info = {};
-
-    $("#script-tab")
-        .on("mouseover", ".code-piece", function (event) {
-            parents(event.target, ".code-piece").addClass("mouseover");
-        })
-        .on("mouseout", ".code-piece", function (event) {
-            parents(event.target, ".code-piece").removeClass("mouseover");
-        });
-
-    $(".tool-sec")
-        .on("mousedown", ".code-piece", function (event) {
-            var $target = $(event.target);
-
-            if ($target.is(".code-piece")) {
-                drag_info.$target = $target;
-                drag_info.x = event.clientX - $target.position().left;
-                drag_info.y = event.clientY - $target.position().top;
-            }
-        });
-
-    $("#script-tab .code-sec")
-        .on("mouseenter", function () {
-            console.log(this.className + true);
-            drag_info.code_sec_over = true;
-        })
-        .on("mouseleave", function () {
-            console.log(this.className + false);
-            if (!drag_info.draging) {
-                drag_info.code_sec_over = false;
-            }
-        });
-
-    $(window)
-        .on("mousemove", function (event) {
-            if (!drag_info.draging) {
-                if (drag_info.$target != undefined) {
-                    var dist = util.distance(drag_info.x, drag_info.y, event.clientX, event.clientY);
-
-                    if (dist >= 10) {
-                        drag_info.$target = blocks.create(drag_info.$target).appendTo("main");
-                        drag_info.$target.addClass("draging");
-                        drag_info.$target.css({
-                            left: event.clientX -  drag_info.x,
-                            top: event.clientY - drag_info.y
-                        });
-                        drag_info.draging = true;
-                    }
-                }
-            } else {
-                drag_info.$target.css({
-                    left: event.clientX - drag_info.x,
-                    top: event.clientY - drag_info.y
-                });
-            }
-        })
-        .on("mouseup", function (event) {
-            if (drag_info.draging) {
-                if (drag_info.$target != undefined) {
-                    console.log(drag_info.code_sec_over);
-                    if (drag_info.code_sec_over) {
-                        drag_info.$target.appendTo($("#script-tab .code-sec"));
-                        drag_info.$target.removeClass("draging");
-                    } else {
-                        drag_info.$target.remove();
-                    }
-                }
-            }
-            drag_info = {};
-        });
-        */
-});
-
-$(function () {
     var main_screen = scrc.namespace("main_screen");
     var util = scrc.namespace("util");
 
@@ -110,36 +21,34 @@ $(function () {
 
     $("#script-tab")
         .on("mouseover", ".code-piece", function (event) {
-            console.log("mouseover");
+            //console.log("mouseover");
             parents(event.target, ".code-piece").addClass("mouseover");
         })
         .on("mouseout", ".code-piece", function (event) {
             parents(event.target, ".code-piece").removeClass("mouseover");
         });
 
-    $(".code-piece", $tool_sec).draggable({
-        cursor : "move",
-        addClasses : "draging",
-        helper : "clone",
-        drag : drag
-    });
+    blocks.draggable = function (e, p) {
+        $(e, p).draggable({
+            cursor: "move",
+            //addClasses : ".dragging",
+            helper: "clone",
+            drag: drag
+        });
+    };
+
+    blocks.draggable(".code-piece", $tool_sec);
 
     $code_sec.droppable({
         accept : "#script-tab .code-piece",
-        addClasses : "draging",
+        //addClasses : ".dragging",
         drop : function (event, ui) {
             var $elmt = ui.helper;
 
             // 새것이라면 클론 생성
-            if (!$elmt.hasClass("created")) {
-                /*$elmt = ui.helper.clone();
-                $elmt.attr("id", util.uniqueId())
-                    .addClass("created");*/
-                $elmt = scrc.blocks.create($elmt).addClass("created");
-                if ($elmt.hasClass("movement")) {
-                    console.log(main_screen.select_img_index)
-                    $elmt.attr("target-id", main_screen.select_img_index);
-                }
+            if (parents($elmt, ".tool-sec").is(".tool-sec")) {
+                $elmt = scrc.blocks.create($elmt);
+                $elmt.removeClass("ui-draggable-dragging");
                 $code_sec.append($elmt);
 
                 $elmt.css({
@@ -156,45 +65,48 @@ $(function () {
                 //console.log($elmt.attr("id"));
             }
 
-            // 자석 기능
-            var $magnet = $code_sec.find(".code-piece.magnet-bottom:first");
+            if ($elmt.hasClass("magnet")) {
+                // 자석 기능
+                var $magnet = $code_sec.find(".code-piece.magnet-bottom:first");
 
-            if ($magnet.length > 0) {
-                var npid = $magnet.attr("next-piece-id");
+                if ($magnet.length > 0) {
+                    var npid = $magnet.attr("next-piece-id");
 
-                $magnet
-                    .attr({
-                        "next-piece-id" : $elmt.attr("id")
-                    });
-
-                $elmt
-                    .attr({
-                        "prev-piece-id" : $magnet.attr("id")
-                    });
-
-                if (npid) {
-                    var pid, $e = $elmt;
-
-                    while (pid = $e.attr("next-piece-id")) {
-                        $e = $("#" + pid);
-                    }
-
-                    var $next = $("#" + npid);
-
-                    $e
+                    $magnet
                         .attr({
-                            "next-piece-id" : npid
+                            "next-piece-id": $elmt.attr("id")
                         });
 
-                    $next
+                    $elmt
                         .attr({
-                            "prev-piece-id" : $e.attr("id")
-                        })
-                }
-                extrude($magnet, $elmt);
-            }
+                            "prev-piece-id": $magnet.attr("id")
+                        });
 
-            $code_sec.find(".code-piece").removeClass("magnet-bottom");
+                    if (npid) {
+                        var pid, $e = $elmt;
+
+                        while (pid = $e.attr("next-piece-id")) {
+                            $e = $("#" + pid);
+                        }
+
+                        var $next = $("#" + npid);
+
+                        $e
+                            .attr({
+                                "next-piece-id": npid
+                            });
+
+                        $next
+                            .attr({
+                                "prev-piece-id": $e.attr("id")
+                            })
+                    }
+                    extrude($magnet, $elmt);
+                }
+
+                $code_sec.find(".code-piece").removeClass("magnet-bottom");
+            }
+            releaseTogether($elmt);
         }
     });
 
@@ -222,52 +134,55 @@ $(function () {
 
     function drag (event, ui)
     {
-        var $elmts = $(".code-sec .code-piece"),
+        var $elmts = $(".code-sec .code-piece.magnet"),
             $that = ui.helper;
         var ox = ui.offset.left,
             oy = ui.offset.top;
 
-        // 마그넷 기능
-        //console.log("code-sec 내부 N: " + $elmts.length + "{");
-        for (var i = 0; i < $elmts.length; i++) {
-            var $this = $($elmts[i]);
+        if ($that.hasClass("magnet")) {
+            //$that.addClass("dragging");
+            // 마그넷 기능
+            //console.log("code-sec 내부 N: " + $elmts.length + "{");
+            for (var i = 0; i < $elmts.length; i++) {
+                var $this = $($elmts[i]);
 
-            if ($this.attr("id") != $that.attr("id")) {
-                var ex = $this.position().left + $code_sec.position().left,
-                    ey = $this.position().top + $code_sec.position().top,
-                    ew = $this.width(),
-                    eh = $this.height(),
-                    aw = $that.width();
+                if ($this.attr("id") != $that.attr("id")) {
+                    var ex = $this.position().left + $code_sec.position().left,
+                        ey = $this.position().top + $code_sec.position().top,
+                        ew = $this.width(),
+                        eh = $this.height(),
+                        aw = $that.width();
 
-                if (ey + eh - 5 <= oy && oy <= ey + eh + 10 &&
-                    ex - aw - 5 <= ox && ox <= ex + ew + 5) {
-                    $elmts.removeClass("magnet-bottom");
-                    $this.addClass("magnet-bottom");
-                    break;
-                } else {
-                    $this.removeClass("magnet-bottom");
+                    if (ey + eh - 5 <= oy && oy <= ey + eh + 15 &&
+                        ex - aw - 5 <= ox && ox <= ex + ew + 5) {
+                        $elmts.removeClass("magnet-bottom");
+                        $this.addClass("magnet-bottom");
+                        break;
+                    } else {
+                        $this.removeClass("magnet-bottom");
+                    }
                 }
             }
-        }
-       // console.log("}\n" + ox + ", " + oy);
+            // console.log("}\n" + ox + ", " + oy);
 
+            // 자석 분리 시
+            var prev_piece_id = $that.attr("prev-piece-id");
+            if (prev_piece_id) {
+                $("#" + prev_piece_id)
+                    .removeAttr("next-piece-id");
+
+                $that
+                    .removeAttr("prev-piece-id");
+            }
+        }
         // 함께 이동
         moveTogether($that);
-
-        // 자석 분리 시
-        var prev_piece_id = $that.attr("prev-piece-id");
-        if (prev_piece_id) {
-            $("#" + prev_piece_id)
-                .removeAttr("next-piece-id");
-
-            $that
-                .removeAttr("prev-piece-id");
-        }
     }
 
     function moveTogether ($this)
     {
         var next_piece_id = $this.attr("next-piece-id");
+        $this.addClass("dragging");
         if (next_piece_id) {
             var $that = $("#" + next_piece_id);
 
@@ -277,6 +192,17 @@ $(function () {
             });
 
             moveTogether($that);
+        }
+    }
+
+    function releaseTogether ($this)
+    {
+        var next_piece_id = $this.attr("next-piece-id");
+        $this.removeClass("dragging");
+        if (next_piece_id) {
+            var $that = $("#" + next_piece_id);
+
+            releaseTogether($that);
         }
     }
 });

@@ -5,8 +5,6 @@ scrc = scrc || {};
 
 $(function () {
     var main_screen = scrc.namespace("main_screen");
-    main_screen.n_of_img = scrc.n_of_img || 1;
-    main_screen.imgs = main_screen.imgs || {};
 
     // http://konvajs.github.io/docs/index.html
 
@@ -17,7 +15,11 @@ $(function () {
     var stage = new Konva.Stage({
         container: 'container',
         width: width,
-        height: height
+        height: height,
+        offset: {
+            x: -width / 2,
+            y: -height / 2
+        }
     });
 
     // create image layer
@@ -46,14 +48,14 @@ $(function () {
                 strokeWidth: 2,
                 strokeEnabled: false
 
-            })
+            });
             layer.add(myimg);
             layer.draw();
             myimg.on("dragstart", function () {
                 this.moveToTop();
                 layer.draw();
             });
-            main_screen.imgs[myimg.index] = myimg;
+            main_screen.imgs[myimg._id] = myimg;
         }
     }
 
@@ -65,8 +67,8 @@ $(function () {
 
     for(var i = 0; i < 6; i++) {
         var box = new Konva.Rect({
-            x: i * 30 + 50,
-            y: i * 18 + 40,
+            x: i * 30 - 100,
+            y: i * 18 - 80,
             fill: colors[i],
             draggable: true,
             width: 100,
@@ -82,6 +84,7 @@ $(function () {
 
         box.on("dragstart", function() {
             this.moveToTop();
+            main_screen.select(this._id);
             layer.draw();
         });
 
@@ -106,7 +109,8 @@ $(function () {
         });
 
         layer.add(box);
-        main_screen.imgs[box.index] = box;
+        main_screen.imgs[box._id] = box;
+        main_screen.select(box._id);
     }
 
 
@@ -124,8 +128,7 @@ $(function () {
     });
     layer.on("click", function (evt) {
         var shape = evt.target;
-        console.log(shape.index);
-        main_screen.select(shape.index);
+        main_screen.select(shape._id);
         layer.draw();
     });
 

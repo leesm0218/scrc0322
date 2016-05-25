@@ -1,11 +1,27 @@
 main { position : relative; }
-.code-piece { display: inline-block; position : absolute; padding:2px; margin: 1px; color:white; cursor:pointer; z-index: 4; }
+.code-piece { display: inline-block; position : absolute; padding:2px; margin: 5px; color:white; cursor:pointer; z-index: 4; }
 
-#script-tab .code-piece.movement.mouseover:not(.acting){
+#script-tab .code-piece.movement.mouseover.dragging:not(.acting) {
+    box-shadow: 0px 0px 5px 0px dodgerblue, 5px 5px 3px 0px dimgray;
+}
+
+#script-tab .code-piece.movement.dragging:not(.acting) {
+    box-shadow: 0px 0px 5px 0px dodgerblue, 5px 5px 3px 0px dimgray;
+}
+
+#script-tab .code-piece.movement.mouseover:not(.acting) {
     box-shadow: 0px 0px 5px 0px dodgerblue;
 }
 
-#script-tab .code-piece.operator.mouseover {
+#script-tab .code-piece.operator.dragging:not(.acting) {
+    box-shadow: 0px 0px 5px 0px dodgerblue, 5px 5px 3px 0px dimgray;
+}
+
+#script-tab .code-piece.operator.mouseover.dragging:not(.acting) {
+    box-shadow: 0px 0px 5px 0px dodgerblue, 5px 5px 3px 0px dimgray;
+}
+
+#script-tab .code-piece.operator.mouseover:not(.acting) {
     box-shadow: 0px 0px 5px 0px greenyellow;
 }
 

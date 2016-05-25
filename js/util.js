@@ -44,4 +44,56 @@ scrc.namespace = function (ns_string) {
     util.deg2rad = function (angle) {
         return angle / Math.PI * 180;
     };
+
+    var checkSupportsImport = function () {
+        //console.log( 'import' in document.createElement('link') );
+
+        return 'import' in document.createElement('link');
+    };
+
+    var wait_templates = [];
+
+    util.loadTemplate = function (template, callback) {
+        if ( checkSupportsImport && checkSupportsImport() ){
+            checkSupportsImport = undefined;
+            var link = document.createElement('link');
+
+            link.rel = 'import';
+            link.href = "template/code_piece.html";
+
+            wait_templates.push([template, callback]);
+
+            link.onload = function(e) {
+                var loadHtmlFile = this.import.querySelector('html');
+                var contents  = document.querySelector('body');
+
+                contents.appendChild(loadHtmlFile.cloneNode(true));
+
+                util.loadTemplate = function (template, callback) {
+                    var t = document.querySelector(template);
+
+                    var clone = document.importNode(t.content, true);
+
+                    callback(clone);
+
+                    return util;
+                };
+
+                for (var i = 0; i < wait_templates.length; i++) {
+                    var t = wait_templates[i];
+
+                    util.loadTemplate(t[0], t[1]);
+                }
+                wait_templates = undefined;
+            };
+
+            document.head.appendChild(link);
+        } else if (!checkSupportsImport) {
+            wait_templates.push([template, callback]);
+        } else {
+            alert("template 파일 로드 실패");
+        }
+
+        return util;
+    };
 }());
