@@ -1,25 +1,259 @@
-* { margin:0; padding:0; }
-html, body { height:100% }
-main { width:200%; height:100%; }
-a { text-decoration:none; color:#000; font-size:12px; cursor:pointer; }
-ul { list-style:none; }
-nav li { display:inline; }
-nav li a { float:left; margin-right:5px; padding:0 20px; background:#ddd; }
-h1 { display:inline-block; }
-nav { display:inline-block; }
-#column1 { display:block; float:left; }
-#column2 { display:block; float:left; }
-#screen { display:block; width:400px; height:300px; border:1px solid #ccc; margin:5px; }
-#screen .main-screen { width:400px; height:300px; }
-#stage { display:block; width:400px; height:250px; border:1px solid #ccc; margin:5px; }
-#work-space { display:block; width:900px; height:557px; margin:5px; }
-#work-space > header { height:16px; margin:0; padding:0; }
-#work-space > header a { color:#999; }
-#work-space > header a.active { color:#000; }
-#work-space > article { display:none; height:540px; border:1px solid #ccc; margin:0; padding:0; }
+* { 
+	margin:0px; padding:0px; border:1px solid #ccc;
+}
 
-#work-space #script-tab > section { display:block; float:left; width:auto; height:100%; border:1px solid #ccc; }
-#work-space #script-tab .tool-sec { width:25%; }
-#work-space #script-tab .tool-sec #tools { height:30% }
-#work-space #script-tab .tool-sec #blocks { height:70% }
-#work-space #script-tab .code-sec { width:74%; position: relative; }
+html{
+	width:99%; height:99%; display:flex; flex-wrap: nowrap;
+}
+
+body html { display: none; }
+
+[type=radio] {
+  display: none;   
+}
+
+.tempfooter{
+	flex:1; max-width:0; max-height:0; margin:0px; padding:0px; border:0px;
+}
+
+.body { 
+	flex:1; width:99%; height:99%; min-width:1000px; min-height:750px; 
+	display:flex; flex-wrap: nowrap; flex-direction: column;
+}
+	
+.menubar{
+	flex:1; min-height:30px; max-height:30px; 
+	display:flex; flex-wrap: nowrap; 
+}
+	
+.main{
+	flex:1;
+	display:flex; flex-wrap: nowrap;
+}
+
+.column1 {
+	flex:1; max-width:410px;
+	display:flex; flex-direction: column; flex-wrap: nowrap;
+}
+.screenbar{
+	flex:0; min-width:400px; max-width:400px; min-height:40px; max-height:40px;
+}
+.floatright{
+	float:right;
+}
+.screenbutton{  
+	min-width:40px; max-width:40px; min-height:40px; max-height:40px;
+}
+.fullscreenbutton{  
+	content: url('../img/UI/buttons/fullScreenOff.png');
+}
+.startbutton{  
+	content: url('../img/UI/buttons/greenFlagOff.png');
+}
+.stopbutton{  
+	content: url('../img/UI/buttons/stopOff.png');
+}
+.screen {
+	flex:0; min-width:400px; max-width:400px; min-height:400px; max-height:400px; 
+}
+.screenxy{
+	flex:0; min-width:400px; max-width:400px; min-height:20px; max-height:20px; 
+	text-align:right;
+}
+.spritebar{
+	flex:0; min-width:400px; max-width:400px; min-height:30px; max-height:30px; 
+}
+.spritebutton{
+	float:right; min-width:30px; max-width:30px; min-height:30px; max-height:30px;
+}
+.library{
+	content: url('../img/UI/newsprite/libraryOff.png');
+}
+.paintbrush{
+	content: url('../img/UI/newsprite/paintbrushOff.png');
+}
+.import{
+	content: url('../img/UI/newsprite/importOff.png');
+}
+.camera{
+	content: url('../img/UI/newsprite/cameraOff.png');
+}
+.sprite-wrap{
+	flex:1;  max-width:400px; display:flex; flex-direction: row; flex-wrap: nowrap;
+}
+.sprite {
+	flex:1;  max-width:320px;  
+}
+.spritebackground{
+	flex:1;  max-width:80px;  
+}
+
+
+.column2 {
+	flex:1; 
+	display:flex;  flex-direction: column; flex-wrap: nowrap;
+}
+.workmenulabels{
+	width:100%; max-height:30px; 
+	margin:0px; border:0px solid #c00;
+}
+.workmenulabels label{
+	margin:0px; padding:0px; border:0px solid #c00;
+}
+.workmenus{
+	visibility: visible; 
+	flex:1; 
+	min-width:0px; max-width:none; min-height:0px; max-height:none; 
+	border:0px solid #ccc;
+	display:flex;  flex-direction: column; flex-wrap: nowrap;
+}
+.workmenus div[name = workmenu-hidden]{
+	visibility: hidden;
+	flex:1; 
+	min-width:0px; max-width:0px; min-height:0px; max-height:0px; 
+	margin:0px; border:0px solid #ccc;
+}
+.workmenus div[name = workmenu-visible]{
+	visibility: visible; 
+	flex:1; 
+	min-width:0px; max-width:none; min-height:0px; max-height:none; 
+	border:0px solid #ccc;
+	display:flex;  flex-direction: row; flex-wrap: nowrap;
+}
+
+.tools{
+	visibility:inherit;
+	flex:1; min-width:220px; max-width:220px;
+	display:flex; align-items: flex-start; align-content: flex-start; flex-direction:row; flex-wrap: wrap;
+}
+
+.toolboxes {
+	height: auto;
+}
+.toolbox {
+	height: 100%;
+}
+
+.toollabels{
+	flex:1; width:100%; 
+	display:flex;  align-items: flex-start; align-content: flex-start; flex-direction:row; flex-wrap: wrap;
+	margin:0px; border:0px solid #c00;
+}
+.toollabels label{
+	flex:0; min-width:50%; max-height:40px; 
+	margin:0px; padding:0px; border:0px solid #c00;
+}
+.toolboxes{
+	visibility: inherit; 
+	flex:1; min-width:100%; min-height:100%;
+	display:flex;  flex-direction:row; flex-wrap: wrap; 
+	margin:0px; border:0px solid #c00;
+}
+
+.toolboxes div[name = toolbox-hidden]{
+	visibility: hidden; 
+	flex:0;  min-width:0px; max-width:0px; min-height:0px; max-height:0px; 
+	display:flex;  flex-direction:row; flex-wrap: wrap; 
+	margin:0px; border:0px solid #ccc;
+}	
+	
+.toolboxes div[name = toolbox-visible]{
+	visibility: inherit; 
+	flex:1; min-width:100%; min-height:100%;
+	display:flex;  flex-direction:row; flex-wrap: wrap; 
+	margin:0px; border:0px solid #c00;
+}
+.code{
+	position: relative;
+	flex:1; display:flex; flex-direction: row; flex-wrap: nowrap;
+}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  visibility: hidden;
+}
+.overlay .screenbutton{  
+	min-width:0px; max-width:0px; min-height:0px; max-height:0px;
+	visibility: hidden;
+	margin:0px; padding:0px; border:0px solid #ccc;
+}
+
+.overlay:target {
+  visibility: visible;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+}
+
+.popup  .screenbutton{  
+	min-width:0px; max-width:0px; min-height:0px; max-height:0px;
+	visibility: hidden;
+	margin:0px; padding:0px; border:0px solid #ccc;
+}
+
+.close {
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+.close:hover {
+  color: #06D85F;
+}
+
+.content {
+  max-height: 30%;
+  overflow: auto;
+}

@@ -29,11 +29,11 @@ $(function () {
 
     util
         .loadTemplate("template.code-piece.operator", function (template) {
-            $("#blocks").append(template);
-            blocks.draggable(".code-piece.operator", ".tool-sec");
+            $(".toolbox[value=01]").append(template);
+            blocks.draggable(".code-piece.operator", ".tools");
         })
         .loadTemplate("template.code-piece.movement", function (template) {
-            $("#blocks").append(template);
-            blocks.draggable(".code-piece.movement", ".tool-sec");
+            $(".toolbox[value=01]").append(template);
+            blocks.draggable(".code-piece.movement", ".tools");
         });
 });

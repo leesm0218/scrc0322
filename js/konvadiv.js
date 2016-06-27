@@ -25,7 +25,7 @@ $(function () {
     // create image layer
     var layer = new Konva.Layer();
 
-    $("#stage input").on("change", handleFiles);
+    $(".spritebar input").on("change", handleFiles);
 
     function handleFiles(e) {
 

@@ -17,8 +17,8 @@ $(function () {
     };
     main_screen.select = function (id) {
         //console.log(main_screen.select_img_index)
-        $(".code-sec .code-piece[target-id=" + main_screen.select_img_id + "]").hide();
-        $(".code-sec .code-piece[target-id=" + id + "]").show();
+        $(".code .code-piece[target-id=" + main_screen.select_img_id + "]").hide();
+        $(".code .code-piece[target-id=" + id + "]").show();
         main_screen.select_img_id = id;
     }
 });

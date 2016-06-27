@@ -1,108 +1,115 @@
 ﻿<!DOCTYPE html>
 <html lang="ko">
-<head>
-	<title> Scratch </title>
+    <head>
+        <title>
+            UI
+        </title>
+        <meta charset="utf-8">
+        <meta
+            name="viewport"
+            content="width=device-width, height=device-height, initial-scale=1.0"/>
 
-	<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="lib/jquery-ui.min.css" media="all" />
 
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" media="all"/>
+		<link rel="stylesheet" type="text/css" href="css/blocks.css" media="all" />
 
-	<link rel="stylesheet" type="text/css" href="lib/jquery-ui.min.css" media="all" />
+        <script src="lib/jquery-1.12.1.min.js"></script>
+		<script src="lib/jquery-ui.js"></script>
+		<script src="https://cdn.rawgit.com/konvajs/konva/0.13.0/konva.min.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
-	<link rel="stylesheet" type="text/css" href="css/blocks.css" media="all" />
-
-	<script src="lib/jquery-1.12.1.min.js"></script>
-	<script src="lib/jquery-ui.js"></script>
-	<script src="https://cdn.rawgit.com/konvajs/konva/0.13.0/konva.min.js"></script>
-</head>
-<body>
-
-<main role="main">
-	<header>
-		<h1>SCRATCH</h1>
-		<nav>
-			<ul>
-				<li><a>파일</a></li>
-				<li><a>편집</a></li>
-			</ul>
-		</nav>
-	</header>
-	<section id="column1">
-		<article id="screen">
-			<!-- 원본 (main-screen.js 사용, 하나의 이미지, 블록과 connect 됨)
-			<canvas id="main-screen"></canvas>
-			-->
-			<!-- 수정본 (konvadiv.js 사용. 여러개의 이미지, 아직 블록과 connect 안됨)
-			<div id="container"></div>
-			-->
-			<div id="container"></div>
-
-
-		</article>
-		<article id="stage">
-			<input type="file" id="input"/>
-
-		</article>
-	</section>
-	<section id="column2">
-		<article id="work-space">
-			<header>
-				<nav>
-					<ul>
-						<li><a target="#script-tab">스크립트</a></li>
-						<li><a target="#shape-tab">모양</a></li>
-						<li><a target="#sound-tab">소리</a></li>
-					</ul>
-				</nav>
-			</header>
-			<article id="script-tab" class="tab">
-				<section class="tool-sec">
-					<section id="tools">
-						블럭  도구
-					</section>
-					<section id="blocks">
-						<!--
-						<span class="code-piece sound element" id="play-elmt" >
-							<audio id="myaudio">
-							</audio>
-							<button id="play" onclick="audio_play();">
-								Play
-							</button>
-						</span>
-						-->
-					</section>
-				</section>
-				<section class="code-sec">
-					코드블럭
-				</section>
-			</article>
-			<article id="shape-tab" class="tab">
-				<section class="tool-sec">
-					도형 도구
-				</section>
-				<section class="??">
-				</section>
-			</article>
-			<article id="sound-tab" class="tab">
-				<section class="tool-sec">
-					소리 도구
-				</section>
-				<section class="???">
-				</section>
-			</article>
-		</article>
-	</section>
-	<footer>
-	</footer>
-</main>
-<script src="js/util.js"></script>
-<script src="js/main-screen.js"></script>
-<script src="js/konvadiv.js"></script>
-<script src="js/blocks.js"></script>
-<script src="js/blocks.event.js"></script>
-<script src="js/blocks.drag.js"></script>
-<script src="js/sound.js"></script>
-<script src="js/main.js"></script>
-</body>
+        <script src="js/main.js"></script>
+		<script src="js/util.js"></script>
+		<script src="js/main-screen.js"></script>
+		<script src="js/konvadiv.js"></script>
+		<script src="js/blocks.js"></script>
+		<script src="js/blocks.event.js"></script>
+		<script src="js/blocks.drag.js"></script>
+		<script src="js/sound.js"></script>
+    </head>
+		
+    <body class="body">
+		<div class="menubar">
+			<a>SCRACH</a>
+			<a>파일</a>
+			<a>편집</a>
+		</div>
+		<div class="main">
+            <div class="column1">
+				<div class="screenbar">
+					<a href="#popup1" class="screenbutton fullscreenbutton">
+						<div id="popup1" class="overlay">
+							<div class="popup">
+								<a class="close" href="#">&times;</a>
+								<div class="content">	</div>
+							</div>
+						</div>
+					</a>
+					<img class="screenbutton stopbutton floatright"></img>
+					<img class="screenbutton startbutton floatright"></img>
+				</div>
+				<div id="container"></div>
+				<!--<canvas id="myCanvas" class="screen"></canvas>-->
+				<div class="screenxy"></div>
+				<div class="spritebar">
+					<input type="file" id="input"/>
+					<img class="spritebutton camera"></img>
+					<img class="spritebutton import"></img>
+					<img class="spritebutton paintbrush"></img>
+					<img class="spritebutton library"></img>
+				</div>
+                <div class="sprite-wrap">
+					<div class="spritebackground"></div>
+					<div class="sprite"></div>
+				</div>
+				<footer class="tempfooter"></footer>
+            </div>
+			<div class="column2">
+				<div class="workmenulabels">
+							<label name="workmenu" value="01">Tab 1</label> 
+							<label name="workmenu" value="02">Tab 2</label> 
+							<label name="workmenu" value="03">Tab 3</label>
+				</div>
+				<div class="workmenus">
+					<div class="workmenu" name = "workmenu-visible" value="01">
+						<div class="tools">
+						
+							<div class="toollabels">
+								<label name="toolbox" value="01">Tab 1</label> 
+								<label name="toolbox" value="02">Tab 2</label> 
+								<label name="toolbox" value="03">Tab 3</label> 
+								<label name="toolbox" value="04">Tab 4</label> 
+								<label name="toolbox" value="05">Tab 5</label> 
+								<label name="toolbox" value="06">Tab 6</label> 
+								<label name="toolbox" value="07">Tab 7</label> 
+								<label name="toolbox" value="08">Tab 8</label> 	
+							</div>
+							<div class="toolboxes">
+								<div class="toolbox" name = "toolbox-visible"value="01"></div>
+								<div class="toolbox" name = "toolbox-hidden" value="02">0002</div>
+								<div class="toolbox" name = "toolbox-hidden" value="03">0003</div>
+								<div class="toolbox" name = "toolbox-hidden" value="04">0004</div>
+								<div class="toolbox" name = "toolbox-hidden" value="05">0005</div>
+								<div class="toolbox" name = "toolbox-hidden" value="06">0006</div>
+								<div class="toolbox" name = "toolbox-hidden" value="07">0007</div>
+								<div class="toolbox" name = "toolbox-hidden" value="08">0008</div>
+							</div>
+						
+							<footer class="tempfooter"></footer>
+						</div>
+						<div class="code">코드</div>
+						<footer class="tempfooter"></footer>
+					</div> 
+					<div class="workmenu" name = "workmenu-hidden" value="02">
+						
+					</div>
+					<div class="workmenu" name = "workmenu-hidden" value="03">
+						
+					</div>
+				</div>
+			</div>
+		<footer class="tempfooter"></footer>
+		</div>>
+    </body>
+	<footer class="tempfooter"></footer>
 </html>

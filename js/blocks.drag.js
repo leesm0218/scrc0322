@@ -6,8 +6,9 @@ $(function () {
     var main_screen = scrc.namespace("main_screen");
     var util = scrc.namespace("util");
 
-    var $tool_sec = $("#script-tab .tool-sec");
-    var $code_sec = $("#script-tab .code-sec");
+    var $workmenu = $(".workmenu");
+    var $tools = $workmenu.find(".tools");
+    var $code = $workmenu.find(".code");
 
     var parents = function  (target, parent) {
         var $target = $(target);
@@ -19,7 +20,7 @@ $(function () {
         return $target;
     };
 
-    $("#script-tab")
+    $workmenu
         .on("mouseover", ".code-piece", function (event) {
             //console.log("mouseover");
             parents(event.target, ".code-piece").addClass("mouseover");
@@ -37,26 +38,26 @@ $(function () {
         });
     };
 
-    blocks.draggable(".code-piece", $tool_sec);
+    blocks.draggable(".code-piece", $tools);
 
-    $code_sec.droppable({
-        accept : "#script-tab .code-piece",
+    $code.droppable({
+        accept : ".workmenu .code-piece",
         //addClasses : ".dragging",
         drop : function (event, ui) {
             var $elmt = ui.helper;
 
             // 새것이라면 클론 생성
-            if (parents($elmt, ".tool-sec").is(".tool-sec")) {
+            if (parents($elmt, ".tools").is(".tools")) {
                 $elmt = scrc.blocks.create($elmt);
                 $elmt.removeClass("ui-draggable-dragging");
-                $code_sec.append($elmt);
+                $code.append($elmt);
 
                 $elmt.css({
-                    left: ui.offset.left - $code_sec.position().left,
-                    top: ui.offset.top - $code_sec.position().top + 4
+                    left: ui.offset.left - $code.position().left,
+                    top: ui.offset.top - $code.position().top + 4
                 });
 
-                $($elmt, $code_sec).draggable({
+                $($elmt, $code).draggable({
                     cursor: "move",
                     revert: "invalid",
                     helper: "original",
@@ -67,7 +68,7 @@ $(function () {
 
             if ($elmt.hasClass("magnet")) {
                 // 자석 기능
-                var $magnet = $code_sec.find(".code-piece.magnet-bottom:first");
+                var $magnet = $code.find(".code-piece.magnet-bottom:first");
 
                 if ($magnet.length > 0) {
                     var npid = $magnet.attr("next-piece-id");
@@ -104,14 +105,14 @@ $(function () {
                     extrude($magnet, $elmt);
                 }
 
-                $code_sec.find(".code-piece").removeClass("magnet-bottom");
+                $code.find(".code-piece").removeClass("magnet-bottom");
             }
             releaseTogether($elmt);
         }
     });
 
-    $tool_sec.droppable({
-        accept: ".code-sec .code-piece",
+    $tools.droppable({
+        accept: ".code .code-piece",
         drop : function (event, ui) {
             ui.draggable.remove();
         }
@@ -134,7 +135,7 @@ $(function () {
 
     function drag (event, ui)
     {
-        var $elmts = $(".code-sec .code-piece.magnet"),
+        var $elmts = $(".code .code-piece.magnet"),
             $that = ui.helper;
         var ox = ui.offset.left,
             oy = ui.offset.top;
@@ -147,8 +148,8 @@ $(function () {
                 var $this = $($elmts[i]);
 
                 if ($this.attr("id") != $that.attr("id")) {
-                    var ex = $this.position().left + $code_sec.position().left,
-                        ey = $this.position().top + $code_sec.position().top,
+                    var ex = $this.position().left + $code.position().left,
+                        ey = $this.position().top + $code.position().top,
                         ew = $this.width(),
                         eh = $this.height(),
                         aw = $that.width();
