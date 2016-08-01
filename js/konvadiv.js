@@ -5,7 +5,7 @@ scrc = scrc || {};
 
 $(function () {
     var main_screen = scrc.namespace("main_screen");
-
+    var script = scrc.namespace("script");
     // http://konvajs.github.io/docs/index.html
 
     // create stage canvas
@@ -56,6 +56,8 @@ $(function () {
                 layer.draw();
             });
             main_screen.imgs[myimg._id] = myimg;
+            
+            script.add();
         }
     }
 
@@ -63,12 +65,12 @@ $(function () {
 
     //  rectangles for test
 
-    var colors = ["red", "orange", "yellow", "green", "blue", "purple"];
+    var colors = ["red", "yellow", "blue"];
 
-    for(var i = 0; i < 6; i++) {
+    for(var i = 0; i < 3; i++) {
         var box = new Konva.Rect({
-            x: i * 30 - 100,
-            y: i * 18 - 80,
+            x: i * 40 - 100,
+            y: i * 25 - 80,
             fill: colors[i],
             draggable: true,
             width: 100,
@@ -111,17 +113,21 @@ $(function () {
         layer.add(box);
         main_screen.imgs[box._id] = box;
         main_screen.select(box._id);
+
+        
     }
 
 
     //mouseover stroke event
 
     layer.on('mouseover', function(evt) {
+        document.body.style.cursor = "pointer";
         var shape = evt.target;
         shape.strokeEnabled(true);
         layer.draw();
     });
     layer.on('mouseout', function(evt) {
+        document.body.style.cursor = "default";
         var shape = evt.target;
         shape.strokeEnabled(false);
         layer.draw();

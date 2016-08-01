@@ -7,6 +7,7 @@ scrc = scrc || {};
 $(function () {
     var main_screen = scrc.namespace("main_screen");
     var util = scrc.namespace("util");
+    var script = scrc.namespace("script");
 
     main_screen.imgs = main_screen.imgs || {};
     main_screen.n_of_img = scrc.n_of_img || 0;
@@ -20,5 +21,6 @@ $(function () {
         $(".code .code-piece[target-id=" + main_screen.select_img_id + "]").hide();
         $(".code .code-piece[target-id=" + id + "]").show();
         main_screen.select_img_id = id;
+        
     }
 });

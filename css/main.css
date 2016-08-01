@@ -61,7 +61,7 @@ body html { display: none; }
 	text-align:right;
 }
 .spritebar{
-	flex:0; min-width:400px; max-width:400px; min-height:30px; max-height:30px; 
+	flex:0; min-width:400px; max-width:400px; min-height:30px; max-height:30px;
 }
 .spritebutton{
 	float:right; min-width:30px; max-width:30px; min-height:30px; max-height:30px;
@@ -168,42 +168,88 @@ body html { display: none; }
 	flex:1; display:flex; flex-direction: row; flex-wrap: nowrap;
 }
 
+.spritebutton_div{
+	float:right;
+	position:relative;
+	width:30px;
+	height:30px;
+	overflow:hidden;
+}
+.file_input_hidden{
+	position:absolute;
+	right:0px;
+	top:0px;
+	opacity:0;
+	cursor:pointer;
+}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+/* list 점 지우기 */
+ul {
+	list-style:none;
+}
+/* Style the list items */
+ul li {
+	cursor: pointer;
+	position: relative;
+	padding: 12px 8px 12px 40px;
+	background: #eee;
+	font-size: 18px;
+	transition: 0.2s;
+
+	/* make the list items unselectable */
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+	background: #ddd;
+}
+
+/* When clicked on, add a background color and strike out text */
+ul li.selected {
+	background: #888;
+	color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .overlay {

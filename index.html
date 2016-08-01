@@ -26,6 +26,7 @@
 		<script src="js/blocks.event.js"></script>
 		<script src="js/blocks.drag.js"></script>
 		<script src="js/sound.js"></script>
+
     </head>
 		
     <body class="body">
@@ -52,15 +53,25 @@
 				<!--<canvas id="myCanvas" class="screen"></canvas>-->
 				<div class="screenxy"></div>
 				<div class="spritebar">
-					<input type="file" id="input"/>
 					<img class="spritebutton camera"></img>
-					<img class="spritebutton import"></img>
+					<div class="spritebutton_div">
+						<img class="spritebutton import"></img>
+						<input type="file" id="input" class ="file_input_hidden">
+					</div>
 					<img class="spritebutton paintbrush"></img>
 					<img class="spritebutton library"></img>
 				</div>
                 <div class="sprite-wrap">
 					<div class="spritebackground"></div>
-					<div class="sprite"></div>
+					<div class="sprite">
+
+						<ul id="sprite_list">
+							<li>Red</li>
+							<li>Yellow</li>
+							<li class="selected">Blue</li>
+						</ul>
+
+					</div>
 				</div>
 				<footer class="tempfooter"></footer>
             </div>
@@ -112,4 +123,5 @@
 		</div>>
     </body>
 	<footer class="tempfooter"></footer>
+	<script src="js/script.js"></script>
 </html>
