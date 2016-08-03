@@ -1,4 +1,4 @@
-.code-piece { display: inline-block; position : absolute; padding:2px; margin: 5px; color:white; cursor:pointer; z-index: 4; border: none; height: auto; }
+.code-piece { display: inline-block; position : absolute; padding:2px; margin: 5px; margin-right: auto; color:white; cursor:pointer; z-index: 4; border: none; height: auto; }
 
 .code-piece.movement.mouseover.dragging:not(.acting) {
     box-shadow: 0px 0px 5px 0px dodgerblue, 5px 5px 3px 0px dimgray;
@@ -46,16 +46,25 @@
 }
 
 .code .code-piece { z-index: 2; }
-.code .code-piece.magnet-bottom {
+.code .code-piece.magneted-bottom {
     box-shadow: -10px 15px 10px -10px gold, 10px 15px 10px -10px gold; z-index: 3;
 }
 .code .code-piece.draging { z-index: 5; }
 
-.code .code-piece { position: absolute; }
+.code .code-piece { position: relative; }
 .tools .code-piece { position: relative; }
+
 .code-piece.operator { background-color:forestgreen; }
 .code-piece.sound { background-color:rebeccapurple; }
 .code-piece.movement { background-color: #003eff; }
+.code-piece.event { background-color: darkgoldenrod; margin-right: 30px; }
+.code-piece.control { background-color: darkorange; }
+/*.code-piece.bracketed { width: 150px; padding: 0px; cursor: default; }*/
+.bracket { position: relative; width: 110px; height: 21.6px; }
+.open.bracket { padding-left: 5px; }
+/*.line.bracket { height: 21.6px; max-width: 10px; }*/
+.close.bracket { padding-right: 5px; left:0px; top: 0px; height: 21.6px; text-align: right; font-size: 100%; }
+
 .element {}
 .element.plus {}
 .element.space { background-color:gray; }

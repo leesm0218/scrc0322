@@ -6,7 +6,6 @@ var scrc;
 scrc = scrc || {};
 
 
-
 $(function () {
     // 코드 조각들을 클릭하면 코드가 동작한다.
     // TODO: 말풍선으로 출력하도록 바꾼다.
@@ -22,15 +21,17 @@ $(function () {
     });
 
     $workmenu.on("dblclick", ".code-piece.movement.element", function (event) {
-        var movement = scrc.namespace("blocks.movement");
-        var calc = movement[$(this).attr("movement")].calc;
+        var calcs = scrc.namespace("blocks.calc");
+        var calc = calcs[$(this).attr("calc")].calc;
 
         console.log(calc(this));
         return false;
     });
 
-    $workmenu.on("dblclick", ".code-piece.movement:not(.element)", function (event) {
-        var movement = scrc.namespace("blocks.movement");
+    $workmenu.on("dblclick",
+        ".code-piece.movement:not(.element), .code-piece.event:not(.element), .code-piece.control:not(.element)",
+        function (event) {
+        var actions = scrc.namespace("blocks.actions");
         var $this = $(this), pid;
 
         // 최상위 코드조각 찾기
@@ -44,23 +45,24 @@ $(function () {
                 var pid;
 
                 // 코드조각을 실행하고
-                var action = movement[$that.attr("movement")].action;
-                action($that[0]);
-
-                // 하위 코드조각으로 들어가기
-                if (pid = $that.attr("next-piece-id")) {
-                    //console.log(3);
-                    setTimeout(timer($("#" + pid)), 1);
-                } else {
-                    // 최하위 코드조각이면
-                    // 상위 코드조각으로 올라가면서 동작중 표시 지우기
-                    var $t = $that;
-                    while (pid = $t.attr("prev-piece-id")) {
+                var action = actions[$that.attr("action")].action;
+                action($that[0], function (elmt) {
+                    var $that = $(elmt);
+                    // 하위 코드조각으로 들어가기
+                    if (pid = $that.attr("next-piece-id")) {
+                        //console.log(3);
+                        setTimeout(timer($("#" + pid)), 1);
+                    } else {
+                        // 최하위 코드조각이면
+                        // 상위 코드조각으로 올라가면서 동작중 표시 지우기
+                        var $t = $that;
+                        while (pid = $t.attr("prev-piece-id")) {
+                            $t.removeClass("acting");
+                            $t = $("#" + pid);
+                        }
                         $t.removeClass("acting");
-                        $t = $("#" + pid);
                     }
-                    $t.removeClass("acting");
-                }
+                });
             }
         };
 
@@ -125,8 +127,8 @@ $(function () {
     scrc.namespace("blocks.element.operator.binary.plus").calc = calc;
     scrc.namespace("blocks.element.operator.binary.minus").calc = calc;
 
-    var movement = scrc.namespace("blocks.movement");
-    scrc.namespace("blocks.movement.move").action = function (elmt) {
+    //var movement = scrc.namespace("blocks.movement");
+    scrc.namespace("blocks.actions.move").action = function (elmt, callback) {
         var calc = scrc.blocks.element.space.calc;
         var $this = $(elmt);
         var $space = $this.find(".space");
@@ -142,9 +144,11 @@ $(function () {
         //console.log("move(" + dx + ", " + dy + ")");
         main_screen.imgs[id].move({x:dx,y:dy});
         main_screen.draw();
+
+        callback(elmt);
     };
 
-    scrc.namespace("blocks.movement.right-rotate").action = function (elmt) {
+    scrc.namespace("blocks.actions.right-rotate").action = function (elmt, callback) {
         var calc = scrc.blocks.element.space.calc;
         var $this = $(elmt);
         var $space = $this.find(".space");
@@ -153,9 +157,11 @@ $(function () {
 
         main_screen.imgs[id].rotate(angle);
         main_screen.draw();
+
+        callback(elmt);
     };
 
-    scrc.namespace("blocks.movement.left-rotate").action = function (elmt) {
+    scrc.namespace("blocks.actions.left-rotate").action = function (elmt, callback) {
         var calc = scrc.blocks.element.space.calc;
         var $this = $(elmt);
         var $space = $this.find(".space");
@@ -164,9 +170,11 @@ $(function () {
 
         main_screen.imgs[id].rotate(angle);
         main_screen.draw();
+
+        callback(elmt);
     };
 
-    scrc.namespace("blocks.movement.point-in-direction").action = function (elmt) {
+    scrc.namespace("blocks.actions.point-in-direction").action = function (elmt, callback) {
         var calc = scrc.blocks.element.space.calc;
         var $this = $(elmt);
         var $space = $this.find(".space");
@@ -175,9 +183,11 @@ $(function () {
 
         main_screen.imgs[id].setRotation(angle);
         main_screen.draw();
+
+        callback(elmt);
     };
 
-    scrc.namespace("blocks.movement.rach-gu").action = function (elmt) {
+    scrc.namespace("blocks.actions.rach-gu").action = function (elmt, callback) {
         var calc = scrc.blocks.element.space.calc;
         var $this = $(elmt);
         var $space = $this.find(".space");
@@ -185,29 +195,80 @@ $(function () {
         var y = calc($space[1]);
         var id = $this.attr("target-id") || main_screen.select_img_id;
 
-        console.log(main_screen.imgs[id]);
+        //console.log(main_screen.imgs[id]);
         main_screen.imgs[id].setPosition({x:x, y:y});
         main_screen.draw();
+
+        callback(elmt);
     };
 
-    scrc.namespace("blocks.movement.x-position").calc = function (elmt) {
+    scrc.namespace("blocks.calc.x-position").calc = function (elmt) {
         var $this = $(elmt);
         var id = $this.attr("target-id") || main_screen.select_img_id;
 
         return main_screen.imgs[id].getX();
     };
 
-    scrc.namespace("blocks.movement.y-position").calc = function (elmt) {
+    scrc.namespace("blocks.calc.y-position").calc = function (elmt) {
         var $this = $(elmt);
         var id = $this.attr("target-id") || main_screen.select_img_id;
 
         return main_screen.imgs[id].getY();
     };
 
-    scrc.namespace("blocks.movement.comhair").calc = function (elmt) {
+    scrc.namespace("blocks.calc.comhair").calc = function (elmt) {
         var $this = $(elmt);
         var id = $this.attr("target-id") || main_screen.select_img_id;
 
         return main_screen.imgs[id].rotation() * Math.PI / 180;
+    };
+
+    scrc.namespace("blocks.actions.start").action = function (elmt, callback) {
+        callback(elmt);
+    };
+
+    scrc.namespace("blocks.actions.endless-loop").action = function (elmt, callback) {
+        if (true) {
+            callback(elmt);
+        } else {
+            // break;
+        }
+    };
+
+    scrc.namespace("blocks.actions.looping").action = function (elmt, callback) {
+        var $this = $(elmt);
+        var prev = $this.attr("prev-piece-id");
+        var count = 0;
+
+        while (prev) {
+            var $prev = $("#" + prev);
+
+            if ($prev.is(".open")) {
+                if (count == 0) {
+                    break;
+                } else {
+                    count--;
+                }
+            } else if ($prev.is(".close")) {
+                count++
+            }
+
+            prev = $prev.attr("prev-piece-id");
+        }
+
+        var $open = $("#" + prev);
+
+        callback($open[0]);
+    };
+
+    scrc.namespace("blocks.actions.sleep").action = function (elmt, callback) {
+        var space = scrc.namespace("blocks.element.space");
+        var calc = space.calc;
+        var $this = $(elmt);
+        var $space = $this.find(".space");
+
+        setTimeout(function () {
+            callback(elmt);
+        }, calc($space[0]) * 1000);
     };
 });

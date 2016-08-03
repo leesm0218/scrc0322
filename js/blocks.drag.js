@@ -49,81 +49,116 @@ $(function () {
             // 새것이라면 클론 생성
             if (parents($elmt, ".tools").is(".tools")) {
                 $elmt = scrc.blocks.create($elmt);
-                $elmt.removeClass("ui-draggable-dragging");
-                $code.append($elmt);
 
-                $elmt.css({
-                    left: ui.offset.left - $code.position().left,
-                    top: ui.offset.top - $code.position().top + 4
-                });
+                if ($elmt.hasClass("bracketed")) {
+                    var $open_bracket = $elmt.find(".bracket:first");
+                    var $close_bracket = $elmt.find(".bracket:last");
+                    $code.append($open_bracket);
+                    $code.append($close_bracket);
 
-                $($elmt, $code).draggable({
-                    cursor: "move",
-                    revert: "invalid",
-                    helper: "original",
-                    drag: drag
-                });
-                //console.log($elmt.attr("id"));
+                    $open_bracket.css({
+                        left: ui.offset.left - $code.position().left,
+                        top: ui.offset.top - $code.position().top + 4
+                    });
+                    $close_bracket.css({
+                        left: ui.offset.left - $code.position().left,
+                        top: ui.offset.top - $code.position().top + 4
+                    });
+
+                    $($open_bracket, $code).draggable({
+                        cursor: "move",
+                        revert: "invalid",
+                        helper: "original",
+                        drag: drag
+                    });
+
+                    $($close_bracket, $code).draggable({
+                        cursor: "move",
+                        revert: "invalid",
+                        helper: "original",
+                        drag: drag
+                    });
+
+                    console.log($open_bracket, $close_bracket)
+                } else {
+                    $elmt.removeClass("ui-draggable-dragging");
+                    $code.append($elmt);
+
+                    $elmt.css({
+                        left: ui.offset.left - $code.position().left,
+                        top: ui.offset.top - $code.position().top + 4
+                    });
+
+                    $($elmt, $code).draggable({
+                        cursor: "move",
+                        revert: "invalid",
+                        helper: "original",
+                        drag: drag
+                    });
+
+                    //console.log($elmt.attr("id"));
+                }
             }
 
             if ($elmt.hasClass("magnet")) {
                 // 자석 기능
-                var $magnet = $code.find(".code-piece.magnet-bottom:first");
+                var $magnet = $code.find(".code-piece.magneted-bottom:first");
 
                 if ($magnet.length > 0) {
                     var npid = $magnet.attr("next-piece-id");
 
-                    $magnet
-                        .attr({
-                            "next-piece-id": $elmt.attr("id")
-                        });
-
-                    $elmt
-                        .attr({
-                            "prev-piece-id": $magnet.attr("id")
-                        });
+                    attach($magnet, $elmt);
 
                     if (npid) {
-                        var pid, $e = $elmt;
-
-                        while (pid = $e.attr("next-piece-id")) {
-                            $e = $("#" + pid);
-                        }
+                        var $e = last_piece($elmt);
 
                         var $next = $("#" + npid);
 
-                        $e
-                            .attr({
-                                "next-piece-id": npid
-                            });
-
-                        $next
-                            .attr({
-                                "prev-piece-id": $e.attr("id")
-                            })
+                        attach($e, $next);
                     }
                     extrude($magnet, $elmt);
                 }
 
-                $code.find(".code-piece").removeClass("magnet-bottom");
+                $code.find(".code-piece").removeClass("magneted-bottom");
             }
             releaseTogether($elmt);
         }
     });
 
-    $tools.droppable({
-        accept: ".code .code-piece",
-        drop : function (event, ui) {
-            ui.draggable.remove();
-        }
-    });
+    // 마지막 피스
+    function last_piece ($elmt)
+    {
+        var pid, $e = $elmt;
 
+        while (pid = $e.attr("next-piece-id")) {
+            $e = $("#" + pid);
+        }
+
+        return $e;
+    }
+
+    // 서로 붙힘
+    function attach ($elmt, $next)
+    {
+        $elmt
+            .attr({
+                "next-piece-id": $next.attr("id")
+            });
+
+        $next
+            .attr({
+                "prev-piece-id": $elmt.attr("id")
+            });
+    }
+
+    // 정렬
     function extrude ($prev, $this)
     {
+        var pos = position($prev, $code);
         $this
             .css({
-                left: $prev.position().left,
-                top: $prev.position().top + $prev.height() + 4
+                left: pos.left - $code.position().left,
+                top: pos.top - $code.position().top + $prev.height() + 4
             });
 
         var pid = $this.attr("next-piece-id");
@@ -133,9 +168,40 @@ $(function () {
         }
     }
 
+    $tools.droppable({
+        accept: ".code .code-piece",
+        drop : function (event, ui) {
+            ui.draggable.remove();
+        }
+    });
+
+    function position ($elmt, $parent) {
+        var result = {
+            left: $elmt.position().left,
+            right: $elmt.position().right,
+            top: $elmt.position().top,
+            bottom: $elmt.position().bottom
+        };
+
+        var $p = $elmt.parent();
+        while ($p && $p.attr("id") != $parent.attr("id")) {
+            result.left += $p.position().left;
+            result.right += $p.position().right;
+            result.top += $p.position().top;
+            result.bottom += $p.position().bottom;
+            $p = $p.parent();
+        }
+
+        result.left += $parent.position().left;
+        result.right += $parent.position().right;
+        result.top += $parent.position().top;
+        result.bottom += $parent.position().bottom;
+
+        return result;
+    }
     function drag (event, ui)
     {
-        var $elmts = $(".code .code-piece.magnet"),
+        var $elmts = $(".code .magnet"),
             $that = ui.helper;
         var ox = ui.offset.left,
             oy = ui.offset.top;
@@ -148,19 +214,20 @@ $(function () {
                 var $this = $($elmts[i]);
 
                 if ($this.attr("id") != $that.attr("id")) {
-                    var ex = $this.position().left + $code.position().left,
-                        ey = $this.position().top + $code.position().top,
+                    var epos = position($this, $code);
+                    var ex = epos.left,
+                        ey = epos.top,
                         ew = $this.width(),
                         eh = $this.height(),
                         aw = $that.width();
 
                     if (ey + eh - 5 <= oy && oy <= ey + eh + 15 &&
                         ex - aw - 5 <= ox && ox <= ex + ew + 5) {
-                        $elmts.removeClass("magnet-bottom");
-                        $this.addClass("magnet-bottom");
+                        $elmts.removeClass("magneted-bottom");
+                        $this.addClass("magneted-bottom");
                         break;
                     } else {
-                        $this.removeClass("magnet-bottom");
+                        $this.removeClass("magneted-bottom");
                     }
                 }
             }
@@ -176,6 +243,7 @@ $(function () {
                     .removeAttr("prev-piece-id");
             }
         }
+
         // 함께 이동
         moveTogether($that);
     }
@@ -184,12 +252,14 @@ $(function () {
     {
         var next_piece_id = $this.attr("next-piece-id");
         $this.addClass("dragging");
+        var pos = position($this, $code);
+        //console.log(pos)
         if (next_piece_id) {
             var $that = $("#" + next_piece_id);
 
             $that.css({
-                left: $this.position().left,
-                top: $this.position().top + $this.height() + 4
+                left: pos.left - $code.position().left,
+                top: pos.top - $code.position().top + $this.height() + 4
             });
 
             moveTogether($that);

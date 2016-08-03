@@ -17,6 +17,10 @@ $(function () {
 
         if ($elmt.hasClass("movement")) {
             $elmt_copy.attr("target-id", main_screen.select_img_id);
+        } else if ($elmt.hasClass("control")) {
+            $elmt_copy.find(".bracket").each(function () {
+                $(this).attr("id", scrc.util.uniqueId());
+            })
         }
 
         return $elmt_copy;
@@ -35,5 +39,13 @@ $(function () {
         .loadTemplate("template.code-piece.movement", function (template) {
             $(".toolbox[value=01]").append(template);
             blocks.draggable(".code-piece.movement", ".tools");
+        })
+        .loadTemplate("template.code-piece.event", function (template) {
+            $(".toolbox[value=01]").append(template);
+            blocks.draggable(".code-piece.event", ".tools");
+        })
+        .loadTemplate("template.code-piece.control", function (template) {
+            $(".toolbox[value=01]").append(template);
+            blocks.draggable(".code-piece.control", ".tools");
         });
 });
