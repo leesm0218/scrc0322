@@ -98,6 +98,20 @@ $(function () {
 
                     //console.log($elmt.attr("id"));
                 }
+            } else if (!$elmt.parent().is(".code")) {
+                var $outer_space = parents($elmt, ".space");
+
+                regulate(parents($outer_space, ".code>.code-piece"), $outer_space, {
+                    width: "-=" + ($outer_space.width() - $outer_space.find(".default").width()) + "px",
+                    height: "-=" + ($outer_space.height() - $(".element.space").height()) + "px"
+                });
+                var offset = $elmt.offset();
+                $code.append($elmt);
+                var epos = position($elmt, $code);
+                $elmt.css({
+                    left: (offset.left - $code.position().left) + "px",
+                    top: (offset.top - $code.position().top) + "px"
+                });
             }
 
             if ($elmt.hasClass("magnet")) {
@@ -120,10 +134,88 @@ $(function () {
                 }
 
                 $code.find(".code-piece").removeClass("magneted-bottom");
+            } else if ($elmt.hasClass("element")) {
+                var $space = $code.find(".space.in-space:first");
+
+                if ($space.length > 0) {
+                    var $parent = parents($space, ".code>.code-piece");
+
+                    //console.log($elmt.innerHeight(), $space.outerHeight(), $elmt.outerHeight() - $space.outerHeight())
+                    var $other_elmt = $space.find(".code-piece:visible:not(.default)");
+                    if ($other_elmt.length > 0) {
+                        $other_elmt.appendTo($code);
+                        $other_elmt.css({
+                            left: ($parent.offset().left - $code.position().left),
+                            top: ($parent.offset().top - $code.position().top)
+                        }).animate({
+                            left: ($parent.offset().left - $code.position().left - 20),
+                            top: ($parent.offset().top - $code.position().top + 30)
+                        }, 100)
+                    }
+                    $space.find(".default").hide();
+                    $space.append($elmt);
+                    $space.removeClass("in-space");
+                    $elmt.css({
+                        top: $space.css("top"),
+                        left: $space.css("left")
+                    });
+                    regulate($parent, $space, {
+                        width: "+=" + ($elmt.outerWidth() - $space.outerWidth()) + "px",
+                        height: "+=" + ($elmt.outerHeight() - $space.outerHeight()) + "px"
+                    });
+                }
             }
             releaseTogether($elmt);
         }
     });
+
+    var width_changed = true;
+    $(".column2").on("keypress", "input", function () {
+        if (width_changed) {
+            width_changed = false;
+            $(this).trigger("change");
+        }
+    });
+
+    $(".column2").on("keydown", "input", function () {
+        if (width_changed) {
+            width_changed = false;
+            $(this).trigger("change");
+        }
+    });
+
+    $(".column2").on("keyup", "input", function () {
+        if (width_changed) {
+            width_changed = false;
+            $(this).trigger("change");
+        }
+    });
+
+    $(".column2").on("change", "input", function () {
+        if (!width_changed) {
+            var $this = $(this);
+            $(".code").append("<div id='virtual_dom' style='display:inline-block; border: 0px;'>" + $this.val() + "</div>");
+            var inputWidth = $("#virtual_dom").width() + 4.0;
+            console.log(inputWidth - $this.width())
+            regulate(parents($this, ".tool>.code-piece, .code>.code-piece"), $this, {
+                width: "+=" + (inputWidth - $this.width())
+            }, 1);
+            $("#virtual_dom").remove();
+            width_changed = true;
+        }
+    });
+
+    function regulate ($parent, $elmt, css, delay)
+    {
+        delay = delay || 100;
+        var $e = $elmt;
+
+        $e.css(css);
+        do {
+            $e = $e.parent();
+            $e.animate(css, delay);
+        } while ($e.attr("id") != $parent.attr("id"));
+    }
 
     // 마지막 피스
     function last_piece ($elmt)
@@ -206,6 +298,16 @@ $(function () {
         var ox = ui.offset.left,
             oy = ui.offset.top;
 
+        // 자석 분리 시
+        var prev_piece_id = $that.attr("prev-piece-id");
+        if (prev_piece_id) {
+            $("#" + prev_piece_id)
+                .removeAttr("next-piece-id");
+
+            $that
+                .removeAttr("prev-piece-id");
+        }
+
         //$that.addClass("dragging");
         // 마그넷 기능
         //console.log("code-sec 내부 N: " + $elmts.length + "{");
@@ -231,22 +333,59 @@ $(function () {
             }
         }
         // console.log("}\n" + ox + ", " + oy);
+    }
 
-        // 자석 분리 시
-        var prev_piece_id = $that.attr("prev-piece-id");
-        if (prev_piece_id) {
-            $("#" + prev_piece_id)
-                .removeAttr("next-piece-id");
+    function checkElement (ui) {
+        var $spaces = $(".code .space"),
+            $that = ui.helper;
+        var ox = ui.offset.left,
+            oy = ui.offset.top;
 
-            $that
-                .removeAttr("prev-piece-id");
+        $spaces = $spaces.not($that.find(".space"));
+
+        var $outer_space = $that.parent();
+        if ($outer_space.is(".space")) {
+            $outer_space.find(">.default").show();
+        }
+        //$that.addClass("dragging");
+        // 마그넷 기능
+        //console.log("code-sec 내부 N: " + $elmts.length + "{");
+        for (var i = 0; i < $spaces.length; i++) {
+            var size = 999;
+            var $space = $($spaces[i]);
+
+            if ($space.attr("id") != $that.attr("id")) {
+                var epos = position($space, $code);
+                var offset = $space.offset();
+                var ex = offset.left,
+                    ey = offset.top,
+                    ew = $space.width(),
+                    eh = $space.height(),
+                    aw = $space.width();
+
+                console.log(i, ex, ey)
+                if (ey < oy && oy < ey + eh &&
+                    ex < ox && ox < ex + ew) {
+                    //console.log(eh + ew )
+                    if (eh + ew < size) {
+                        size = eh + ew;
+                        $spaces.removeClass("in-space");
+                        $space.addClass("in-space");
+                    }
+                } else {
+                    $space.removeClass("in-space");
+                }
+            }
         }
     }
+
     function checkConditions (ui) {
         var $that = ui.helper;
 
         if ($that.hasClass("magnet")) {
             checkMagnet(ui);
+        } else if ($that.hasClass("element")) {
+            checkElement(ui);
         }
     }
 

@@ -14,6 +14,7 @@ $(function () {
         $elmt = $elmt.clone ? $elmt : $($elmt);
 
         var $elmt_copy = $elmt.clone().attr("id", scrc.util.uniqueId());
+        console.log($elmt.css("width"));
 
         if ($elmt.hasClass("movement")) {
             $elmt_copy.attr("target-id", main_screen.select_img_id);

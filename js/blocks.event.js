@@ -18,10 +18,18 @@ $(function () {
             ".code-piece.movement.element"
         ].join(", "),
         function (event) {
-            var binary = scrc.namespace("blocks.calc");
-            var calc = binary[$(this).attr("calc")].calc;
+            var $this = $(this);
+            var $parent = $this.parents(".code-piece.element");
 
-            console.log(calc(this));
+            while ($parent.length != 0) {
+                $this = $parent;
+                $parent = $parent.parents(".code-piece.element");
+
+            }
+            var binary = scrc.namespace("blocks.calc");
+            var calc = binary[$this.attr("calc")].calc;
+
+            console.log(calc($this[0]));
             return false;
         });
 
