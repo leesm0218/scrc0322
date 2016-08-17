@@ -38,7 +38,7 @@ $(function () {
     // 따로 존재할 수 업고 항상 다른 엘리먼트의 안에 있다.
     // TODO: space element가 텅 비어 있으면 나타나고, 아니면 숨겨지는 식으로 구현할 것.
     scrc.namespace("blocks.calc.number").calc = function (elmt) {
-        return parseInt(elmt.value);
+        return parseFloat(elmt.value);
     };
 
     var calc = scrc.namespace("blocks.element.operator.binary").calc = function (elmt) {

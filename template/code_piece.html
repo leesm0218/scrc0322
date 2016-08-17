@@ -1,66 +1,81 @@
 <template class="code-piece event">
 	<span class="code-piece event magnet" action="start">
-		클릭했을 때
+		<pre class="text">클릭했을 때</pre>
 	</span>
 </template>
 
 <template class="code-piece control">
-	<span class="code-piece control magnet open bracket" action="endless-loop">무한 반복하기</span>
+	<span class="code-piece control magnet open bracket" action="endless-loop"><!--
+	---><pre class="text">무한 반복하기</pre><!--
+---></span>
 	<span class="code-piece control magnet close bracket" action="looping">¶</span>
 	<span class="code-piece control magnet" action="sleep">
-		<span class="element space">
-			<input class="default element number" type="text" calc="number" return-type="number" value="0"></span>
-		초 기다리기
+		<span class="element space"><!--
+		---><input class="default element number" type="text" calc="number" return-type="number" value="0"></span><!--
+	---><pre class="text">초 기다리기</pre>
 	</span>
 </template>
 <template class="code-piece operator">
 	<span class="code-piece binary operator element" calc="plus" return-type="number">
-		<span class="element space"><input class="default element number" calc="number" type="text" return-type="number" value="0"></span>＋<span class="element space"><input class="default element number" calc="number" type="text" return-type="number" value="0"></span>
+		<span class="element space"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">＋</pre><!--
+	---><span class="element space"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span>
 	</span>
 	<span class="code-piece binary operator element" calc="minus" return-type="number">
-		<span class="element space"><input class="default element number" calc="number" type="text" return-type="number" value="0"></span>－<span class="element space"><input class="default element number" calc="number" type="text" return-type="number" value="0"></span>
+		<span class="element space"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">－</pre><!--
+	---><span class="element space"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span>
 	</span>
 </template>
 
 <template class="code-piece movement">
 	<span class="code-piece movement magnet" action="move">
-		<span class="element space">
-			<input class="default element number" calc="number" type="text" return-type="number" value="0"></span>
-		만큼 움직이기
+		<span class="element space"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">만큼 움직이기</pre>
 	</span>
-	<span class="code-piece movement magnet" action="right-rotate">
-		오른쪽으로
-		<span class="element space">
-			<input class="default element number" calc="number" type="text" return-type="number" value="0"></span>
-		도 돌기
+	<span class="code-piece movement magnet" action="right-rotate"><!--
+	---><pre class="text">오른쪽으로 </pre><!--
+	---><span class="element space"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"></span><!--
+	---><pre class="text">도 돌기</pre>
 	</span>
-	<span class="code-piece movement magnet" action="left-rotate">
-		왼쪽으로
-		<span class="element space">
-			<input class="default element number" calc="number" type="text" return-type="number" value="0"></span>
-		도 돌기
+	<span class="code-piece movement magnet" action="left-rotate"><!--
+	---><pre class="text">왼쪽으로 </pre><!--
+	---><span class="element space"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"></span><!--
+	---><pre class="text">도 돌기</pre>
 	</span>
-	<span class="code-piece movement magnet" action="point-in-direction">
-		<span class="element space">
-			<input class="default element number" calc="number" type="text" return-type="number" value="0"></span>
-		도 방향 보기
+	<span class="code-piece movement magnet" action="point-in-direction"><!--
+	--><span class="element space"><!--
+		--><input class="default element number" calc="number" type="text" return-type="number" value="0"></span><!--
+	--><pre class="text">도 방향 보기</pre>
 	</span>
-	<span class="code-piece movement magnet" action="rach-gu">
-		x:
-		<span class="element space">
-			<input class="default element number" calc="number" type="text" return-type="number" value="0"></span>
-		y:
-		<span class="element space">
-			<input class="default element number" calc="number" type="text" return-type="number" value="0"></span>
-		로 이동하기
+	<span class="code-piece movement magnet" action="rach-gu"><!--
+	--><pre class="text">x: </pre><!--
+	--><span class="element space"><!--
+		--><input class="default element number" calc="number" type="text" return-type="number" value="0"></span><!--
+	--><pre class="text"> y: </pre><!--
+	--><span class="element space"><!--
+		--><input class="default element number" calc="number" type="text" return-type="number" value="0"></span><!--
+	--><pre class="text">로 이동하기</pre>
 	</span>
 	<span class="code-piece movement element" calc="x-position">
-		x좌표
+		<pre class="text">x좌표</pre>
 	</span>
 	<span class="code-piece movement element" calc="y-position">
-		y좌표
+		<pre class="text">y좌표</pre>
 	</span>
 	<span class="code-piece movement element" calc="comhair">
-		방향
+		<pre class="text">방향</pre>
 	</span>
 </template>

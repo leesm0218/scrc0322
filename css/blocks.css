@@ -1,5 +1,4 @@
-.code-piece { display: inline-block; position : absolute; padding:2px; margin: 5px;
-    color:white; cursor:pointer; z-index: 4; border: none; height: auto; }
+.code-piece { display: inline-block; position : relative; color:white; cursor:pointer; z-index: 4; border: none; height: auto; }
 
 .code-piece.movement.mouseover.dragging:not(.acting) {
     box-shadow: 0px 0px 5px 0px dodgerblue, 5px 5px 3px 0px dimgray;
@@ -53,8 +52,6 @@
 }
 .code .code-piece.draging { z-index: 5; }
 
-.code .code-piece { position: relative; }
-.tools .code-piece { position: relative; margin-right: auto; }
 
 
 .code-piece.operator { background-color:forestgreen; }
@@ -75,38 +72,52 @@
     box-shadow: 0 0 0 1px white, 0 0 0 2px silver; z-index: 3;
 }
 
-.code-piece.element { vertical-align: middle; }
-.code-piece.element * { text-align: left; }
-.element { box-sizing: border-box; left: auto; right: auto; width: auto; vertical-align: top; }
+.element {left: auto; right: auto; width: auto; vertical-align: top; }
 .element.plus { }
 .element.space { display: inline-block; }
-.element.space .element { margin: 0px; }
+.element.space>.element { margin: 0px; }
 /*.element.space { display: inline; background-color:gray; height: 10px; width: 30px; box-sizing: border-box; }*/
-.default.element { background-color:white; margin:0; border:0; padding:0 2px; color:black; width:21px; white-space: nowrap; font-size: larger; }
+
+
+.element.space>.code-piece.element:not(.default) { border: 1px rgba(255, 255, 255, .5) outset; margin: -1px; }
+
+
+
+/*.operator[calc=plus] { width: 67px; height: 27px; }*/
+/*.operator[calc=minus] { width: 67px; height: 27px; }*/
+/*.movement[action=move] { width: 134px; height: 27px; }*/
+/*.movement[action=right-rotate] { width: 172px; height: 27px; }*/
+/*.movement[action=left-rotate] { width: 156px; height: 27px; }*/
+/*.movement[action=point-in-direction] { width: 124px; height: 27px; }*/
+/*.movement[action=rach-gu] { width: 180px; height: 27px; }*/
+/*.movement[calc=x-position] { width: 46px; height: 27px; }*/
+/*.movement[calc=y-position] { width: 46px; height: 27px; }*/
+/*.movement[calc=comhair] { width: 38px; height: 27px; }*/
+/*.event[action=start] { width: 90px; height: 27px; }*/
+/*.control[action=endless-loop] { width: 117px; height: 27px; }*/
+/*.control[action=looping] { width: 117px; height: 27px; }*/
+/*.control[action=sleep] { width: 117px; height: 27px; }*/
+
+
+.code-piece[deep-count="0"] {  }
+.code-piece[deep-count="1"] { border-left: 15px darkorange inset; }
+.code-piece[deep-count="2"] { border-left: 25px darkorange inset; }
+.code-piece[deep-count="3"] { border-left: 35px darkorange inset; }
+.code-piece[deep-count="4"] { border-left: 45px darkorange inset; }
+.code-piece[deep-count="5"] { border-left: 55px darkorange inset; }
+
+
+.code .code-piece { }
+.tools .code-piece { margin-right: auto; margin: 5px 5px 5px 5px; }
+.code-piece { position: relative; padding: 2px; }
+.code-piece>* { box-sizing: border-box; position: relative; }
+
+.code-piece>.space { margin: 0px; border: 0px; padding: 0px; background-color: black; }
+.code-piece { display: flex; align-items: center; }
+.space>.element { }
+
+
+.space>input { width:16px; height: 20px; margin: 0px; border: 0px; padding: 0 2px; font-size: larger; }
+pre.text { display: inline-block; margin: 0; border: 0; padding: 0; width: auto; height: 20px; font-size: medium; font-family: inherit; font-weight: inherit; }
 
 #virtual_dom { margin:0; border:0; padding:0; white-space: nowrap; font-size: larger; }
-
-.code-piece .element.space { border: 1px transparent outset;
-    margin: -0.5px; }
-.element.space .element:not(.default) { border: 1px transparent outset;
-    margin: -0.5px; }
-.element.space .code-piece.element { border: 1px rgba(255, 255, 255, .5) outset;
-    margin: -0.5px; }
-
-.element.space>input { vertical-align: middle; }
-
-.element.space { width: 23px; height: 27px; vertical-align: middle; }
-.operator[calc=plus] { width: 66px; height: 30px; }
-.operator[calc=minus] { width: 66px; height: 30px; }
-.movement[action=move] { width: 134px; }
-.movement[action=right-rotate] { width: 172px; }
-.movement[action=left-rotate] { width: 156px; }
-.movement[action=point-in-direction] { width: 124px; }
-.movement[action=rach-gu] { width: 180px; }
-.movement[action=x-position] { width: 44px; }
-.movement[action=y-position] { width: 44px; }
-.movement[action=comhair] { width: 36px; }
-.event[action=start] { width: 90px; }
-.control[action=endless-loop] { width: 117px; }
-.control[action=looping] { width: 117px; }
-.control[action=sleep] { width: 117px; }

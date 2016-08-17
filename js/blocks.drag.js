@@ -10,26 +10,18 @@ $(function () {
     var $tools = $workmenu.find(".tools");
     var $code = $workmenu.find(".code");
 
-    var parents = function  (target, parent) {
-        var $target = $(target);
-
-        if (!$target.is(parent)) {
-            $target = $target.parents(parent);
-        }
-
-        return $target;
-    };
 
     $workmenu
         .on("mouseover", ".code-piece", function (event) {
             //console.log("mouseover");
-            parents(event.target, ".code-piece").addClass("mouseover");
+            util.parents(event.target, ".code-piece").addClass("mouseover");
         })
         .on("mouseout", ".code-piece", function (event) {
-            parents(event.target, ".code-piece").removeClass("mouseover");
+            util.parents(event.target, ".code-piece").removeClass("mouseover");
         });
 
     blocks.draggable = function (e, p) {
+        console.log(e, p)
         $(e, p).draggable({
             cursor: "move",
             //addClasses : ".dragging",
@@ -38,7 +30,7 @@ $(function () {
         });
     };
 
-    blocks.draggable(".code-piece", $tools);
+    //blocks.draggable(".code-piece", $tools);
 
     $code.droppable({
         accept : ".workmenu .code-piece",
@@ -47,7 +39,7 @@ $(function () {
             var $elmt = ui.helper;
 
             // 새것이라면 클론 생성
-            if (parents($elmt, ".tools").is(".tools")) {
+            if (util.parents($elmt, ".tools").is(".tools")) {
                 $elmt = scrc.blocks.create($elmt);
 
                 if ($elmt.hasClass("bracketed")) {
@@ -99,9 +91,10 @@ $(function () {
                     //console.log($elmt.attr("id"));
                 }
             } else if (!$elmt.parent().is(".code")) {
-                var $outer_space = parents($elmt, ".space");
+                var $outer_space = util.parents($elmt, ".space");
 
-                regulate(parents($outer_space, ".code>.code-piece"), $outer_space, {
+                blocks.resizing(util.parents($outer_space, ".code>.code-piece"))
+                regulate(util.parents($outer_space, ".code>.code-piece"), $outer_space, {
                     width: "-=" + ($outer_space.width() - $outer_space.find(".default").width()) + "px",
                     height: "-=" + ($outer_space.height() - $(".element.space").height()) + "px"
                 });
@@ -131,6 +124,21 @@ $(function () {
                         attach($e, $next);
                     }
                     extrude($magnet, $elmt);
+
+                    var deep_count = parseInt($magnet.attr("deep-count")) || 0;
+                    if ($magnet.hasClass("open")) {
+                        if ($elmt.hasClass("close")) {
+                            $elmt.attr("deep-count", deep_count);
+                        } else {
+                            $elmt.attr("deep-count", deep_count + 1);
+                        }
+                    } else if ($elmt.hasClass("close")) {
+                        $elmt.attr("deep-count", deep_count - 1);
+                    } else {
+                        $elmt.attr("deep-count", deep_count);
+                    }
+                } else {
+                    $elmt.attr("deep-count", 0);
                 }
 
                 $code.find(".code-piece").removeClass("magneted-bottom");
@@ -138,7 +146,7 @@ $(function () {
                 var $space = $code.find(".space.in-space:first");
 
                 if ($space.length > 0) {
-                    var $parent = parents($space, ".code>.code-piece");
+                    var $parent = util.parents($space, ".code>.code-piece");
 
                     //console.log($elmt.innerHeight(), $space.outerHeight(), $elmt.outerHeight() - $space.outerHeight())
                     var $other_elmt = $space.find(".code-piece:visible:not(.default)");
@@ -159,12 +167,14 @@ $(function () {
                         top: $space.css("top"),
                         left: $space.css("left")
                     });
+                    blocks.resizing($parent)
                     regulate($parent, $space, {
                         width: "+=" + ($elmt.outerWidth() - $space.outerWidth()) + "px",
                         height: "+=" + ($elmt.outerHeight() - $space.outerHeight()) + "px"
                     });
                 }
             }
+
             releaseTogether($elmt);
         }
     });
@@ -197,7 +207,8 @@ $(function () {
             $(".code").append("<div id='virtual_dom' style='display:inline-block; border: 0px;'>" + $this.val() + "</div>");
             var inputWidth = $("#virtual_dom").width() + 4.0;
             console.log(inputWidth - $this.width())
-            regulate(parents($this, ".tool>.code-piece, .code>.code-piece"), $this, {
+            blocks.resizing(util.parents($this, ".tool>.code-piece, .code>.code-piece"))
+            regulate(util.parents($this, ".tool>.code-piece, .code>.code-piece"), $this, {
                 width: "+=" + (inputWidth - $this.width())
             }, 1);
             $("#virtual_dom").remove();
@@ -208,13 +219,31 @@ $(function () {
     function regulate ($parent, $elmt, css, delay)
     {
         delay = delay || 100;
-        var $e = $elmt;
+        var $e = $elmt, $p = $e.parent();
+        var old_width = $e.width();
+        var old_height = $e.height();
 
+        console.log("start")
         $e.css(css);
-        do {
-            $e = $e.parent();
-            $e.animate(css, delay);
-        } while ($e.attr("id") != $parent.attr("id"));
+        /*do {
+            //console.log($p.width(), $e.width(), old_width, $p.width() + $e.width() - old_width)
+            //console.log($p.height(), $e.height(), old_height, $p.height() + $e.height() - old_height)
+            var new_width = $p.width() + $e.width() - old_width;
+            var new_height = $p.height() + $e.height() - old_height;
+            old_width = $e.width();
+            old_height = $e.height();
+            //console.log(new_width, new_height)
+            $p.css({
+                width: new_width + "px",
+                height: new_height + "px"
+            }, delay);
+            $e = $p;
+            $p = $e.parent();
+            var k=999999999;
+            while(--k);
+            console.log($e, $p.attr("id"), $parent.attr("id"), $p.attr("id") != $parent.attr("id"))
+        } while ($p.attr("id") != $parent.attr("id"));
+        console.log("done")*/
     }
 
     // 마지막 피스
@@ -391,6 +420,7 @@ $(function () {
 
     function drag (event, ui)
     {
+        console.log("drag start")
         var $that = ui.helper;
 
         checkConditions(ui);
@@ -406,14 +436,16 @@ $(function () {
         var pos = position($this, $code);
         //console.log(pos)
         if (next_piece_id) {
-            var $that = $("#" + next_piece_id);
+            var $that = $("#" + next_piece_id + ":visible");
 
-            $that.css({
-                left: pos.left - $code.position().left,
-                top: pos.top - $code.position().top + $this.height() + 4
-            });
+            if ($that.length > 0) {
+                $that.css({
+                    left: pos.left - $code.position().left,
+                    top: pos.top - $code.position().top + $this.height() + 4
+                });
 
-            moveTogether($that);
+                moveTogether($that);
+            }
         }
     }
 
