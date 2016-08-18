@@ -29,7 +29,6 @@ html{
 	display:flex; flex-wrap: nowrap;
 }
 
-
 .column1 {
 	flex:1; max-width:480px;
 	display:flex; flex-direction: column; flex-wrap: nowrap;
@@ -98,21 +97,27 @@ html{
 
 
 .column2 {
-	flex:1; 
+	flex:1; margin-left:10px;
 	display:flex;  flex-direction: column; flex-wrap: nowrap;
 }
 .workmenulabels{
 	width:100%; min-height:27px; max-height:27px; 
-	margin:0px; border:0px solid #c00;
+	margin:0px; border-bottom:2px solid #ccc;
+	display:flex;  flex-direction: row; flex-wrap: nowrap;
 }
 .workmenulabels label{
-	margin:0px; padding:0px; border:0px solid #c00;
+	margin:0px; padding:0px; border:2px solid #ccc; border-bottom: 2px solid #ccc; margin-bottom: -2px;
 }
+
+.workmenulabels label::active {
+	margin:0px; padding:0px; border:2px solid #ccc; border-bottom: 2px solid #FFFFFF; margin-bottom: -2px;
+}
+
 .workmenus{
 	visibility: visible; 
 	flex:1; 
 	min-width:0px; max-width:none; min-height:0px; max-height:none; 
-	border:0px solid #ccc;
+	border:2px solid #ccc; border-top: 0px solid #C00;
 	display:flex;  flex-direction: column; flex-wrap: nowrap;
 }
 .workmenus div[name = workmenu-hidden]{
@@ -164,7 +169,7 @@ html{
 	margin:0px; border:0px solid #c00;
 }
 .code{
-	visibility: inherit; 
+	visibility: inherit; margin:5px;
 	flex:1; display:flex;  flex-direction: row; flex-wrap: nowrap; background-color: #dddede;
 }
 
