@@ -21,7 +21,6 @@ $(function () {
         });
 
     blocks.draggable = function (e, p) {
-        console.log(e, p)
         $(e, p).draggable({
             cursor: "move",
             //addClasses : ".dragging",
@@ -92,21 +91,17 @@ $(function () {
                 }
                 blocks.resizing($elmt)
             } else if (!$elmt.parent().is(".code")) {
-                var $outer_space = util.parents($elmt, ".space");
-
-                /*regulate(util.parents($outer_space, ".code>.code-piece"), $outer_space, {
-                    width: "-=" + ($outer_space.width() - $outer_space.find(".default").width()) + "px",
-                    height: "-=" + ($outer_space.height() - $(".element.space").height()) + "px"
-                });*/
+                var $outer_space = util.parents($elmt, ".space:first");
                 var offset = $elmt.offset();
+
                 $code.append($elmt);
-                var epos = position($elmt, $code);
                 $elmt.css({
                     left: (offset.left - $code.position().left) + "px",
                     top: (offset.top - $code.position().top) + "px"
                 });
-                blocks.resizing($outer_space)
-                blocks.resizing($elmt)
+
+                blocks.resizing($outer_space);
+                blocks.resizing($elmt);
             }
 
             if ($elmt.hasClass("magnet")) {
@@ -378,14 +373,14 @@ $(function () {
         if ($outer_space.is(".space")) {
             $outer_space.find(">.default").show();
         }
-        //$that.addClass("dragging");
+
         // 마그넷 기능
-        //console.log("code-sec 내부 N: " + $elmts.length + "{");
+
         for (var i = 0; i < $spaces.length; i++) {
             var size = 999;
             var $space = $($spaces[i]);
 
-            if ($space.attr("id") != $that.attr("id")) {
+            if ($that.attr("id") == undefined || $space.attr("id") != $that.attr("id")) {
                 var epos = position($space, $code);
                 var offset = $space.offset();
                 var ex = offset.left,
@@ -394,7 +389,6 @@ $(function () {
                     eh = $space.height(),
                     aw = $space.width();
 
-                console.log(i, ex, ey)
                 if (ey < oy && oy < ey + eh &&
                     ex < ox && ox < ex + ew) {
                     //console.log(eh + ew )
@@ -422,7 +416,7 @@ $(function () {
 
     function drag (event, ui)
     {
-        console.log("drag start")
+        // console.log("drag start")
         var $that = ui.helper;
 
         checkConditions(ui);

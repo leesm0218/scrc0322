@@ -15,7 +15,7 @@ $(function () {
         $elmt = $elmt.clone ? $elmt : $($elmt);
 
         var $elmt_copy = $elmt.clone().attr("id", scrc.util.uniqueId());
-        console.log($elmt.css("width"));
+        // console.log($elmt.css("width"));
 
         if ($elmt.hasClass("code-piece")) {
             $elmt_copy.attr("target-id", main_screen.select_img_id);
@@ -28,7 +28,7 @@ $(function () {
         return $elmt_copy;
     };
 
-    function resize_ ($elmt) {
+    function resize ($elmt) {
         var child_size = {
             width: 0,
             height: 0
@@ -37,9 +37,9 @@ $(function () {
         if ($elmt.is(".element.default:visible, .text:visible")) {
             return;
         } else if ($elmt.is(".space")) {
-            var $e = $elmt.find(":visible:first");
+            var $e = $elmt.find(">:visible:first");
 
-            resize_($e);
+            resize($e);
             $e.css({
                 top: 0 + "px",
                 left: 0 + "px"
@@ -53,7 +53,7 @@ $(function () {
             $elmt.find(">.space, >.text").each(function (i, e) {
                 var $e = $(e);
 
-                resize_($e);
+                resize($e);
                 $e.css({
                     //top: padding + "px",
                     left: (child_size.width + padding) + "px"
@@ -66,52 +66,23 @@ $(function () {
             child_size.height += 2 * padding;
         }
 
+        //console.log($elmt, child_size)
         $elmt.css({
             width: child_size.width,
             height: child_size.height
         })
     }
-    function resize ($elmt) {
-        var child_size = {
-            width: 0,
-            height: 0
-        };
-
-        var $childs = $elmt.find(">*:not(:hidden)");
-
-        console.log("$childs.length: " + $childs.length);
-        if ($childs.length) {
-            $childs.each(function (i, e) {
-                var $e = $(e);
-
-                resize($e);
-
-                child_size.width += $e.outerWidth();
-                child_size.height = util.max(child_size.height, $e.outerHeight());
-                console.log(child_size.width, child_size.height)
-            });
-            $elmt.css({
-                width: (($elmt.outerWidth() - $elmt.width()) + child_size.width) + "px",
-                height: child_size.height + "px"
-            })
-        }
-    }
 
     blocks.resizing = function ($elmt) {
-        console.log("resize start", $elmt)
         $elmt = $($elmt);
         while(!$elmt.is(".toolbox .code-piece, .code>.code-piece")) {
+            console.log($elmt)
             $elmt = $elmt.parent();;
         }
-        resize_($elmt);
-        /*$elmt.each(function (i, e) {
-            var $e = $(e);
-            var $root = util.parents($e, ".toolbox .code-piece, .code>.code-piece");
-
-            console.log("root", $root)
-            resize($root);
-        });*/
-    }
+        console.log($elmt)
+        resize($elmt);
+        console.log("-------------------------")
+    };
 
     blocks.addUl = function (e, toolbox) {
         var $toolbox = $(toolbox);
