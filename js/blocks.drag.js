@@ -165,7 +165,7 @@ $(function () {
                 }
             }
 
-            //extrude($elmt);
+            extrude($elmt);
             releaseTogether($elmt);
             $(".mouseover").removeClass("mouseover");
         }
@@ -467,12 +467,4 @@ $(function () {
             releaseTogether($that);
         }
     }
-
-    setInterval(function () {
-        $code.find(">.code-piece").each(function (i, e) {
-            var $e = $(e);
-
-            extrude($e);
-        });
-    }, 16);
 });
