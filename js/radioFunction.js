@@ -16,8 +16,12 @@
         });
     });
 	
-	$(document).ready(function () {
-        $("label[name=toolbox]").bind("click", function(){
-			$(this).css("border-bottom","2px solid #FFFFFF").siblings().css("border-bottom","2px solid #ccc"); 
-        });
+	$(function(){
+		$("label[name=toolbox]").each(function(){
+			var temp0 = $(this).css("background");
+			var temp1 = $(this).css("background").split("%)");
+			var temp2 = (temp1[0]+"%,").split("rgb");
+			var tempcss = "rgb" + temp2[1] + "rgb" +temp2[parseInt($(this).attr( 'value' ))+2] + "rgb(255,255,255) 0%," +"rgb" + temp2[2].split("%,")[0]+"%)" + temp1[1];
+			$(this).css("background", tempcss); 
+		});
     });
