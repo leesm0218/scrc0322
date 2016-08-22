@@ -76,12 +76,9 @@ $(function () {
     blocks.resizing = function ($elmt) {
         $elmt = $($elmt);
         while(!$elmt.is(".toolbox .code-piece, .code>.code-piece")) {
-            console.log($elmt)
             $elmt = $elmt.parent();;
         }
-        console.log($elmt)
         resize($elmt);
-        console.log("-------------------------")
     };
 
     blocks.addUl = function (e, toolbox) {
