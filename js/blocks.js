@@ -28,6 +28,49 @@ $(function () {
         return $elmt_copy;
     };
 
+    function resize_ ($elmt) {
+        var child_size = {
+            width: 0,
+            height: 0
+        };
+
+        if ($elmt.is(".element.default:visible, .text:visible")) {
+            return;
+        } else if ($elmt.is(".space")) {
+            var $e = $elmt.find(":visible:first");
+
+            resize_($e);
+            $e.css({
+                top: 0 + "px",
+                left: 0 + "px"
+            });
+
+            child_size.width += $e.outerWidth();
+            child_size.height = util.max(child_size.height, $e.outerHeight());
+        } else {
+            var padding = 2;
+
+            $elmt.find(">.space, >.text").each(function (i, e) {
+                var $e = $(e);
+
+                resize_($e);
+                $e.css({
+                    //top: padding + "px",
+                    left: (child_size.width + padding) + "px"
+                });
+
+                child_size.width += $e.outerWidth() + padding;
+                child_size.height = util.max(child_size.height, $e.outerHeight());
+            });
+            child_size.width += padding;
+            child_size.height += 2 * padding;
+        }
+
+        $elmt.css({
+            width: child_size.width,
+            height: child_size.height
+        })
+    }
     function resize ($elmt) {
         var child_size = {
             width: 0,
@@ -57,13 +100,28 @@ $(function () {
     blocks.resizing = function ($elmt) {
         console.log("resize start", $elmt)
         $elmt = $($elmt);
-        $elmt.each(function (i, e) {
+        while(!$elmt.is(".toolbox .code-piece, .code>.code-piece")) {
+            $elmt = $elmt.parent();;
+        }
+        resize_($elmt);
+        /*$elmt.each(function (i, e) {
             var $e = $(e);
-            var $root = util.parents($e, ".tools .code-piece, .code>.code-piece");
+            var $root = util.parents($e, ".toolbox .code-piece, .code>.code-piece");
 
             console.log("root", $root)
             resize($root);
-        });
+        });*/
+    }
+
+    blocks.addUl = function (e, toolbox) {
+        var $toolbox = $(toolbox);
+
+        var $table = $toolbox.find("ul");
+        if ($table.length == 0) {
+            $table = $toolbox.append("<ul>").find("ul");
+        }
+
+        $table.append($("<li>").append(e));
     }
 });
 
@@ -73,23 +131,39 @@ $(function () {
 
     util
         .loadTemplate("template.code-piece.operator", function (template) {
-            $(".toolbox[value=01]").append(template);
-            blocks.draggable(".code-piece.operator", ".tools");
-            blocks.resizing(".tools .code-piece.operator");
+            var $div = $("<div>").append(template);
+
+            $div.find(">*").each(function (i, e) {
+                blocks.addUl(e, ".toolbox[value=01]");
+                blocks.draggable(e, ".toolbox");
+                blocks.resizing(e);
+            });
         })
         .loadTemplate("template.code-piece.movement", function (template) {
-            $(".toolbox[value=01]").append(template);
-            blocks.draggable(".code-piece.movement", ".tools");
-            blocks.resizing(".tools .code-piece.movement");
+            var $div = $("<div>").append(template);
+
+            $div.find(">*").each(function (i, e) {
+                blocks.addUl(e, ".toolbox[value=01]");
+                blocks.draggable(e, ".toolbox");
+                blocks.resizing(e);
+            })
         })
         .loadTemplate("template.code-piece.event", function (template) {
-            $(".toolbox[value=01]").append(template);
-            blocks.draggable(".code-piece.event", ".tools");
-            blocks.resizing(".tools .code-piece.event");
+            var $div = $("<div>").append(template);
+
+            $div.find(">*").each(function (i, e) {
+                blocks.addUl(e, ".toolbox[value=01]");
+                blocks.draggable(e, ".toolbox");
+                blocks.resizing(e);
+            });
         })
         .loadTemplate("template.code-piece.control", function (template) {
-            $(".toolbox[value=01]").append(template);
-            blocks.draggable(".code-piece.control", ".tools");
-            blocks.resizing(".tools .code-piece.control");
+            var $div = $("<div>").append(template);
+
+            $div.find(">*").each(function (i, e) {
+                blocks.addUl(e, ".toolbox[value=01]");
+                blocks.draggable(e, ".toolbox");
+                blocks.resizing(e);
+            });
         });
 });

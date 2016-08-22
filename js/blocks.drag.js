@@ -78,7 +78,7 @@ $(function () {
 
                     $elmt.css({
                         left: ui.offset.left - $code.position().left,
-                        top: ui.offset.top - $code.position().top + 4
+                        top: ui.offset.top - $code.position().top + 1
                     });
 
                     $($elmt, $code).draggable({
@@ -90,14 +90,14 @@ $(function () {
 
                     //console.log($elmt.attr("id"));
                 }
+                blocks.resizing($elmt)
             } else if (!$elmt.parent().is(".code")) {
                 var $outer_space = util.parents($elmt, ".space");
 
-                blocks.resizing(util.parents($outer_space, ".code>.code-piece"))
-                regulate(util.parents($outer_space, ".code>.code-piece"), $outer_space, {
+                /*regulate(util.parents($outer_space, ".code>.code-piece"), $outer_space, {
                     width: "-=" + ($outer_space.width() - $outer_space.find(".default").width()) + "px",
                     height: "-=" + ($outer_space.height() - $(".element.space").height()) + "px"
-                });
+                });*/
                 var offset = $elmt.offset();
                 $code.append($elmt);
                 var epos = position($elmt, $code);
@@ -105,6 +105,8 @@ $(function () {
                     left: (offset.left - $code.position().left) + "px",
                     top: (offset.top - $code.position().top) + "px"
                 });
+                blocks.resizing($outer_space)
+                blocks.resizing($elmt)
             }
 
             if ($elmt.hasClass("magnet")) {
@@ -163,15 +165,15 @@ $(function () {
                     $space.find(".default").hide();
                     $space.append($elmt);
                     $space.removeClass("in-space");
-                    $elmt.css({
+                    /*$elmt.css({
                         top: $space.css("top"),
                         left: $space.css("left")
-                    });
+                    });*/
                     blocks.resizing($parent)
-                    regulate($parent, $space, {
+                    /*regulate($parent, $space, {
                         width: "+=" + ($elmt.outerWidth() - $space.outerWidth()) + "px",
                         height: "+=" + ($elmt.outerHeight() - $space.outerHeight()) + "px"
-                    });
+                    });*/
                 }
             }
 
@@ -201,20 +203,20 @@ $(function () {
         }
     });
 
-    $(".column2").on("change", "input", function () {
+    /*$(".column2").on("change", "input", function () {
         if (!width_changed) {
             var $this = $(this);
             $(".code").append("<div id='virtual_dom' style='display:inline-block; border: 0px;'>" + $this.val() + "</div>");
             var inputWidth = $("#virtual_dom").width() + 4.0;
             console.log(inputWidth - $this.width())
-            blocks.resizing(util.parents($this, ".tool>.code-piece, .code>.code-piece"))
-            regulate(util.parents($this, ".tool>.code-piece, .code>.code-piece"), $this, {
-                width: "+=" + (inputWidth - $this.width())
-            }, 1);
+            blocks.resizing(util.parents($this, ".toolbox>.code-piece, .code>.code-piece"))
+            //regulate(util.parents($this, ".tool>.code-piece, .code>.code-piece"), $this, {
+            //    width: "+=" + (inputWidth - $this.width())
+            //}, 1);
             $("#virtual_dom").remove();
             width_changed = true;
         }
-    });
+    });*/
 
     function regulate ($parent, $elmt, css, delay)
     {
@@ -279,7 +281,7 @@ $(function () {
         $this
             .css({
                 left: pos.left - $code.position().left,
-                top: pos.top - $code.position().top + $prev.height() + 4
+                top: pos.top - $code.position().top + $prev.height() + 1
             });
 
         var pid = $this.attr("next-piece-id");
@@ -441,7 +443,7 @@ $(function () {
             if ($that.length > 0) {
                 $that.css({
                     left: pos.left - $code.position().left,
-                    top: pos.top - $code.position().top + $this.height() + 4
+                    top: pos.top - $code.position().top + $this.height() + 1
                 });
 
                 moveTogether($that);
