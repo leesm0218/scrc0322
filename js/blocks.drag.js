@@ -14,10 +14,12 @@ $(function () {
     $workmenu
         .on("mouseover", ".code-piece", function (event) {
             //console.log("mouseover");
-            util.parents(event.target, ".code-piece").addClass("mouseover");
+            $(".mouseover").removeClass("mouseover");
+            $(util.parents(event.target, ".code-piece")[0]).addClass("mouseover");
         })
-        .on("mouseout", ".code-piece", function (event) {
-            util.parents(event.target, ".code-piece").removeClass("mouseover");
+        .on("mouseleave", ".code-piece", function (event) {
+            $(".mouseover").removeClass("mouseover");
+            //util.parents(event.target, ".code-piece").removeClass("mouseover");
         });
 
     blocks.draggable = function (e, p) {
@@ -77,7 +79,7 @@ $(function () {
 
                     $elmt.css({
                         left: ui.offset.left - $code.position().left,
-                        top: ui.offset.top - $code.position().top + 1
+                        top: ui.offset.top - $code.position().top
                     });
 
                     $($elmt, $code).draggable({
@@ -120,7 +122,6 @@ $(function () {
 
                         attach($e, $next);
                     }
-                    extrude($magnet, $elmt);
 
                     var deep_count = parseInt($magnet.attr("deep-count")) || 0;
                     if ($magnet.hasClass("open")) {
@@ -145,34 +146,28 @@ $(function () {
                 if ($space.length > 0) {
                     var $parent = util.parents($space, ".code>.code-piece");
 
-                    //console.log($elmt.innerHeight(), $space.outerHeight(), $elmt.outerHeight() - $space.outerHeight())
-                    var $other_elmt = $space.find(".code-piece:visible:not(.default)");
+                    var $other_elmt = $space.find(".code-piece:visible:not(.default):first");
                     if ($other_elmt.length > 0) {
-                        $other_elmt.appendTo($code);
+                        $code.append($other_elmt[0]);
                         $other_elmt.css({
                             left: ($parent.offset().left - $code.position().left),
                             top: ($parent.offset().top - $code.position().top)
                         }).animate({
                             left: ($parent.offset().left - $code.position().left - 20),
                             top: ($parent.offset().top - $code.position().top + 30)
-                        }, 100)
+                        }, 100);
+                        blocks.resizing($other_elmt);
                     }
                     $space.find(".default").hide();
                     $space.append($elmt);
                     $space.removeClass("in-space");
-                    /*$elmt.css({
-                        top: $space.css("top"),
-                        left: $space.css("left")
-                    });*/
-                    blocks.resizing($parent)
-                    /*regulate($parent, $space, {
-                        width: "+=" + ($elmt.outerWidth() - $space.outerWidth()) + "px",
-                        height: "+=" + ($elmt.outerHeight() - $space.outerHeight()) + "px"
-                    });*/
+                    blocks.resizing($parent);
                 }
             }
 
+            //extrude($elmt);
             releaseTogether($elmt);
+            $(".mouseover").removeClass("mouseover");
         }
     });
 
@@ -270,28 +265,44 @@ $(function () {
     }
 
     // 정렬
-    function extrude ($prev, $this)
-    {
-        var pos = position($prev, $code);
-        $this
-            .css({
-                left: pos.left - $code.position().left,
-                top: pos.top - $code.position().top + $prev.height() + 1
-            });
+    function extrude ($elmt) {
+        var $elmt = util.parents($elmt, ".code>.code-piece");
 
-        var pid = $this.attr("next-piece-id");
+        var pid;
 
-        if (pid) {
-            extrude($this, $("#" + pid));
+        while (pid = $elmt.attr("prev-piece-id")) {
+            $elmt = $("#" + pid);
+        }
+
+        var $prev = $elmt;
+
+        while (pid = $elmt.attr("next-piece-id")) {
+            $elmt = $("#" + pid);
+
+            var pos = position($prev, $code);
+            $elmt
+                .css({
+                    left: pos.left - $code.position().left,
+                    top: pos.top - $code.position().top + $prev.height() + 1
+                });
+            $prev = $elmt;
         }
     }
 
     $tools.droppable({
         accept: ".code .code-piece",
         drop : function (event, ui) {
-            ui.draggable.remove();
+            remove(ui.helper)
         }
     });
+
+    function remove ($elmt) {
+        while ($elmt.length > 0) {
+            $elmt.remove();
+            var pid = $elmt.attr("next-piece-id")
+            $elmt = $("#" + pid);
+        }
+    }
 
     function position ($elmt, $parent) {
         var result = {
@@ -427,6 +438,7 @@ $(function () {
 
     function moveTogether ($this)
     {
+        //extrude($this);
         var next_piece_id = $this.attr("next-piece-id");
         $this.addClass("dragging");
         var pos = position($this, $code);
@@ -455,4 +467,12 @@ $(function () {
             releaseTogether($that);
         }
     }
+
+    setInterval(function () {
+        $code.find(">.code-piece").each(function (i, e) {
+            var $e = $(e);
+
+            extrude($e);
+        });
+    }, 16);
 });

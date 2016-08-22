@@ -1,18 +1,50 @@
 .code .number.space.in-space>input { box-shadow: 0px 0px 0px 1px greenyellow; }
-.code-piece.element { box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 1px 0px black; }
-.code-piece.movement { box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 1px 0px black; }
-.code-piece.event { box-shadow: 0.5px 0.5px 1px 0px goldenrod inset, 1px 1px 1px 0px black; }
-.code-piece.control { box-shadow: 0.5px 0.5px 1px 0px orange inset, 1px 1px 1px 0px black; }
+.code-piece.element { box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 0px 0px black; }
+.code-piece.movement { box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 0px 0px black; }
+.code-piece.event { box-shadow: 0.5px 0.5px 1px 0px goldenrod inset, 1px 1px 0px 0px black; }
+.code-piece.control { box-shadow: 0.5px 0.5px 1px 0px cornsilk inset, 1px 1px 0px 0px black; }
 
 /*****************/
 
-.code-piece.movement.mouseover:not(.acting)          { box-shadow: 0px 0px 5px 0px deepskyblue; }
-.code-piece.movement          .dragging:not(.acting) { box-shadow: 0px 0px 5px 0px deepskyblue, 5px 5px 3px 0px dimgray; }
-.code-piece.movement.mouseover.dragging:not(.acting) { box-shadow: 0px 0px 5px 0px deepskyblue, 5px 5px 3px 0px dimgray; }
+.code-piece.movement.mouseover:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px blue; z-index: 3; }
+.code-piece.movement.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px blue, 5px 5px 3px 0px dimgray; z-index: 3; }
+.code-piece.movement.mouseover.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px blue, 5px 5px 3px 0px dimgray; z-index: 3; }
 
-.code-piece.operator.mouseover:not(.acting)          { box-shadow: 0px 0px 5px 0px greenyellow; }
-.code-piece.operator          .dragging:not(.acting) { box-shadow: 0px 0px 5px 0px greenyellow, 5px 5px 3px 0px dimgray; }
-.code-piece.operator.mouseover.dragging:not(.acting) { box-shadow: 0px 0px 5px 0px greenyellow, 5px 5px 3px 0px dimgray; }
+.code-piece.operator.mouseover:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 1px 0px black,
+                1px 1px 5px 1px #002200; z-index: 3; }
+.code-piece.operator.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 1px 0px black,
+                1px 1px 5px 1px #002200, 5px 5px 3px 0px dimgray; z-index: 3; }
+.code-piece.operator.mouseover.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 1px 0px black,
+                1px 1px 5px 1px #002200, 5px 5px 3px 0px dimgray; z-index: 3; }
+
+.code-piece.event.mouseover:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px goldenrod inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px darkgoldenrod; z-index: 3; }
+.code-piece.event.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px goldenrod inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px darkgoldenrod, 5px 5px 3px 0px dimgray; z-index: 3; }
+.code-piece.event.mouseover.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px goldenrod inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px darkgoldenrod, 5px 5px 3px 0px dimgray; z-index: 3; }
+
+.code-piece.control.mouseover:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px orange inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px #CC6A00; z-index: 3; }
+.code-piece.control.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px orange inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px #CC6A00, 5px 5px 3px 0px dimgray; z-index: 3; }
+.code-piece.control.mouseover.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px orange inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px #CC6A00, 5px 5px 3px 0px dimgray; z-index: 3; }
 
 /*****************/
 
