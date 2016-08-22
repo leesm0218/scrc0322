@@ -19,6 +19,12 @@ $(function () {
             },
             "minus": function (lhs, rhs) {
                 return lhs - rhs;
+            },
+            "mul": function (lhs, rhs) {
+                return lhs * rhs;
+            },
+            "sub": function (lhs, rhs) {
+                return lhs / rhs;
             }
         }
     };
@@ -52,6 +58,8 @@ $(function () {
 
     scrc.namespace("blocks.calc.plus").calc = calc;
     scrc.namespace("blocks.calc.minus").calc = calc;
+    scrc.namespace("blocks.calc.mul").calc = calc;
+    scrc.namespace("blocks.calc.sub").calc = calc;
 
     scrc.namespace("blocks.calc.x-position").calc = function (elmt) {
         var $this = $(elmt);

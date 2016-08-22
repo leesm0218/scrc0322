@@ -14,6 +14,9 @@ $(function () {
         var $this = $(elmt);
         var $space = $this.find(".space");
         var dist = calc($space[0]);
+
+        if (isNaN(dist)) return callback(elmt);
+
         var id = $this.attr("target-id") || main_screen.select_img_id;
         //console.log(id);
         var angle = main_screen.imgs[id].rotation() * Math.PI / 180;
@@ -34,6 +37,9 @@ $(function () {
         var $this = $(elmt);
         var $space = $this.find(".space");
         var angle = calc($space[0]);
+
+        if (isNaN(angle)) return callback(elmt);
+
         var id = $this.attr("target-id") || main_screen.select_img_id;
 
         main_screen.imgs[id].rotate(angle);
@@ -47,6 +53,9 @@ $(function () {
         var $this = $(elmt);
         var $space = $this.find(".space");
         var angle = -calc($space[0]);
+
+        if (isNaN(angle)) return callback(elmt);
+
         var id = $this.attr("target-id") || main_screen.select_img_id;
 
         main_screen.imgs[id].rotate(angle);
@@ -60,6 +69,9 @@ $(function () {
         var $this = $(elmt);
         var $space = $this.find(".space");
         var angle = calc($space[0]);
+
+        if (isNaN(angle)) return callback(elmt);
+
         var id = $this.attr("target-id") || main_screen.select_img_id;
 
         main_screen.imgs[id].setRotation(angle);
@@ -74,6 +86,9 @@ $(function () {
         var $space = $this.find(".space");
         var x = calc($space[0]);
         var y = calc($space[1]);
+
+        if (isNaN(x) || isNaN(y)) return callback(elmt);
+
         var id = $this.attr("target-id") || main_screen.select_img_id;
 
         //console.log(main_screen.imgs[id]);
