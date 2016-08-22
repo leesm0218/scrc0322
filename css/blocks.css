@@ -1,32 +1,41 @@
-.code-piece { display: inline-block; position : relative; color:white; cursor:pointer; z-index: 4; border: none; height: auto; }
+.code-piece { display: flex;  box-sizing: border-box; align-items: center; color:white; cursor:pointer; border: none; }
 
-.code .code-piece { z-index: 2; }
-.code .code-piece.draging { z-index: 5; }
+.toolbox>.code-piece { position: relative; margin-right: auto; }
+.code>.code-piece { position: relative; margin-right: auto; }
+.code-piece>* { position: absolute; }
+
+/*****************/
+
+.code-piece .text { position: absolute; }
+.code-piece>.space { margin: 0px; border: 0px; padding: 0px; box-sizing: border-box; background-color: white; justify-content: center; }
+
+.space>input { width:10px; height: 16px; margin: 0px; border: 0px; padding: 0 2px; font-size: medium; }
+pre.text { display: inline-block; margin: 0; border: 0; padding: 0; width: auto; height: 16px; font-size: x-small; font-family: 새굴림; font-weight: inherit; }
+
+/*****************/
 
 .bracket { position: relative; width: 110px; height: 21.6px; }
 .open.bracket { padding-left: 5px; }
 .close.bracket { padding-right: 5px; left:0px; top: 0px; height: 21.6px; text-align: right; font-size: 100%; }
 
+.code-piece[deep-count="0"] {  }
+.code-piece[deep-count="1"] { margin-left: 15px; }
+.code-piece[deep-count="2"] { margin-left: 25px; }
+.code-piece[deep-count="3"] { margin-left: 35px; }
+.code-piece[deep-count="4"] { margin-left: 45px; }
+.code-piece[deep-count="5"] { margin-left: 55px; }
+
+/*****************/
+
 .element {left: auto; right: auto; width: auto; vertical-align: top; }
-.element.plus { }
 .element.space { display: inline-block; }
 .element.space>.element { margin: 0px; }
 
-.code .code-piece { }
-.tools .code-piece { margin-right: auto; }
-.code-piece { position: relative; display: flex; box-sizing: border-box; }
-.code-piece>* { position: absolute; }
-.code-piece .text { position: absolute; }
-
-.code-piece>.space { margin: 0px; border: 0px; padding: 0px; box-sizing: border-box; background-color: white; justify-content: center; }
-.code-piece { display: flex; align-items: center; }
-.space>.element { }
-
-
-.space>input { width:10px; height: 16px; margin: 0px; border: 0px; padding: 0 2px; font-size: medium; }
-pre.text { display: inline-block; margin: 0; border: 0; padding: 0; width: auto; height: 16px; font-size: x-small; font-family: 새굴림; font-weight: inherit; }
-
-#virtual_dom { margin:0; border:0; padding:0; white-space: nowrap; font-size: larger; }
+/*****************/
 
 .toolbox ul { position: relative; list-style: none; border: 0; top: 0px; bottom: 0px; width: 100%; height: 100%; }
 .toolbox ul li { position: relative; border: 0; margin: 5px; }
+
+/*****************/
+
+#virtual_dom { margin:0; border:0; padding:0; white-space: nowrap; font-size: larger; }
