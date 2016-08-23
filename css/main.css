@@ -1,4 +1,4 @@
-* { 
+﻿* { 
 	margin:0px; padding:0px; border:1px solid #ccc;
 }
 
@@ -47,13 +47,13 @@ body html { display: none; }
 	margin:0px; padding:7px;
 	min-width:38px; max-width:38px; min-height:38px; max-height:38px;
 }
-.fullscreenbutton{  
+.fullscreenbuttonOff{  
 	content: url('../img/UI/buttons/fullScreenOff.png');
 }
-.startbutton{  
+.startbuttonOff{  
 	content: url('../img/UI/buttons/greenFlagOff.png');
 }
-.stopbutton{  
+.stopbuttonOff{  
 	content: url('../img/UI/buttons/stopOff.png');
 }
 .screen {
@@ -74,16 +74,16 @@ body html { display: none; }
 	min-width:38px; max-width:38px; min-height:38px; max-height:38px;
 	float:right;
 }
-.library{
+.libraryOff{
 	content: url('../img/UI/newsprite/libraryOff.png');
 }
-.paintbrush{
+.paintbrushOff{
 	content: url('../img/UI/newsprite/paintbrushOff.png');
 }
-.import{
+.importOff{
 	content: url('../img/UI/newsprite/importOff.png');
 }
-.camera{
+.cameraOff{
 	content: url('../img/UI/newsprite/cameraOff.png');
 }
 .sprite-wrap{
@@ -222,10 +222,10 @@ body html { display: none; }
 	flex:1; min-width:180px; max-width:180px;	
 }
 
-.undo{
+.undoOff{
 	content: url('../img/UI/buttons/undoOff.png');
 }
-.redo{
+.redoOff{
 	content: url('../img/UI/buttons/redoOff.png');
 }
 
@@ -248,43 +248,43 @@ body html { display: none; }
 	flex:1; display:flex;  flex-direction: column; flex-wrap: nowrap; background-color: #dddede;
 }
 
-.crop{
+.cropOff{
 	content: url('../img/UI/paint/cropOff.png');
 }
-.flipH{
+.flipHOff{
 	content: url('../img/UI/paint/flipHOff.gif');
 }
-.flipV{
+.flipVOff{
 	content: url('../img/UI/paint/flipVOff.gif');
 }
-.setCenter{
+.setCenterOff{
 	content: url('../img/UI/paint/setCenterOff.gif');
 }
-.edit{
+.editOff{
 	content: url('../img/UI/paint/editOff.png');
 }
-.pathedit{
+.patheditOff{
 	content: url('../img/UI/paint/patheditOff.png');
 }
-.path{
+.pathOff{
 	content: url('../img/UI/paint/pathOff.png');
 }
-.vectorLine{
+.vectorLineOff{
 	content: url('../img/UI/paint/vectorLineOff.png');
 }
-.vectorRect{
+.vectorRectOff{
 	content: url('../img/UI/paint/vectorRectOff.png');
 }
-.vectorEllipse{
+.vectorEllipseOff{
 	content: url('../img/UI/paint/vectorEllipseOff.png');
 }
-.text{
+.textOff{
 	content: url('../img/UI/paint/textOff.png');
 }
-.paintbucket{
+.paintbucketOff{
 	content: url('../img/UI/paint/paintbucketOff.png');
 }
-.bitmapStamp{
+.bitmapStampOff{
 	content: url('../img/UI/paint/bitmapStampOff.png');
 }
 
