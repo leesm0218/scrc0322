@@ -31,8 +31,9 @@
 		<script src="js/blocks.event.calc.js"></script>
 		<script src="js/blocks.drag.js"></script>
 		<script src="js/sound.js"></script>
+		<script src="js/script.js"></script>
     </head>
-		
+
     <body class="body">
 		<div class="menubar">
 			<a>SCRACH</a>
@@ -57,37 +58,47 @@
 				<!--<canvas id="myCanvas" class="screen"></canvas>-->
 				<div class="screenxy"></div>
 				<div class="spritebar">
-					<input type="file" id="input"/>
 					<img class="spritebutton camera"></img>
-					<img class="spritebutton import"></img>
+					<div class="spritebutton_div">
+						<img class="spritebutton import"></img>
+						<input type="file" id="input" class ="file_input_hidden">
+					</div>
 					<img class="spritebutton paintbrush"></img>
 					<img class="spritebutton library"></img>
 				</div>
-                <div class="sprite-wrap">
+				<div class="sprite-wrap">
 					<div class="spritebackground"></div>
-					<div class="sprite"></div>
+					<div class="sprite">
+
+						<ul id="sprite_list">
+							<li>Red</li>
+							<li>Yellow</li>
+							<li class="selected">Blue</li>
+						</ul>
+
+					</div>
 				</div>
 				<footer class="tempfooter"></footer>
             </div>
 			<div class="column2">
 				<div class="workmenulabels">
-							<label name="workmenu" value="01">Tab 1</label> 
-							<label name="workmenu" value="02">Tab 2</label> 
+							<label name="workmenu" value="01">Tab 1</label>
+							<label name="workmenu" value="02">Tab 2</label>
 							<label name="workmenu" value="03">Tab 3</label>
 				</div>
 				<div class="workmenus">
 					<div class="workmenu" name = "workmenu-visible" value="01">
 						<div class="tools">
-						
+
 							<div class="toollabels">
-								<label name="toolbox" value="01">Tab 1</label> 
-								<label name="toolbox" value="02">Tab 2</label> 
-								<label name="toolbox" value="03">Tab 3</label> 
-								<label name="toolbox" value="04">Tab 4</label> 
-								<label name="toolbox" value="05">Tab 5</label> 
-								<label name="toolbox" value="06">Tab 6</label> 
-								<label name="toolbox" value="07">Tab 7</label> 
-								<label name="toolbox" value="08">Tab 8</label> 	
+								<label name="toolbox" value="01">Tab 1</label>
+								<label name="toolbox" value="02">Tab 2</label>
+								<label name="toolbox" value="03">Tab 3</label>
+								<label name="toolbox" value="04">Tab 4</label>
+								<label name="toolbox" value="05">Tab 5</label>
+								<label name="toolbox" value="06">Tab 6</label>
+								<label name="toolbox" value="07">Tab 7</label>
+								<label name="toolbox" value="08">Tab 8</label>
 							</div>
 							<div class="toolboxes">
 								<div class="toolbox" name = "toolbox-visible"value="01"></div>
@@ -99,17 +110,30 @@
 								<div class="toolbox" name = "toolbox-hidden" value="07">0007</div>
 								<div class="toolbox" name = "toolbox-hidden" value="08">0008</div>
 							</div>
-						
+
 							<footer class="tempfooter"></footer>
 						</div>
 						<div class="code">코드</div>
 						<footer class="tempfooter"></footer>
-					</div> 
+					</div>
 					<div class="workmenu" name = "workmenu-hidden" value="02">
-						
+						<div class="shapes">
+
+						</div>
+						<div class="shapefix">
+
+							<select id="shapetoolselect">
+								<option value="brush">Brush</option>
+								<option value="eraser">Eraser</option>
+							</select>
+
+							<div id="shapecontainer"></div>
+
+
+						</div>
 					</div>
 					<div class="workmenu" name = "workmenu-hidden" value="03">
-						
+
 					</div>
 				</div>
 			</div>
@@ -117,4 +141,5 @@
 		</div>>
     </body>
 	<footer class="tempfooter"></footer>
+	<script src="js/shape.js"></script>
 </html>

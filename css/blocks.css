@@ -10,7 +10,7 @@
 .code-piece>.space { margin: 0px; border: 0px; padding: 0px; box-sizing: border-box; background-color: white; justify-content: center; }
 
 .space>input { width:10px; height: 16px; margin: 0px; border: 0px; padding: 0 2px; font-size: medium; }
-pre.text { display: inline-block; margin: 0; border: 0; padding: 0; width: auto; height: 16px; font-size: x-small; font-family: 새굴림; font-weight: inherit; }
+pre.text { display: inline-block; margin: 0; border: 0; padding: 0; width: auto; height: 16px; font-size: small; font-family: 새굴림; font-weight: inherit; }
 
 /*****************/
 
