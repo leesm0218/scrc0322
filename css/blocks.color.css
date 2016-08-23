@@ -1,0 +1,91 @@
+.code .number.space.in-space>input { box-shadow: 0px 0px 0px 1px greenyellow; }
+.code-piece.element { box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 0px 0px black; }
+.code-piece.movement { box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 0px 0px black; }
+.code-piece.event { box-shadow: 0.5px 0.5px 1px 0px #FFEE99 inset, 1px 1px 0px 0px black; }
+.code-piece.control { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
+
+/*****************/
+
+.code-piece.movement.mouseover:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px blue; }
+.code-piece.movement.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px blue, 5px 5px 3px 0px dimgray; }
+.code-piece.movement.mouseover.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px blue, 5px 5px 3px 0px dimgray; }
+
+.code-piece.operator.mouseover:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 1px 0px black,
+                1px 1px 5px 1px #002200; }
+.code-piece.operator.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 1px 0px black,
+                1px 1px 5px 1px #002200, 5px 5px 3px 0px dimgray; }
+.code-piece.operator.mouseover.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 1px 0px black,
+                1px 1px 5px 1px #002200, 5px 5px 3px 0px dimgray; }
+
+.code-piece.event.mouseover:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px #FFEE99 inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px darkgoldenrod; }
+.code-piece.event.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px #FFEE99 inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px darkgoldenrod, 5px 5px 3px 0px dimgray; }
+.code-piece.event.mouseover.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px #FFEE99 inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px darkgoldenrod, 5px 5px 3px 0px dimgray; }
+
+.code-piece.control.mouseover:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px #CC6A00; }
+.code-piece.control.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px #CC6A00, 5px 5px 3px 0px dimgray; }
+.code-piece.control.mouseover.dragging:not(.acting) {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+                1px 1px 3px 1px #CC6A00, 5px 5px 3px 0px dimgray; }
+
+/*****************/
+
+.code .code-piece.movement.magneted-bottom {
+    box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 1px 0px black,
+                0px 10px 10px -5px gold; }
+.code .code-piece.event.magneted-bottom {
+    box-shadow: 0.5px 0.5px 1px 0px goldenrod inset, 1px 1px 1px 0px black,
+                0px 10px 10px -5px gold; }
+.code .code-piece.control.magneted-bottom {
+    box-shadow: 0.5px 0.5px 1px 0px orange inset, 1px 1px 1px 0px black,
+                0px 10px 10px -5px gold; }
+
+/*****************/
+
+.code .code-piece.acting { box-shadow: 0px 0px 10px 2px gold; }
+.code .code-piece.acting[next-piece-id] {
+    box-shadow:
+            -5px -5px 10px -3px gold,
+            7px 3px 5px -5px gold,
+            -7px 3px 5px -5px gold,
+            5px -5px 10px -3px gold;
+}
+.code .code-piece.acting[prev-piece-id] {
+    box-shadow:
+            -5px 5px 10px -3px gold,
+            7px -3px 5px -5px gold,
+            -7px -3px 5px -5px gold,
+            5px 5px 10px -3px gold;
+}
+.code .code-piece.acting[prev-piece-id][next-piece-id] {
+    box-shadow:
+            5px 0px 10px -3px gold,
+            -5px 0px 10px -3px gold;
+}
+
+/*****************/
+
+.code-piece.operator { background-color:forestgreen; }
+.code-piece.sound { background-color:rebeccapurple; }
+.code-piece.movement { background-color: #003eff; }
+.code-piece.event { background-color: darkgoldenrod; margin-right: 30px; }
+.code-piece.control { background-color: darkorange; }
+

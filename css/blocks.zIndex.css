@@ -1,0 +1,5 @@
+.code-piece { z-index: 3; }
+.code-piece.mouseover { z-index: 4; }
+.code-piece.dragging { z-index: 5; }
+.code-piece.mouseover.dragging { z-index: 5; }
+.code-piece.magneted-bottom { z-index: 6;}

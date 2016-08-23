@@ -15,7 +15,7 @@
 			$(this).css("border-bottom","2px solid #FFFFFF").siblings().css("border-bottom","2px solid #ccc"); 
         });
     });
-	
+
 	$(function(){
 		$("label[name=toolbox]").each(function(){
 			var temp0 = $(this).css("background");

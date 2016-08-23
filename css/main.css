@@ -1,10 +1,12 @@
 * { 
-	margin:0px; padding:0px; border:0px solid #ccc;
+	margin:0px; padding:0px; border:1px solid #ccc;
 }
 
 html{
 	width:99%; height:99%; display:flex; flex-wrap: nowrap;
 }
+
+body html { display: none; }
 
 [type=radio] {
   display: none;   
@@ -25,7 +27,7 @@ html{
 }
 	
 .main{
-	flex:1; 
+	flex:1;
 	display:flex; flex-wrap: nowrap;
 }
 
@@ -97,7 +99,7 @@ html{
 
 
 .column2 {
-	flex:1; margin-left:10px;
+	flex:1; 
 	display:flex;  flex-direction: column; flex-wrap: nowrap;
 }
 .workmenulabels{
@@ -108,11 +110,6 @@ html{
 .workmenulabels label{
 	margin:0px; padding:0px; border:2px solid #ccc; border-bottom: 2px solid #ccc; margin-bottom: -2px;
 }
-
-.workmenulabels label::active {
-	margin:0px; padding:0px; border:2px solid #ccc; border-bottom: 2px solid #FFFFFF; margin-bottom: -2px;
-}
-
 .workmenus{
 	visibility: visible; 
 	flex:1; 
@@ -136,9 +133,17 @@ html{
 
 .tools{
 	visibility:inherit;
-	flex:1; min-width:220px; max-width:220px; 
+	flex:1; min-width:220px; max-width:220px;
 	display:flex; align-items: flex-start; align-content: flex-start; flex-direction:row; flex-wrap: wrap;
 }
+
+.toolboxes {
+	height: auto;
+}
+.toolbox {
+	height: 100%;
+}
+
 .toollabels{
 	flex:1; width:100%; 
 	display:flex;  align-items: flex-start; align-content: flex-start; flex-direction:row; flex-wrap: wrap;
@@ -317,13 +322,6 @@ html{
 	position: absolute;
 	pointer-events: none;
 }
-
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -409,4 +407,51 @@ html{
 .content {
   max-height: 30%;
   overflow: auto;
+}
+
+
+.spritebutton_div{
+	float:right;
+	position:relative;
+	width:30px;
+	height:30px;
+	overflow:hidden;
+}
+.file_input_hidden{
+	position:absolute;
+	right:0px;
+	top:0px;
+	opacity:0;
+	cursor:pointer;
+}
+
+/* list 점 지우기 */
+ul#sprite_list {
+	list-style:none;
+}
+/* Style the list items */
+ul#sprite_list li {
+	cursor: pointer;
+	position: relative;
+	padding: 12px 8px 12px 40px;
+	background: #eee;
+	font-size: 18px;
+	transition: 0.2s;
+
+	/* make the list items unselectable */
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/* Darker background-color on hover */
+ul#sprite_list li:hover {
+	background: #ddd;
+}
+
+/* When clicked on, add a background color and strike out text */
+ul#sprite_list li.selected {
+	background: #888;
+	color: #fff;
 }

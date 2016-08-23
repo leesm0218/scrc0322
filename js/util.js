@@ -33,6 +33,14 @@ scrc.namespace = function (ns_string) {
         return function(){ return "--uq--id--" + id++;}
     })();
 
+    util.min = function (a, b) {
+        return a > b ? b : a;
+    };
+
+    util.max = function (a, b) {
+        return a < b ? b : a;
+    };
+
     util.distance = function (x, y, px, py) {
         return Math.pow(Math.pow(px - x, 2) + Math.pow(py - y, 2), 0.5);
     };
@@ -95,5 +103,15 @@ scrc.namespace = function (ns_string) {
         }
 
         return util;
+    };
+
+    util.parents = function  (target, parent) {
+        var $target = $(target);
+
+        if (!$target.is(parent)) {
+            $target = $target.parents(parent);
+        }
+
+        return $target;
     };
 }());

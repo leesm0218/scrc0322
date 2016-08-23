@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
     <head>
         <title>
@@ -8,19 +8,41 @@
         <meta
             name="viewport"
             content="width=device-width, height=device-height, initial-scale=1.0"/>
+
+		<link rel="stylesheet" type="text/css" href="lib/jquery-ui.min.css" media="all" />
+
         <link rel="stylesheet" type="text/css" href="css/main.css" media="all"/>
+		<link rel="stylesheet" type="text/css" href="css/blocks.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="css/blocks.color.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="css/blocks.zIndex.css" media="all" />
+
         <script src="lib/jquery-1.12.1.min.js"></script>
+		<script src="lib/jquery-ui.js"></script>
+		<script src="https://cdn.rawgit.com/konvajs/konva/0.13.0/konva.min.js"></script>
+
         <script src="js/main.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    </head>
+		<script src="js/util.js"></script>
+		<script src="js/main-screen.js"></script>
+		<script src="js/konvadiv.js"></script>
+		<script src="js/blocks.js"></script>
+		<script src="js/event.js"></script>
+		<script src="js/blocks.event.js"></script>
+		<script src="js/blocks.event.action.js"></script>
+		<script src="js/blocks.event.calc.js"></script>
+		<script src="js/blocks.drag.js"></script>
+		<script src="js/sound.js"></script>
+		<script src="js/script.js"></script>
 		
-    <body class="body">  
+		<script src="js/radioFunction.js"></script>
+		
+		<script src="js/shape.js"></script>
+    </head>
+
+    <body class="body">
 		<div class="menubar">
-        <a>SCRACH</a>
-        <a>파일</a>
-        <a>편집</a>
+			<a>SCRACH</a>
+			<a>파일</a>
+			<a>편집</a>
 		</div>
 		<div class="main">
             <div class="column1">
@@ -36,41 +58,54 @@
 					<img class="screenbutton stopbutton floatright"></img>
 					<img class="screenbutton startbutton floatright"></img>
 				</div>
-				<canvas id="myCanvas" class="screen"></canvas> <!--600x600이 기본.-->
+				<div id="container"></div>
+				<!--<canvas id="myCanvas" class="screen"></canvas>-->
 				<div class="screenxy">x:연동필요 y:연동필요</div>
 				<div class="spritebar">
 					<img class="spritebutton camera"></img>
-					<img class="spritebutton import"></img>
+					<div class="spritebutton_div">
+						<img class="spritebutton import"></img>
+						<input type="file" id="input" class ="file_input_hidden">
+					</div>
 					<img class="spritebutton paintbrush"></img>
 					<img class="spritebutton library"></img>
 				</div>
-                <div class="sprite-wrap">
+				<div class="sprite-wrap">
 					<div class="spritebackground"></div>
-					<div class="sprite"></div>
+					<div class="sprite">
+
+						<ul id="sprite_list">
+							<li>Red</li>
+							<li>Yellow</li>
+							<li class="selected">Blue</li>
+						</ul>
+
+					</div>
 				</div>
 				<footer class="tempfooter"></footer>
             </div>
 			<div class="column2">
-				<div class="workmenulabels">		
-							<label name="workmenu" value="01">Tab 1</label> 
-							<label name="workmenu" value="02">Tab 2</label> 
+				<div class="workmenulabels">
+							<label name="workmenu" value="01">Tab 1</label>
+							<label name="workmenu" value="02">Tab 2</label>
 							<label name="workmenu" value="03">Tab 3</label>
 				</div>
 				<div class="workmenus">
 					<div class="workmenu" name = "workmenu-visible" value="01">
 						<div class="tools">
+
 							<div class="toollabels">
-								<label name="toolbox" value="01">Tab 1</label> 
-								<label name="toolbox" value="02">Tab 2</label> 
-								<label name="toolbox" value="03">Tab 3</label> 
-								<label name="toolbox" value="04">Tab 4</label> 
-								<label name="toolbox" value="05">Tab 5</label> 
-								<label name="toolbox" value="06">Tab 6</label> 
-								<label name="toolbox" value="07">Tab 7</label> 
-								<label name="toolbox" value="08">Tab 8</label> 	
+								<label name="toolbox" value="01">Tab 1</label>
+								<label name="toolbox" value="02">Tab 2</label>
+								<label name="toolbox" value="03">Tab 3</label>
+								<label name="toolbox" value="04">Tab 4</label>
+								<label name="toolbox" value="05">Tab 5</label>
+								<label name="toolbox" value="06">Tab 6</label>
+								<label name="toolbox" value="07">Tab 7</label>
+								<label name="toolbox" value="08">Tab 8</label>
 							</div>
 							<div class="toolboxes">
-								<div class="toolbox" name = "toolbox-visible"value="01">0001</br></br></br></br></br></br></br></br></br></br></br></div>
+								<div class="toolbox" name = "toolbox-visible"value="01"></div>
 								<div class="toolbox" name = "toolbox-hidden" value="02">0002</div>
 								<div class="toolbox" name = "toolbox-hidden" value="03">0003</div>
 								<div class="toolbox" name = "toolbox-hidden" value="04">0004</div>
@@ -79,25 +114,13 @@
 								<div class="toolbox" name = "toolbox-hidden" value="07">0007</div>
 								<div class="toolbox" name = "toolbox-hidden" value="08">0008</div>
 							</div>
-						
+
 							<footer class="tempfooter"></footer>
 						</div>
 						<div class="code">코드</div>
 						<footer class="tempfooter"></footer>
-					</div> 
+					</div>
 					<div class="workmenu" name = "workmenu-hidden" value="02">
-						<div class="imageSprite">
-							<div class="imageSpritebar">
-								<img class="imagebutton camera"></img>
-								<img class="imagebutton import"></img>
-								<img class="imagebutton paintbrush"></img>
-								<img class="imagebutton library"></img>
-							</div>
-							<div class="imageSpritepreview">
-							</div>
-							<footer class="tempfooter"></footer>
-						</div>
-						<div class="imageWrap01"><!-- 괜찮은 이름이 생각안난다. imageEditor-->
 							<div class="imageWorkFlow">
 								<div class="imageWorkname"></div>
 								<div class="imageUnredo">
@@ -139,13 +162,29 @@
 							<footer class="tempfooter"></footer>
 						</div>
 							<footer class="tempfooter"></footer>
-					</div>
+<!--					</div>						<div class="shapes">
+
+						</div>
+						<div class="shapefix">
+
+							<select id="shapetoolselect">
+								<option value="brush">Brush</option>
+								<option value="eraser">Eraser</option>
+							</select>
+
+							<div id="shapecontainer"></div>
+
+
+						</div>
+					</div>-->
 					<div class="workmenu" name = "workmenu-hidden" value="03">
-						
+
 					</div>
 				</div>
 			</div>
 		<footer class="tempfooter"></footer>
+		</div>>
     </body>
 	<footer class="tempfooter"></footer>
+
 </html>
