@@ -1,9 +1,8 @@
 .code-piece { display: flex;  box-sizing: border-box; align-items: center; color:white; cursor:pointer; border: none; }
 
 .toolbox>.code-piece { position: relative; margin-right: auto; }
-.code>.code-piece { position: relative; margin-right: auto; }
+.code>.code-piece { position: absolute; margin-right: auto; }
 .code-piece>* { position: absolute; }
-
 /*****************/
 
 .code-piece .text { position: absolute; }
@@ -39,3 +38,7 @@ pre.text { display: inline-block; margin: 0; border: 0; padding: 0; width: auto;
 /*****************/
 
 #virtual_dom { margin:0; border:0; padding:0; white-space: nowrap; font-size: larger; }
+
+/*****************/
+
+.code { position: relative; }
