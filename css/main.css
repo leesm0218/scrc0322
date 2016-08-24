@@ -71,6 +71,7 @@ body html { display: none; }
 }
 .spritebutton{
 	margin:0px; padding:7px;
+
 	min-width:28px; max-width:28px; min-height:28px; max-height:28px;
 	float:right;
 }
