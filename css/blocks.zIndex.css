@@ -1,5 +1,6 @@
-.code-piece { z-index: 3; }
-.code-piece.mouseover { z-index: 4; }
-.code-piece.dragging { z-index: 5; }
-.code-piece.mouseover.dragging { z-index: 5; }
-.code-piece.magneted-bottom { z-index: 6;}
+.code-piece { z-index: 30000; }
+.code-piece.mouseover { z-index: 40000; }
+.code-piece.magneted-bottom { z-index: 50000; }
+.control.bracketed>.b-line { z-index: 60000; }
+.code-piece.mouseover.dragging { z-index: 70000; }
+.code-piece.dragging { z-index: 80000; }

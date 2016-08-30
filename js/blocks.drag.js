@@ -33,6 +33,8 @@ $(function () {
 
     //blocks.draggable(".code-piece", $tools);
 
+    var changed_blocks = [];
+
     $code.droppable({
         accept : ".workmenu .code-piece",
         //addClasses : ".dragging",
@@ -73,6 +75,18 @@ $(function () {
                     });
 
                     console.log($open_bracket, $close_bracket)*/
+                    $elmt.removeClass("ui-draggable-dragging");
+                    $code.append($elmt);
+                    $elmt.css({
+                        left: ui.offset.left - $code.position().left,
+                        top: ui.offset.top - $code.position().top
+                    });
+                    $($elmt, $code).draggable({
+                        cursor: "move",
+                        revert: "invalid",
+                        helper: "original",
+                        drag: drag
+                    });
                 } else {
                     $elmt.removeClass("ui-draggable-dragging");
                     $code.append($elmt);
@@ -91,9 +105,10 @@ $(function () {
 
                     //console.log($elmt.attr("id"));
                 }
+                //changed_blocks.push($elmt);
                 blocks.resizing($elmt)
             } else if (!$elmt.parent().is(".code")) {
-                var $outer_space = util.parents($elmt, ".space:first");
+                var $outer_space = util.parents($elmt, ".element-space:first");
                 var offset = $elmt.offset();
 
                 $code.append($elmt);
@@ -102,13 +117,15 @@ $(function () {
                     top: (offset.top - $code.position().top) + "px"
                 });
 
+                //changed_blocks.push($outer_space);
+                //changed_blocks.push($elmt);
                 blocks.resizing($outer_space);
                 blocks.resizing($elmt);
             }
 
             if ($elmt.hasClass("magnet")) {
                 // 자석 기능
-                var $magnet = $code.find(".code-piece.magneted-bottom:first");
+                var $magnet = $code.find(".magneted-bottom:first");
 
                 if ($magnet.length > 0) {
                     var npid = $magnet.attr("next-piece-id");
@@ -123,7 +140,7 @@ $(function () {
                         attach($e, $next);
                     }
 
-                    var deep_count = parseInt($magnet.attr("deep-count")) || 0;
+                    /*var deep_count = parseInt($magnet.attr("deep-count")) || 0;
                     if ($magnet.hasClass("open")) {
                         if ($elmt.hasClass("close")) {
                             $elmt.attr("deep-count", deep_count);
@@ -134,14 +151,14 @@ $(function () {
                         $elmt.attr("deep-count", deep_count - 1);
                     } else {
                         $elmt.attr("deep-count", deep_count);
-                    }
+                    }*/
                 } else {
-                    $elmt.attr("deep-count", 0);
+                    //$elmt.attr("deep-count", 0);
                 }
 
-                $code.find(".code-piece").removeClass("magneted-bottom");
+                $code.find(".magnet").removeClass("magneted-bottom");
             } else if ($elmt.hasClass("element")) {
-                var $space = $code.find(".space.in-space:first");
+                var $space = $code.find(".element-space.in-space:first");
 
                 if ($space.length > 0) {
                     var $parent = util.parents($space, ".code>.code-piece");
@@ -156,16 +173,18 @@ $(function () {
                             left: ($parent.offset().left - $code.position().left - 20),
                             top: ($parent.offset().top - $code.position().top + 30)
                         }, 100);
-                        blocks.resizing($other_elmt);
+                        changed_blocks.push($other_elmt);
+                        //blocks.resizing($other_elmt);
                     }
                     $space.find(".default").hide();
                     $space.append($elmt);
                     $space.removeClass("in-space");
+                    //changed_blocks.push($parent);
                     blocks.resizing($parent);
                 }
             }
-
-            extrude($elmt);
+            //extrude($elmt);
+            changed_blocks.push($elmt);
             releaseTogether($elmt);
             $(".mouseover").removeClass("mouseover");
         }
@@ -264,28 +283,153 @@ $(function () {
             });
     }
 
-    // 정렬
-    function extrude ($elmt) {
-        var $elmt = util.parents($elmt, ".code>.code-piece");
+    function deduplication (array) {
+        var result_array = [];
 
-        var pid;
+        for (var i = 0; i < array.length; i++) {
+            var count = 0;
 
-        while (pid = $elmt.attr("prev-piece-id")) {
-            $elmt = $("#" + pid);
+            for (var j = 0; j < array.length; j++) {
+                if (array[i] == array[j]) {
+                    count++;
+
+                    if (count == 1) {
+                        result_array.push(array[i]);
+                    }
+                }
+            }
+        }
+        /*array.each(function (i, e) {
+            var count = 0;
+
+            array.each(function (ii, ee) {
+                if (e == ee) {
+                    count++;
+
+                    if (count == 1) {
+                        result_array.push(e);
+                    }
+                }
+            });
+        });*/
+
+        return result_array;
+    }
+
+    function extrude_ () {
+        changed_blocks = deduplication(changed_blocks);
+
+        for (var i = 0; i < changed_blocks.length; i++) {
+            //blocks.resizing(changed_blocks[i]);
+            extrude(changed_blocks[i]);
         }
 
-        var $prev = $elmt;
+        changed_blocks = [];
+    }
 
-        while (pid = $elmt.attr("next-piece-id")) {
-            $elmt = $("#" + pid);
+    function eeee ($elmt) {
+
+    }
+    function extrudeBracketOpen ($elmt) {
+        var $parent = $elmt.parent();
+        var height = 0;
+        var pid;
+        var $e = $elmt;
+
+        while (pid = $e.attr("prev-piece-id")) {
+            $e = $("#" + pid);
+        }
+
+        var $prev = $e;
+        var e_pos = position($e, $code);
+
+        while (pid = $e.attr("next-piece-id")) {
+            $e = $("#" + pid);
 
             var pos = position($prev, $code);
-            $elmt
+            $e
+                .css({
+                    left: e_pos.left - $code.position().left + 19,
+                    top: pos.top - $code.position().top + $prev.height() + 1
+                });
+            height += parseFloat($e.css("height")) + 1;
+            $prev = $e;
+        }
+
+        $parent.find(".b-line").css({
+            height: util.max(height + 1, 10)
+        });
+    }
+
+    function extrudeBracketClose ($elmt) {
+        var pid;
+        var $e = $elmt;
+
+        while (pid = $e.attr("prev-piece-id")) {
+            $e = $("#" + pid);
+        }
+
+        var $prev = $e;
+
+        while (pid = $e.attr("next-piece-id")) {
+            $e = $("#" + pid);
+
+            var pos = position($prev, $code);
+            $e
                 .css({
                     left: pos.left - $code.position().left,
                     top: pos.top - $code.position().top + $prev.height() + 1
                 });
-            $prev = $elmt;
+            $prev = $e;
+        }
+    }
+
+    // 정렬
+    function extrude ($elmt) {
+        var $elmt = util.parents($elmt, ".code>.code-piece");
+
+        if ($elmt.hasClass("bracketed")) {
+            var $open = $elmt.find(".b-open"),
+                $line = $elmt.find(".b-line"),
+                $close = $elmt.find(".b-close");
+
+            var open_pos = position($open, $code),
+                line_pos = position($line, $code);
+
+            extrudeBracketOpen($open);
+            $line.css({
+                top: ($open.height()) + "px"
+            });
+            extrudeBracketClose($close);
+            $close.css({
+                top: ($open.height() + $line.height()) + "px"
+            });
+        } else {
+            var pid;
+            var $top = $elmt;
+
+            while (pid = $top.attr("prev-piece-id")) {
+                $top = $("#" + pid);
+            }
+
+            var $e = $top;
+            var $prev = $top;
+
+            while (pid = $e.attr("next-piece-id")) {
+                $e = $("#" + pid);
+
+                var pos = position($prev, $code);
+                $e
+                    .css({
+                        left: pos.left - $code.position().left,
+                        top: pos.top - $code.position().top + $prev.height() + 1
+                    });
+                $prev = $e;
+            }
+
+            if ($top.hasClass("bracket")) {
+                extrude($top.parent());
+            }
         }
     }
 
@@ -373,15 +517,15 @@ $(function () {
     }
 
     function checkElement (ui) {
-        var $spaces = $(".code .space"),
+        var $spaces = $(".code .element-space"),
             $that = ui.helper;
         var ox = ui.offset.left,
             oy = ui.offset.top;
 
-        $spaces = $spaces.not($that.find(".space"));
+        $spaces = $spaces.not($that.find(".element-space"));
 
         var $outer_space = $that.parent();
-        if ($outer_space.is(".space")) {
+        if ($outer_space.is(".element-space")) {
             $outer_space.find(">.default").show();
         }
 
@@ -438,33 +582,66 @@ $(function () {
 
     function moveTogether ($this)
     {
-        //extrude($this);
-        var next_piece_id = $this.attr("next-piece-id");
-        $this.addClass("dragging");
-        var pos = position($this, $code);
-        //console.log(pos)
-        if (next_piece_id) {
+        changed_blocks.push($this);
+
+        if ($this.hasClass("dragging")) return;
+
+        var $e = $this;
+        var next_piece_id = $e.attr("next-piece-id");
+        var zIndexInc = 1;
+
+        $e.addClass("dragging");
+
+        while (next_piece_id) {
+            // var pos = position($e, $code);
             var $that = $("#" + next_piece_id + ":visible");
 
-            if ($that.length > 0) {
-                $that.css({
-                    left: pos.left - $code.position().left,
-                    top: pos.top - $code.position().top + $this.height() + 1
-                });
 
-                moveTogether($that);
+            if ($that.length > 0) {
+                $that.addClass("dragging");
+                $that.css({
+                    "z-index": ""
+                });
+                $that.css({
+                    "z-index": "+=" + zIndexInc
+                });
+                zIndexInc++;
+
+                $e = $that;
             }
+            next_piece_id = $e.attr("next-piece-id");
         }
     }
 
     function releaseTogether ($this)
     {
-        var next_piece_id = $this.attr("next-piece-id");
-        $this.removeClass("dragging");
-        if (next_piece_id) {
-            var $that = $("#" + next_piece_id);
+        changed_blocks.push($this);
 
-            releaseTogether($that);
+        var $e = $this;
+        var next_piece_id = $e.attr("next-piece-id");
+
+        $e.removeClass("dragging");
+        while (next_piece_id) {
+            var $that = $("#" + next_piece_id + ":visible");
+
+            $that.removeClass("dragging");
+            $that.css({
+                "z-index" : ""
+            });
+            if ($that.length > 0) {
+                $e = $that;
+            }
+            next_piece_id = $e.attr("next-piece-id");
         }
     }
+
+    scrc.refresh = function () {
+        requestAnimationFrame(scrc.refresh);
+        //console.log(changed_blocks.length);
+        extrude_();
+    }
+});
+
+$(function () {
+    scrc.refresh();
 });

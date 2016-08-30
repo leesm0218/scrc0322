@@ -15,14 +15,15 @@ $(function () {
         $elmt = $elmt.clone ? $elmt : $($elmt);
 
         var $elmt_copy = $elmt.clone().attr("id", scrc.util.uniqueId());
-        // console.log($elmt.css("width"));
 
         if ($elmt.hasClass("code-piece")) {
             $elmt_copy.attr("target-id", main_screen.select_img_id);
-        } else if ($elmt.hasClass("control")) {
-            $elmt_copy.find(".bracket").each(function () {
-                $(this).attr("id", scrc.util.uniqueId());
-            })
+
+            if ($elmt.hasClass("control")) {
+                $elmt_copy.find(".bracket").each(function (i, e) {
+                    $(e).attr("id", util.uniqueId());
+                })
+            }
         }
 
         return $elmt_copy;
@@ -36,7 +37,7 @@ $(function () {
 
         if ($elmt.is(".element.default:visible, .text:visible")) {
             return;
-        } else if ($elmt.is(".space")) {
+        } else if ($elmt.is(".element-space")) {
             var $e = $elmt.find(">:visible:first");
 
             resize($e);
@@ -50,7 +51,7 @@ $(function () {
         } else {
             var padding = 2;
 
-            $elmt.find(">.space, >.text").each(function (i, e) {
+            $elmt.find(">.element-space, >.text").each(function (i, e) {
                 var $e = $(e);
 
                 resize($e);
@@ -73,12 +74,52 @@ $(function () {
         })
     }
 
+    function resize_b_line ($elmt) {
+        var $space = $elmt.find(">.movement-space");
+        var $line = $elmt.find(">.text");
+
+        $line.css({
+            height: $space.outerHeight()
+        });
+
+        $elmt.css({
+            height: $space.outerHeight()
+        });
+    }
+
+    function resize_bracket ($elmt) {
+        var $open = $elmt.find(">.bracket.b-open"),
+            $line = $elmt.find(">.bracket.b-line"),
+            $close = $elmt.find(">.bracket.b-close");
+
+        resize($open);
+        resize_b_line($line);
+        resize($close);
+
+        $open.css({ top: 0 + "px", margin: 0 });
+        $line.css({ top: ($open.position().top + $open.height()) + "px", margin: 0
+        });
+        $close.css({ top: ($line.position().top + $line.height()) + "px", margin: 0,
+            width: $open.outerWidth() + "px"
+        });
+
+        $elmt.css({
+            height: $open.outerHeight() + $line.outerHeight() + $close.outerHeight()
+        });
+    }
+
     blocks.resizing = function ($elmt) {
         $elmt = $($elmt);
+
         while(!$elmt.is(".toolbox .code-piece, .code>.code-piece")) {
-            $elmt = $elmt.parent();;
+            break;
+            $elmt = $elmt.parent();
         }
-        resize($elmt);
+        if ($elmt.is(".bracketed")) {
+            resize_bracket($elmt);
+        } else {
+            resize($elmt);
+        }
     };
 
     blocks.addUl = function (e, toolbox) {
@@ -98,7 +139,7 @@ $(function () {
     var util = scrc.namespace("util");
 
     util
-        .loadTemplate("template.code-piece.operator", function (template) {
+        .loadTemplate(".scrc-template.code-piece.operator", function (template) {
             var $div = $("<div>").append(template);
 
             $div.find(">*").each(function (i, e) {
@@ -107,7 +148,7 @@ $(function () {
                 blocks.resizing(e);
             });
         })
-        .loadTemplate("template.code-piece.movement", function (template) {
+        .loadTemplate(".scrc-template.code-piece.movement", function (template) {
             var $div = $("<div>").append(template);
 
             $div.find(">*").each(function (i, e) {
@@ -116,7 +157,7 @@ $(function () {
                 blocks.resizing(e);
             })
         })
-        .loadTemplate("template.code-piece.event", function (template) {
+        .loadTemplate(".scrc-template.code-piece.event", function (template) {
             var $div = $("<div>").append(template);
 
             $div.find(">*").each(function (i, e) {
@@ -125,7 +166,7 @@ $(function () {
                 blocks.resizing(e);
             });
         })
-        .loadTemplate("template.code-piece.control", function (template) {
+        .loadTemplate(".scrc-template.code-piece.control", function (template) {
             var $div = $("<div>").append(template);
 
             $div.find(">*").each(function (i, e) {
