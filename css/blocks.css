@@ -9,6 +9,7 @@
 .toolbox>.code-piece { position: relative; margin-right: auto; }
 .code>.code-piece { position: absolute; margin-right: auto; }
 .code-piece>* { position: absolute; top: 0; bottom: 0; margin: auto 0; }
+.bracket>* { position: absolute; top: 0; bottom: 0; margin: auto 0; }
 /*****************/
 
 .code-piece .text { position: absolute; }
@@ -36,7 +37,6 @@ pre.text { display: inline-block; border: 0; padding: 0; width: auto; height: 16
 
 .control.bracketed { width: 18px; }
 .bracket { width: 100%; margin: 0; position: absolute; border: 0; padding: 0; }
-.bracket>* { position: absolute; top: 0; bottom: 0; margin: 0; }
 .b-line { width: 18px; height: 10px; }
 .b-line>.text { width: 100%; height: 100%; user-select: none; }
 .b-line>.movement-space { position: absolute; right: 0px; width: auto; height: 10px; border: 0; }

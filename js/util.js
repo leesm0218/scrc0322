@@ -53,6 +53,10 @@ scrc.namespace = function (ns_string) {
         return angle / Math.PI * 180;
     };
 
+    util.composition = function (func1, func2) {
+        func2(func1());
+    };
+
     var wait_templates = [];
 
     util.loadTemplate = function (template, callback) {
