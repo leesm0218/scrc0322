@@ -37,7 +37,7 @@ $(function () {
         [
             ".code-piece.movement:not(.element)",
             ".code-piece.event:not(.element)",
-            ".code-piece.control:not(.element)"
+            ".code-piece.control:not(.element):not(.bracketed)"
         ].join(", "),
         function (event) {
             var actions = scrc.namespace("blocks.actions");

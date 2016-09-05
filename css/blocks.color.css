@@ -95,98 +95,98 @@
 
 /*** 마우스오버, 드래그 시의 그림자 ***/
 /* 기본 */
-.mouseover:after,
-.dragging:after,
-.bracketed.mouseover:not(.acting) .b-open:after,
-.bracketed.mouseover:not(.acting) .b-line:after,
-.bracketed.mouseover:not(.acting) .b-close:after {
+.mouseover:before,
+.dragging:before,
+.bracketed.mouseover:not(.acting) .b-open:before,
+.bracketed.mouseover:not(.acting) .b-line:before,
+.bracketed.mouseover:not(.acting) .b-close:before {
     content: "　";
     position: absolute;
     height: inherit;
     width: inherit; }
 
 /* 무브먼트 */
-.movement.mouseover:not(.acting):after {
+.movement.mouseover:not(.acting):before {
     box-shadow: 1px 1px 3px 1px blue; }
-.movement.dragging:not(.acting):after {
+.movement.dragging:not(.acting):before {
     box-shadow: 1px 1px 3px 1px blue, 5px 5px 3px 0px dimgray; }
-.movement.mouseover:not(.acting)[next-piece-id]:after {
+.movement.mouseover:not(.acting)[next-piece-id]:before {
     box-shadow: 1px 1px 3px 1px blue; }
-.movement.dragging:not(.acting)[next-piece-id]:after {
+.movement.dragging:not(.acting)[next-piece-id]:before {
     box-shadow: 1px 1px 3px 1px blue, 8px 3px 3px -2px dimgray; }
-.movement.mouseover:not(.acting)[next-piece-id][prev-piece-id]:after {
+.movement.mouseover:not(.acting)[next-piece-id][prev-piece-id]:before {
     box-shadow: 1px 1px 3px 1px blue; }
-.movement.dragging:not(.acting)[next-piece-id][prev-piece-id]:after {
+.movement.dragging:not(.acting)[next-piece-id][prev-piece-id]:before {
     box-shadow: 1px 1px 3px 1px blue, 5px 0px 3px 1px dimgray; }
-.movement.mouseover:not(.acting)[prev-piece-id]:after {
+.movement.mouseover:not(.acting)[prev-piece-id]:before {
     box-shadow: 1px 1px 3px 1px blue; }
-.movement.dragging:not(.acting)[prev-piece-id]:after {
+.movement.dragging:not(.acting)[prev-piece-id]:before {
     box-shadow: 1px 1px 3px 1px blue, 5px 0px 3px 1px dimgray, 5px 5px 3px 1px dimgray; }
 
 /* 연산자 */
-.operator.mouseover:not(.acting):after {
+.operator.mouseover:not(.acting):before {
     box-shadow: 1px 1px 5px 1px #002200; }
-.operator.dragging:not(.acting):after {
+.operator.dragging:not(.acting):before {
     box-shadow: 1px 1px 5px 1px #002200, 5px 5px 3px 0px dimgray; }
 
 /* 이벤트 */
-.event.mouseover:not(.acting):after {
+.event.mouseover:not(.acting):before {
     box-shadow: 1px 1px 3px 1px darkgoldenrod; }
-.event.dragging:not(.acting):after {
+.event.dragging:not(.acting):before {
     box-shadow: 1px 1px 3px 1px darkgoldenrod, 5px 5px 3px 0px dimgray; }
-.event.mouseover:not(.acting)[next-piece-id]:after {
+.event.mouseover:not(.acting)[next-piece-id]:before {
     box-shadow: 1px 1px 3px 1px darkgoldenrod; }
-.event.dragging:not(.acting)[next-piece-id]:after {
+.event.dragging:not(.acting)[next-piece-id]:before {
     box-shadow: 1px 1px 3px 1px darkgoldenrod, 8px 3px 3px -2px dimgray; }
-.event.mouseover:not(.acting)[next-piece-id][prev-piece-id]:after {
+.event.mouseover:not(.acting)[next-piece-id][prev-piece-id]:before {
     box-shadow: 1px 1px 3px 1px darkgoldenrod; }
-.event.dragging:not(.acting)[next-piece-id][prev-piece-id]:after {
+.event.dragging:not(.acting)[next-piece-id][prev-piece-id]:before {
     box-shadow: 1px 1px 3px 1px darkgoldenrod, 5px 0px 3px 1px dimgray; }
-.event.mouseover:not(.acting)[prev-piece-id]:after {
+.event.mouseover:not(.acting)[prev-piece-id]:before {
     box-shadow: 1px 1px 3px 1px darkgoldenrod; }
-.event.dragging:not(.acting)[prev-piece-id]:after {
+.event.dragging:not(.acting)[prev-piece-id]:before {
     box-shadow: 1px 1px 3px 1px darkgoldenrod, 5px 0px 3px 1px dimgray, 5px 5px 3px 1px dimgray; }
 
 /* 컨트롤 */
-.control:not(.bracketed).mouseover:not(.acting):after {
+.control:not(.bracketed).mouseover:not(.acting):before {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
     1px 1px 3px 1px #CC6A00; }
-.control:not(.bracketed).dragging:not(.acting):after {
+.control:not(.bracketed).dragging:not(.acting):before {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
     1px 1px 3px 1px #CC6A00, 5px 5px 3px 0px dimgray; }
-.control:not(.bracketed).mouseover:not(.acting)[next-piece-id]:after {
+.control:not(.bracketed).mouseover:not(.acting)[next-piece-id]:before {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
     1px 1px 3px 1px #CC6A00; }
-.control:not(.bracketed).dragging:not(.acting)[next-piece-id]:after {
+.control:not(.bracketed).dragging:not(.acting)[next-piece-id]:before {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
     1px 1px 3px 1px #CC6A00, 8px 3px 3px -2px dimgray; }
-.control:not(.bracketed).mouseover:not(.acting)[next-piece-id][prev-piece-id]:after {
+.control:not(.bracketed).mouseover:not(.acting)[next-piece-id][prev-piece-id]:before {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
     1px 1px 3px 1px #CC6A00; }
-.control:not(.bracketed).dragging:not(.acting)[next-piece-id][prev-piece-id]:after {
+.control:not(.bracketed).dragging:not(.acting)[next-piece-id][prev-piece-id]:before {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
     1px 1px 3px 1px #CC6A00, 5px 0px 3px 1px dimgray; }
-.control:not(.bracketed).mouseover:not(.acting)[prev-piece-id]:after {
+.control:not(.bracketed).mouseover:not(.acting)[prev-piece-id]:before {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
     1px 1px 3px 1px #CC6A00; }
-.control:not(.bracketed).dragging:not(.acting)[prev-piece-id]:after {
+.control:not(.bracketed).dragging:not(.acting)[prev-piece-id]:before {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
     1px 1px 3px 1px #CC6A00, 5px 0px 3px 1px dimgray, 5px 5px 3px 1px dimgray; }
 
 /* 괄호 */
-/*.bracketed.mouseover:not(.acting) .b-open:after,
-.bracketed.mouseover:not(.acting) .b-close:after {
+/*.bracketed.mouseover:not(.acting) .b-open:before,
+.bracketed.mouseover:not(.acting) .b-close:before {
     box-shadow: 1px 1px 3px 1px #CC6A00;
 }
-.bracketed.mouseover:not(.acting) .b-line:after {
+.bracketed.mouseover:not(.acting) .b-line:before {
     box-shadow: 0px 0px 3px 0px #CC6A00;
 }*/
 
 /*****************/
 
 /* 마그넷 표시 */
-:not(.bracketed).magnet.magneted-bottom:after,
-.bracketed.magnet.magneted-bottom .b-close:after {
+:not(.bracketed).magnet.magneted-bottom:before,
+.bracketed.magnet.magneted-bottom .b-close:before {
     content: "　";
     position: absolute;
     height: inherit;

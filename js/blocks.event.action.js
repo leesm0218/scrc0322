@@ -10,7 +10,8 @@ $(function () {
     var main_screen = scrc.namespace("main_screen");
 
     scrc.namespace("blocks.actions.move").action = function (elmt, callback) {
-        var calc = scrc.blocks.element.space.calc;
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
         var $this = $(elmt);
         var $space = $this.find(".element-space");
         var dist = calc($space[0]);
@@ -33,7 +34,8 @@ $(function () {
     };
 
     scrc.namespace("blocks.actions.right-rotate").action = function (elmt, callback) {
-        var calc = scrc.blocks.element.space.calc;
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
         var $this = $(elmt);
         var $space = $this.find(".element-space");
         var angle = calc($space[0]);
@@ -49,7 +51,8 @@ $(function () {
     };
 
     scrc.namespace("blocks.actions.left-rotate").action = function (elmt, callback) {
-        var calc = scrc.blocks.element.space.calc;
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
         var $this = $(elmt);
         var $space = $this.find(".element-space");
         var angle = -calc($space[0]);
@@ -65,7 +68,8 @@ $(function () {
     };
 
     scrc.namespace("blocks.actions.point-in-direction").action = function (elmt, callback) {
-        var calc = scrc.blocks.element.space.calc;
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
         var $this = $(elmt);
         var $space = $this.find(".element-space");
         var angle = calc($space[0]);
@@ -81,7 +85,8 @@ $(function () {
     };
 
     scrc.namespace("blocks.actions.rach-gu").action = function (elmt, callback) {
-        var calc = scrc.blocks.element.space.calc;
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
         var $this = $(elmt);
         var $space = $this.find(".element-space");
         var x = calc($space[0]);
@@ -136,8 +141,13 @@ $(function () {
         callback($open[0]);
     };
 
+    scrc.namespace("blocks.actions.repeat").action = function (elmt, callback) {
+        var $this = $(elmt);
+
+    };
+
     scrc.namespace("blocks.actions.sleep").action = function (elmt, callback) {
-        var space = scrc.namespace("blocks.element.space");
+        var space = scrc.namespace("blocks.element.element-space");
         var calc = space.calc;
         var $this = $(elmt);
         var $space = $this.find(".element-space");
