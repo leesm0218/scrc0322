@@ -569,13 +569,13 @@ $(function () {
 
                 $e.addClass("dragging");
                 if (!$e.is(".bracketed")) {
-                    //$e.css({
-                    //    "z-index": ""
-                    //});
-                    //$e.css({
-                    //    "z-index": "+=" + zIndexInc
-                    //});
-                    //zIndexInc++;
+                    $e.css({
+                        "z-index": ""
+                    });
+                    $e.css({
+                        "z-index": "+=" + zIndexInc
+                    });
+                    zIndexInc++;
                 }
 
                 callback();
@@ -584,22 +584,22 @@ $(function () {
                 var $e = iter.now();
 
                 if (!$e.is(".bracketed")) {
-                    //$e.css({
-                    //    "z-index": ""
-                    //});
-                    //$e.css({
-                    //    "z-index": "+=" + zIndexInc
-                    //});
-                    //zIndexInc++;
+                    $e.css({
+                        "z-index": ""
+                    });
+                    $e.css({
+                        "z-index": "+=" + zIndexInc
+                    });
+                    zIndexInc++;
                 }
                 if ($e.is(".bracketed")) {
-                    //$e.find(".b-close").css({
-                    //    "z-index": ""
-                    //});
-                    //$e.find(".b-close").css({
-                    //    "z-index": "+=" + zIndexInc
-                    //});
-                    //zIndexInc++;
+                    $e.find(".b-close").css({
+                        "z-index": ""
+                    });
+                    $e.find(".b-close").css({
+                        "z-index": "+=" + zIndexInc
+                    });
+                    zIndexInc++;
                 }
 
                 callback();
@@ -611,22 +611,6 @@ $(function () {
     {
         invalidateBlock($this);
 
-        /*var $e = $this;
-        var next_piece_id = $e.attr("next-piece-id");
-
-        $e.removeClass("dragging");
-        while (next_piece_id) {
-            var $that = $("#" + next_piece_id + ":visible");
-
-            $that.removeClass("dragging");
-            $that.css({
-                "z-index" : ""
-            });
-            if ($that.length > 0) {
-                $e = $that;
-            }
-            next_piece_id = $e.attr("next-piece-id");
-        }*/
         var $root = findRootBlock($this);
 
         circuitTree($root, {

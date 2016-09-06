@@ -110,7 +110,7 @@
     box-shadow: 1px 1px 3px 1px blue; }
 .movement.dragging:not(.acting):before {
     box-shadow: 1px 1px 3px 1px blue, 5px 5px 3px 0px dimgray; }
-.movement.mouseover:not(.acting)[next-piece-id]:before {
+/*.movement.mouseover:not(.acting)[next-piece-id]:before {
     box-shadow: 1px 1px 3px 1px blue; }
 .movement.dragging:not(.acting)[next-piece-id]:before {
     box-shadow: 1px 1px 3px 1px blue, 8px 3px 3px -2px dimgray; }
@@ -121,7 +121,7 @@
 .movement.mouseover:not(.acting)[prev-piece-id]:before {
     box-shadow: 1px 1px 3px 1px blue; }
 .movement.dragging:not(.acting)[prev-piece-id]:before {
-    box-shadow: 1px 1px 3px 1px blue, 5px 0px 3px 1px dimgray, 5px 5px 3px 1px dimgray; }
+    box-shadow: 1px 1px 3px 1px blue, 5px 0px 3px 1px dimgray, 5px 5px 3px 1px dimgray; }*/
 
 /* 연산자 */
 .operator.mouseover:not(.acting):before {
@@ -134,7 +134,7 @@
     box-shadow: 1px 1px 3px 1px darkgoldenrod; }
 .event.dragging:not(.acting):before {
     box-shadow: 1px 1px 3px 1px darkgoldenrod, 5px 5px 3px 0px dimgray; }
-.event.mouseover:not(.acting)[next-piece-id]:before {
+/*.event.mouseover:not(.acting)[next-piece-id]:before {
     box-shadow: 1px 1px 3px 1px darkgoldenrod; }
 .event.dragging:not(.acting)[next-piece-id]:before {
     box-shadow: 1px 1px 3px 1px darkgoldenrod, 8px 3px 3px -2px dimgray; }
@@ -145,7 +145,7 @@
 .event.mouseover:not(.acting)[prev-piece-id]:before {
     box-shadow: 1px 1px 3px 1px darkgoldenrod; }
 .event.dragging:not(.acting)[prev-piece-id]:before {
-    box-shadow: 1px 1px 3px 1px darkgoldenrod, 5px 0px 3px 1px dimgray, 5px 5px 3px 1px dimgray; }
+    box-shadow: 1px 1px 3px 1px darkgoldenrod, 5px 0px 3px 1px dimgray, 5px 5px 3px 1px dimgray; }*/
 
 /* 컨트롤 */
 .control:not(.bracketed).mouseover:not(.acting):before {
@@ -154,7 +154,7 @@
 .control:not(.bracketed).dragging:not(.acting):before {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
     1px 1px 3px 1px #CC6A00, 5px 5px 3px 0px dimgray; }
-.control:not(.bracketed).mouseover:not(.acting)[next-piece-id]:before {
+/*.control:not(.bracketed).mouseover:not(.acting)[next-piece-id]:before {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
     1px 1px 3px 1px #CC6A00; }
 .control:not(.bracketed).dragging:not(.acting)[next-piece-id]:before {
@@ -171,7 +171,7 @@
     1px 1px 3px 1px #CC6A00; }
 .control:not(.bracketed).dragging:not(.acting)[prev-piece-id]:before {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
-    1px 1px 3px 1px #CC6A00, 5px 0px 3px 1px dimgray, 5px 5px 3px 1px dimgray; }
+    1px 1px 3px 1px #CC6A00, 5px 0px 3px 1px dimgray, 5px 5px 3px 1px dimgray; }*/
 
 /* 괄호 */
 /*.bracketed.mouseover:not(.acting) .b-open:before,

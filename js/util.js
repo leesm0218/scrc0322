@@ -63,7 +63,8 @@ scrc.namespace = function (ns_string) {
         if (wait_templates && wait_templates.length == 0) {
             wait_templates.push([template, callback]);
 
-            $.get("template/code_piece.html", function (data) {
+            // $.get("template/code_piece.html", function (data) {
+            setTimeout(function (data) {
                 $("body").append(data);
 
                 util.loadTemplate = function (template, callback) {
@@ -78,7 +79,7 @@ scrc.namespace = function (ns_string) {
                     util.loadTemplate(t[0], t[1]);
                 }
                 wait_templates = undefined;
-            });
+            }, 100);
         } else {
             wait_templates.push([template, callback]);
         }
