@@ -1,3 +1,10 @@
+* {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .code-piece { display: flex;  box-sizing: content-box; color:white; cursor:pointer; border: none; }
 
 .code { position: relative; }
