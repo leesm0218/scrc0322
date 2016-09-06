@@ -340,13 +340,13 @@ $(function () {
         circuitSiblings($elmt, function (iter, circuit) {
             var $e = iter.now();
 
-            callbacks.topdown(iter, option, function () {
+            callbacks.before(iter, option, function () {
                 if ($e.is(".bracketed")) {
                     circuitTree($e.find(">.b-open"), callbacks, function () {
-                        callbacks.bottomup(iter, option, circuit);
+                        callbacks.after(iter, option, circuit);
                     });
                 } else {
-                    callbacks.bottomup(iter, option, circuit);
+                    callbacks.after(iter, option, circuit);
                 }
             });
         });
@@ -358,16 +358,13 @@ $(function () {
     function extrude ($elmt) {
         var $root = findRootBlock($elmt);
 
-        //console.log("start--------------------------")
         circuitTree($root, {
-            topdown: function (iter, option, callback) {
-                //console.log("topdown")
+            before: function (iter, option, callback) {
                 positioningElmt(iter);
 
                 callback();
             },
-            bottomup: function (iter, option, callback) {
-                //console.log("bottomup")
+            after: function (iter, option, callback) {
                 var $e = iter.now();
 
                 if ($e.is(".bracketed")) {
@@ -404,10 +401,10 @@ $(function () {
         var $root = findRootBlock($elmt);
 
         circuitTree($root, {
-            topdown: function (iter, option, callback) {
+            before: function (iter, option, callback) {
                 callback();
             },
-            bottomup: function (iter, option, callback) {
+            after: function (iter, option, callback) {
                 var $e = iter.now();
 
                 $e.remove();
@@ -564,7 +561,7 @@ $(function () {
         var zIndexInc = 1;
 
         circuitTree($root, {
-            topdown: function (iter, option, callback) {
+            before: function (iter, option, callback) {
                 var $e = iter.now();
 
                 $e.addClass("dragging");
@@ -580,7 +577,7 @@ $(function () {
 
                 callback();
             },
-            bottomup: function (iter, option, callback) {
+            after: function (iter, option, callback) {
                 var $e = iter.now();
 
                 if (!$e.is(".bracketed")) {
@@ -614,7 +611,7 @@ $(function () {
         var $root = findRootBlock($this);
 
         circuitTree($root, {
-            topdown: function (iter, option, callback) {
+            before: function (iter, option, callback) {
                 var $e = iter.now();
 
 
@@ -627,7 +624,7 @@ $(function () {
 
                 callback();
             },
-            bottomup: function (iter, option, callback) {
+            after: function (iter, option, callback) {
                 var $e = iter.now();
 
                 $e.css({
