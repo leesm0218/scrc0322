@@ -21,10 +21,92 @@ body html { display: none; }
 	display:flex; flex-wrap: nowrap; flex-direction: column;
 }
 	
+	
+	
 .menubar{
 	flex:1; min-height:30px; max-height:30px; margin-bottom:5px;
 	display:flex; flex-wrap: nowrap; background-color: #9c9aa2;
 }
+
+.menu {
+    padding-top: 2px;
+    width: 100%;
+    height: 25px;
+    background: #9c9ea2;
+    color: white; /* 글씨 색을 흰색으로 설정 */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+.menuLi {
+    margin-left: 2px;
+    margin-right: 10px;
+}
+.endAlign:after {
+    float: right;
+}
+.menuLi:hover { /* 상위 메뉴의 li에 마우스오버 되었을 때 스타일 설정 */
+    color: red;  /* 글씨 색 빨간색 */
+    background-color: #4d4d4d; /* 배경색을 밝은 회색으로 설정 */
+}
+.menuLi:hover .submenuUl { /* 상위 메뉴에 마우스 모버한 경우 그 안의 하위 메뉴 스타일 설정 */
+    visibility: visible;
+}
+
+.submenuUl {/* 하위 메뉴 스타일 설정 */
+    color: white; /* 글씨 색을 흰색으로 설정 */
+    background: #373737;
+    position: absolute; /* html의 flow에 영향을 미치지 않게 absolute 설정 */
+    transition: height 0.5s; /* height를 변화 시켰을 때 0.5초간 변화 되도록 설정(기본) */
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+    text-align: left;
+    list-style: none;
+}
+
+.submenuLi {
+    border-left: 2px solid #9c9ea2;
+    border-right: 2px solid #9c9ea2;
+    margin-top: -2px; /* 위 칸의 하단 테두리와 아래칸의 상단 테두리가 겹쳐지도록 설덩 */
+    white-space: nowrap;
+}
+.submenuLi:hover { /* 하위 메뉴의 a 태그의 마우스 오버 스타일 설정 */
+    color: red; /* 글씨색을 빨간색으로 설정 */
+    background-color: #dddddd; /* 배경을 RGB(DDDDDD)로 설정 */
+}
+
+.scratchlogobutton {
+    content: url('../img/UI/topbar/scratchlogoOff.png');
+}
+.scratchlogobutton:hover {
+    content: url('../img/UI/topbar/scratchlogoOn.png');
+}
+.languageButtonbutton {
+    content: url('../img/UI/topbar/languageButtonOff.png');
+}
+.languageButtonbutton:hover {
+    content: url('../img/UI/topbar/languageButtonOn.png');
+}
+.copyToolbutton {
+    content: url('../img/UI/topbar/copyTool.png');
+}
+.cutToolbutton {
+    content: url('../img/UI/topbar/cutTool.png');
+}
+.growToolbutton {
+    content: url('../img/UI/topbar/growTool.png');
+}
+.shrinkToolbutton {
+    content: url('../img/UI/topbar/shrinkTool.png');
+}
+.helpToolbutton {
+    content: url('../img/UI/topbar/helpTool.png');
+}
+
+
+
 	
 .main{
 	flex:1;
