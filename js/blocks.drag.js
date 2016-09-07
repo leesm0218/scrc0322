@@ -223,7 +223,7 @@ $(function () {
             });
     }
 
-    function findTop ($elmt) {
+    blocks.findTop = function ($elmt) {
         var pid;
         var $top = $elmt;
 
@@ -232,17 +232,17 @@ $(function () {
         }
 
         return $top;
-    }
+    };
 
-    function findRootBlock ($elmt) {
-        var $top = findTop($elmt);
+    blocks.findRootBlock = function ($elmt) {
+        var $top = blocks.findTop($elmt);
 
         if ($top.is(".bracket")) {
-            return findRootBlock($top.parent());
+            return blocks.findRootBlock($top.parent());
         }
 
         return $top;
-    }
+    };
 
     function extrude_ () {
         //console.log(changed_blocks.length)
@@ -288,7 +288,7 @@ $(function () {
         });
     }
 
-    function makeIteratorSiblings ($elmt) {
+    blocks.makeIteratorSiblings = function ($elmt) {
         function makeIter ($e) {
             return {
                 now: function () {
@@ -316,33 +316,43 @@ $(function () {
         }
 
         return makeIter($elmt);
-    }
+    };
 
-    function circuitSiblings ($elmt, callback) {
-        var iter = makeIteratorSiblings($elmt);
+    blocks.circuitSiblings = function ($elmt, callback, last_callback) {
+        var iter = blocks.makeIteratorSiblings($elmt);
 
-        function circuit() {
-            iter = iter.next();
-
+        function act (iter, circuit) {
             if (iter) {
                 callback(iter, circuit);
+            } else {
+                last_callback && last_callback();
             }
         }
 
-        if (iter) {
-            callback(iter, circuit);
+        function circuit () {
+            iter = iter.next();
+
+            act(iter, circuit);
         }
-    }
 
-    function circuitTree ($elmt, callbacks, callback) {
+        act(iter, circuit);
+    };
+
+    blocks.circuitTree = function ($elmt, callbacks, callback) {
         var option = {};
+        callbacks.before = callbacks.before || function (iter, option, callback) {
+                callback();
+            };
+        callbacks.after = callbacks.after || function (iter, option, callback) {
+                callback();
+            };
 
-        circuitSiblings($elmt, function (iter, circuit) {
+        blocks.circuitSiblings($elmt, function (iter, circuit) {
             var $e = iter.now();
 
             callbacks.before(iter, option, function () {
                 if ($e.is(".bracketed")) {
-                    circuitTree($e.find(">.b-open"), callbacks, function () {
+                    blocks.circuitTree($e.find(">.b-open"), callbacks, function () {
                         callbacks.after(iter, option, circuit);
                     });
                 } else {
@@ -352,15 +362,22 @@ $(function () {
         });
 
         callback && callback();
-    }
+    };
 
     // 정렬
     function extrude ($elmt) {
-        var $root = findRootBlock($elmt);
+        var $root = blocks.findRootBlock($elmt);
+        var depth = 0;
 
-        circuitTree($root, {
+        blocks.circuitTree($root, {
             before: function (iter, option, callback) {
+                var $e = iter.now();
+
                 positioningElmt(iter);
+
+                if ($e.is(".bracketed")) {
+                    depth++;
+                }
 
                 callback();
             },
@@ -369,6 +386,7 @@ $(function () {
 
                 if ($e.is(".bracketed")) {
                     positioningBracket(iter);
+                    depth--;
                 }
 
                 if (!iter.prev()) {
@@ -376,6 +394,14 @@ $(function () {
                     option.height = 1;
                 } else {
                     option.height += parseFloat($e.css("height")) + 1;
+                }
+
+                if (option.$top.is(".b-open")) {
+                    $e.attr({
+                        depth: depth || ""
+                    });
+                } else {
+                    $e.removeAttr("depth");
                 }
 
                 if (!iter.next()) {
@@ -398,9 +424,9 @@ $(function () {
     });
 
     function remove ($elmt) {
-        var $root = findRootBlock($elmt);
+        var $root = blocks.findRootBlock($elmt);
 
-        circuitTree($root, {
+        blocks.circuitTree($root, {
             before: function (iter, option, callback) {
                 callback();
             },
@@ -557,47 +583,28 @@ $(function () {
 
         if ($this.hasClass("dragging")) return;
 
-        var $root = findRootBlock($this);
+        var $root = blocks.findRootBlock($this);
         var zIndexInc = 1;
 
-        circuitTree($root, {
+        blocks.circuitTree($root, {
             before: function (iter, option, callback) {
                 var $e = iter.now();
 
                 $e.addClass("dragging");
+                $e.css({
+                    "z-index": ""
+                });
+                $e.css({
+                    "z-index": "+=" + zIndexInc
+                });
+                zIndexInc++;
                 if (!$e.is(".bracketed")) {
-                    $e.css({
-                        "z-index": ""
-                    });
-                    $e.css({
-                        "z-index": "+=" + zIndexInc
-                    });
-                    zIndexInc++;
                 }
 
                 callback();
             },
             after: function (iter, option, callback) {
                 var $e = iter.now();
-
-                if (!$e.is(".bracketed")) {
-                    $e.css({
-                        "z-index": ""
-                    });
-                    $e.css({
-                        "z-index": "+=" + zIndexInc
-                    });
-                    zIndexInc++;
-                }
-                if ($e.is(".bracketed")) {
-                    $e.find(".b-close").css({
-                        "z-index": ""
-                    });
-                    $e.find(".b-close").css({
-                        "z-index": "+=" + zIndexInc
-                    });
-                    zIndexInc++;
-                }
 
                 callback();
             }
@@ -608,9 +615,9 @@ $(function () {
     {
         invalidateBlock($this);
 
-        var $root = findRootBlock($this);
+        var $root = blocks.findRootBlock($this);
 
-        circuitTree($root, {
+        blocks.circuitTree($root, {
             before: function (iter, option, callback) {
                 var $e = iter.now();
 

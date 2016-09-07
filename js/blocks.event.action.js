@@ -8,6 +8,7 @@ scrc = scrc || {};
 
 $(function () {
     var main_screen = scrc.namespace("main_screen");
+    var blocks = scrc.namespace("blocks");
 
     scrc.namespace("blocks.actions.move").action = function (elmt, callback) {
         var space = scrc.namespace("blocks.element.element-space");
@@ -141,9 +142,29 @@ $(function () {
         callback($open[0]);
     };
 
-    scrc.namespace("blocks.actions.repeat").action = function (elmt, callback) {
-        var $this = $(elmt);
+    scrc.namespace("blocks.actions.repeat").action = function (elmt, callback, option) {
+        var $elmt = $(elmt);
 
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
+        var $space = $elmt.find(">.b-open").find(">.element-space");
+        var n = calc($space[0]);
+
+        function repeat () {
+            if (n > 0) {
+                console.log(n)
+                n--;
+                blocks.execute($elmt.find(">.b-open"), repeat);
+            } else {
+                callback(elmt);
+            }
+        }
+
+        repeat();
+    };
+
+    scrc.namespace("blocks.actions.repeat-start").action = function (elmt, callback, option) {
+        callback(elmt);
     };
 
     scrc.namespace("blocks.actions.sleep").action = function (elmt, callback) {
