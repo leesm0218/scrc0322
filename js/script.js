@@ -21,6 +21,7 @@ $(function () {
     
 
     /* 라디오버튼처럼 하나만 selected되도록 */
+    /*
     var list = document.querySelector('ul#sprite_list');
     list.addEventListener('click', function(ev) {
         var tm = document.getElementsByTagName("li");
@@ -31,6 +32,6 @@ $(function () {
             ev.target.classList.toggle('selected');
         }
     }, false);
-
+    */
 
 });
