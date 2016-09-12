@@ -153,7 +153,7 @@ $(function () {
 
                 $code.find(".magnet").removeClass("magneted-bottom");
             }
-            //extrude($elmt);
+            //blocks.extrude($elmt);
             invalidateBlock($elmt);
             releaseTogether($elmt);
             $(".mouseover").removeClass("mouseover");
@@ -251,24 +251,34 @@ $(function () {
         if (block) {
             var $elmt = util.parents(block, ".code>.code-piece");
 
-            extrude($elmt);
+            blocks.extrude($elmt);
         }
     }
 
     function positioningBracket (iter) {
         var $elmt = iter.now();
-        var $open = $elmt.find(".b-open"),
-            $line = $elmt.find(".b-line"),
-            $close = $elmt.find(".b-close");
+        var $opens = $elmt.find(">.b-open"),
+            $lines = $elmt.find(">.b-line"),
+            $close = $elmt.find(">.b-close");
+        var height = 0;
 
-        $line.css({
-            top: ($open.height()) + "px"
+        $opens.each(function (i, e) {
+            var $open = $($opens[i]);
+            var $line = $($lines[i]);
+
+            $open.css({
+                top: height + "px"
+            });
+            $line.css({
+                top: (height + $open.height()) + "px"
+            });
+            height += $open.height() + $line.height();
         });
         $close.css({
-            top: ($open.height() + $line.height()) + "px"
+            top: height + "px"
         });
         $elmt.css({
-            height: $open.height() + $line.height() + $close.height()
+            height: height + $close.height()
         })
     }
 
@@ -352,22 +362,37 @@ $(function () {
 
             callbacks.before(iter, option, function () {
                 if ($e.is(".bracketed")) {
-                    blocks.circuitTree($e.find(">.b-open"), callbacks, function () {
-                        callbacks.after(iter, option, circuit);
+                    var $opens = $e.find(">.b-open");
+
+                    var loop = util.syncLoop(0, $opens.length, {
+                        func: function (i, loop) {
+                            var $open = $($opens[i]);
+
+                            blocks.circuitTree($open, callbacks, loop);
+                        },
+                        done: function () {
+                            callbacks.after(iter, option, circuit);
+                        }
                     });
+                    loop.start();
+                    /*$open.each(function (i,e) {
+                        var $e = $(e);
+
+                        blocks.circuitTree($e, callbacks, function () {
+                            callbacks.after(iter, option, circuit);
+                        });
+                    });*/
                 } else {
                     callbacks.after(iter, option, circuit);
                 }
             });
-        });
-
-        callback && callback();
+        }, callback);
     };
 
     // 정렬
-    function extrude ($elmt) {
+    blocks.extrude = function ($elmt) {
         var $root = blocks.findRootBlock($elmt);
-        var depth = 0;
+        //var depth = 0;
 
         blocks.circuitTree($root, {
             before: function (iter, option, callback) {
@@ -375,9 +400,9 @@ $(function () {
 
                 positioningElmt(iter);
 
-                if ($e.is(".bracketed")) {
+                /*if ($e.is(".bracketed")) {
                     depth++;
-                }
+                }*/
 
                 callback();
             },
@@ -386,7 +411,7 @@ $(function () {
 
                 if ($e.is(".bracketed")) {
                     positioningBracket(iter);
-                    depth--;
+                    //depth--;
                 }
 
                 if (!iter.prev()) {
@@ -396,16 +421,16 @@ $(function () {
                     option.height += parseFloat($e.css("height")) + 1;
                 }
 
-                if (option.$top.is(".b-open")) {
+                /*if (option.$top.is(".b-open")) {
                     $e.attr({
                         depth: depth || ""
                     });
                 } else {
                     $e.removeAttr("depth");
-                }
+                }*/
 
                 if (!iter.next()) {
-                    option.$top.siblings(".b-line").css({
+                    option.$top.find("~.b-line:first").css({
                         height: util.max(option.height, 10)
                     });
                 }
@@ -414,7 +439,7 @@ $(function () {
             }
         });
         //console.log("--------------------------end")
-    }
+    };
 
     $tools.droppable({
         accept: ".code .code-piece",

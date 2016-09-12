@@ -163,7 +163,21 @@ $(function () {
         repeat();
     };
 
-    scrc.namespace("blocks.actions.repeat-start").action = function (elmt, callback, option) {
+    scrc.namespace("blocks.actions.infinite-repeat").action = function (elmt, callback, option) {
+        var $elmt = $(elmt);
+
+        function repeat () {
+            if (true) {
+                blocks.execute($elmt.find(">.b-open"), repeat);
+            } else {
+                callback(elmt);
+            }
+        }
+
+        repeat();
+    };
+
+    scrc.namespace("blocks.actions.non-action").action = function (elmt, callback, option) {
         callback(elmt);
     };
 

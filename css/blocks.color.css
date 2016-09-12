@@ -8,6 +8,7 @@
 .event { box-shadow: 0.5px 0.5px 1px 0px #FFEE99 inset, 1px 1px 0px 0px black; }
 .control:not(.bracketed) { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
 .control.bracketed>.b-open { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
+.control.bracketed>.b-else { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
 .control.bracketed>.b-close { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
 .control.bracketed>.b-line {
     box-shadow: 0.5px 0px 0px 0px #FFDD70 inset,
@@ -101,7 +102,7 @@
 .bracketed.mouseover:not(.acting) .b-open:before,
 .bracketed.mouseover:not(.acting) .b-line:before,
 .bracketed.mouseover:not(.acting) .b-close:before {
-    content: "　";
+    content: "";
     position: absolute;
     height: inherit;
     width: inherit; }
@@ -188,7 +189,7 @@
 /* 마그넷 표시 */
 :not(.bracketed).magnet.magneted-bottom:before,
 .bracketed.magnet.magneted-bottom .b-close:before {
-    content: "　";
+    content: "";
     position: absolute;
     height: inherit;
     width: inherit;

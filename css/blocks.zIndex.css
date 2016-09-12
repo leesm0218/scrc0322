@@ -11,6 +11,7 @@
 .bracket.dragging~.b-line { z-index: 100000; }
 .bracket.dragging~.b-close { z-index: 90000; }
 
-.b-open:after { z-index: 20000; }
-.b-line:after { z-index: 20000; }
-.b-close:after { z-index: 20000; }
+.b-open:before { z-index: 20000; }
+.b-else:before { z-index: 20000; }
+.b-line:before { z-index: 20000; }
+.b-close:before { z-index: 20000; }
