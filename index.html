@@ -30,6 +30,7 @@
 		<script src="js/blocks.event.action.js"></script>
 		<script src="js/blocks.event.calc.js"></script>
 		<script src="js/blocks.drag.js"></script>
+		<script src="js/block.variable.js"></script>
 		<script src="js/sound.js"></script>
 		<script src="js/script.js"></script>
 		
@@ -282,7 +283,7 @@
 			<pre class="text">¶</pre>
 		</span>
 	</span>
-	<span class="code-piece control bracketed b-out magnet" action="if">
+	<span class="code-piece control bracketed b-out magnet" action="if-else">
 		<span class="bracket magnet b-open" action="non-action">
 			<pre class="text">만약 </pre>
 			<span class="element-space number"><!--
@@ -346,6 +347,68 @@
 		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
 	---></span>
 	</span>
+	<span class="code-piece binary operator element" calc="random" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="1"><!--
+	---></span><!--
+	---><pre class="text">부터</pre><!--
+	---><span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="9"><!--
+	---></span><!--
+	---><pre class="text">사이의 난수</pre><!--
+	--->
+	</span>
+	<span class="code-piece binary operator element" calc="lt" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">&lt</pre><!--
+	---><span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span>
+	</span>
+	<span class="code-piece binary operator element" calc="eq" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">＝</pre><!--
+	---><span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span>
+	</span>
+	<span class="code-piece binary operator element" calc="gt" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">&gt</pre><!--
+	---><span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span>
+	</span>
+	<span class="code-piece binary operator element" calc="and" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">그리고</pre><!--
+	---><span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span>
+	</span>
+	<span class="code-piece binary operator element" calc="or" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">또는</pre><!--
+	---><span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span>
+	</span>
+	<span class="code-piece binary operator element" calc="not" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">가(이) 아니다</pre>
+	</span>
 		</div>
 
 		<div class="scrc-template code-piece movement">
@@ -389,6 +452,14 @@
 	</span>
 	<span class="code-piece movement element" calc="comhair">
 		<pre class="text">방향</pre>
+	</span>
+		</div>
+		<div class="scrc-template code-piece data">
+	<button id="create_variable">변수 만들기</button>
+		</div>
+		<div class="scrc-template code-piece variable">
+	<span class="code-piece variable element" calc="value">
+		<pre class="text">noname</pre>
 	</span>
 		</div>
     </body>

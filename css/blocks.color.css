@@ -13,8 +13,9 @@
 .control.bracketed>.b-line {
     box-shadow: 0.5px 0px 0px 0px #FFDD70 inset,
                 1px 0px 0px 0px black,
-                1px -2px 0px -1px darkorange,
-                0px 4px 0px -1px darkorange; }
+                1px -2px 0px -1px rgb(225, 169, 26),
+                0px 4px 0px -1px rgb(225, 169, 26); }
+.variable { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
 
 /*****************/
 
@@ -66,7 +67,7 @@
 
 .bracketed.mouseover:not(.acting) .b-open {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
-    1px 0px 3px 0px #CC6A00; }
+    1px 0px 3px 0px rgb(200, 169, 26); }
 .bracketed.dragging:not(.acting) .b-open,
 .bracketed.mouseover.dragging:not(.acting) .b-open {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
@@ -74,15 +75,15 @@
 .bracketed.mouseover:not(.acting) .b-line {
     box-shadow: 0.5px 0px 0px 0px #FFDD70 inset,
     1px 0px 0px 0px black,
-    1px -2px 0px -1px darkorange,
-    0px 4px 0px -1px darkorange,
+    1px -2px 0px -1px rgb(225, 169, 26),
+    0px 4px 0px -1px rgb(225, 169, 26),
     1px 0px 3px 0px #CC6A00; }
 .bracketed.dragging:not(.acting) .b-line,
 .bracketed.mouseover.dragging:not(.acting) .b-line {
     box-shadow: 0.5px 0px 0px 0px #FFDD70 inset,
     1px 0px 0px 0px black,
-    1px -2px 0px -1px darkorange,
-    0px 4px 0px -1px darkorange,
+    1px -2px 0px -1px rgb(225, 169, 26),
+    0px 4px 0px -1px rgb(225, 169, 26),
     1px 0px 3px 0px #CC6A00, 5px 0px 3px -5px dimgray; }
 .bracketed.mouseover:not(.acting) .b-close {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
@@ -238,6 +239,7 @@
 .sound { background-color:rebeccapurple; }
 .movement { background-color: #003eff; }
 .event { background-color: darkgoldenrod; margin-right: 30px; }
-.control { background-color: darkorange; }
+.control { background-color: rgb(225, 169, 26); }
 .control>.b-line { background-color: inherit; }
-.control.bracketed>.bracket { background-color: darkorange; }
+.control.bracketed>.bracket { background-color: rgb(225, 169, 26); }
+.variable { background-color: darkorange; }

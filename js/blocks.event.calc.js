@@ -25,6 +25,27 @@ $(function () {
             },
             "sub": function (lhs, rhs) {
                 return lhs / rhs;
+            },
+            "random": function (lhs, rhs) {
+                return lhs + Math.floor(Math.random() * rhs);
+            },
+            "lt": function (lhs, rhs) {
+                return lhs < rhs;
+            },
+            "gt": function (lhs, rhs) {
+                return lhs > rhs;
+            },
+            "eq": function (lhs, rhs) {
+                return lhs == rhs;
+            },
+            "and": function (lhs, rhs) {
+                return lhs && rhs;
+            },
+            "or": function (lhs, rhs) {
+                return lhs || rhs;
+            },
+            "not": function (lhs, rhs) {
+                return lhs == rhs;
             }
         }
     };
@@ -60,6 +81,21 @@ $(function () {
     scrc.namespace("blocks.calc.minus").calc = calc;
     scrc.namespace("blocks.calc.mul").calc = calc;
     scrc.namespace("blocks.calc.sub").calc = calc;
+    scrc.namespace("blocks.calc.random").calc = calc;
+    scrc.namespace("blocks.calc.lt").calc = calc;
+    scrc.namespace("blocks.calc.gt").calc = calc;
+    scrc.namespace("blocks.calc.eq").calc = calc;
+    scrc.namespace("blocks.calc.and").calc = calc;
+    scrc.namespace("blocks.calc.or").calc = calc;
+
+    scrc.namespace("blocks.calc.not").calc = function (elmt) {
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
+        var $elmt = $(elmt);
+        var $space = $elmt.find(">.element-space");
+
+        return !calc($space[0]);
+    };
 
     scrc.namespace("blocks.calc.x-position").calc = function (elmt) {
         var $this = $(elmt);

@@ -151,9 +151,11 @@ $(function () {
 
             $div.find(">*").each(function (i, e) {
                 blocks.addUl(e, ".toolbox[value=08]");
-                blocks.draggable(e, ".toolbox");
-                blocks.resizing($(e));
-                blocks.extrude($(e));
+                if ($(e).is(".code-piece")) {
+                    blocks.draggable(e, ".toolbox");
+                    blocks.resizing($(e));
+                    blocks.align($(e));
+                }
             });
         })
         .loadTemplate(".scrc-template.code-piece.movement", function (template) {
@@ -161,9 +163,11 @@ $(function () {
 
             $div.find(">*").each(function (i, e) {
                 blocks.addUl(e, ".toolbox[value=01]");
-                blocks.draggable(e, ".toolbox");
-                blocks.resizing($(e));
-                blocks.extrude($(e));
+                if ($(e).is(".code-piece")) {
+                    blocks.draggable(e, ".toolbox");
+                    blocks.resizing($(e));
+                    blocks.align($(e));
+                }
             })
         })
         .loadTemplate(".scrc-template.code-piece.event", function (template) {
@@ -171,9 +175,11 @@ $(function () {
 
             $div.find(">*").each(function (i, e) {
                 blocks.addUl(e, ".toolbox[value=02]");
-                blocks.draggable(e, ".toolbox");
-                blocks.resizing($(e));
-                blocks.extrude($(e));
+                if ($(e).is(".code-piece")) {
+                    blocks.draggable(e, ".toolbox");
+                    blocks.resizing($(e));
+                    blocks.align($(e));
+                }
             });
         })
         .loadTemplate(".scrc-template.code-piece.control", function (template) {
@@ -181,9 +187,23 @@ $(function () {
 
             $div.find(">*").each(function (i, e) {
                 blocks.addUl(e, ".toolbox[value=04]");
-                blocks.draggable(e, ".toolbox");
-                blocks.resizing($(e));
-                blocks.extrude($(e));
+                if ($(e).is(".code-piece")) {
+                    blocks.draggable(e, ".toolbox");
+                    blocks.resizing($(e));
+                    blocks.align($(e));
+                }
+            });
+        })
+        .loadTemplate(".scrc-template.code-piece.data", function (template) {
+            var $div = $("<div>").append(template);
+
+            $div.find(">*").each(function (i, e) {
+                blocks.addUl(e, ".toolbox[value=09]");
+                if ($(e).is(".code-piece")) {
+                    blocks.draggable(e, ".toolbox");
+                    blocks.resizing($(e));
+                    blocks.align($(e));
+                }
             });
         });
 });

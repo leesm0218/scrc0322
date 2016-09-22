@@ -153,7 +153,7 @@ $(function () {
 
                 $code.find(".magnet").removeClass("magneted-bottom");
             }
-            //blocks.extrude($elmt);
+            //blocks.align($elmt);
             invalidateBlock($elmt);
             releaseTogether($elmt);
             $(".mouseover").removeClass("mouseover");
@@ -251,11 +251,12 @@ $(function () {
         if (block) {
             var $elmt = util.parents(block, ".code>.code-piece");
 
-            blocks.extrude($elmt);
+            blocks.align($elmt);
+            blocks.arrange($elmt);
         }
     }
 
-    function positioningBracket (iter) {
+    function fixupBracket (iter) {
         var $elmt = iter.now();
         var $opens = $elmt.find(">.b-open"),
             $lines = $elmt.find(">.b-line"),
@@ -274,15 +275,17 @@ $(function () {
             });
             height += $open.height() + $line.height();
         });
+        
         $close.css({
             top: height + "px"
         });
+
         $elmt.css({
             height: height + $close.height()
         })
     }
 
-    function positioningElmt (iter) {
+    function fixupElmt (iter) {
         var prev_iter = iter.prev();
 
         if (!prev_iter) return;
@@ -372,6 +375,7 @@ $(function () {
                         },
                         done: function () {
                             callbacks.after(iter, option, circuit);
+                            //circuit();
                         }
                     });
                     loop.start();
@@ -390,27 +394,16 @@ $(function () {
     };
 
     // 정렬
-    blocks.extrude = function ($elmt) {
+    blocks.align = function ($elmt) {
         var $root = blocks.findRootBlock($elmt);
         //var depth = 0;
 
         blocks.circuitTree($root, {
-            before: function (iter, option, callback) {
-                var $e = iter.now();
-
-                positioningElmt(iter);
-
-                /*if ($e.is(".bracketed")) {
-                    depth++;
-                }*/
-
-                callback();
-            },
             after: function (iter, option, callback) {
                 var $e = iter.now();
 
                 if ($e.is(".bracketed")) {
-                    positioningBracket(iter);
+                    fixupBracket(iter);
                     //depth--;
                 }
 
@@ -420,14 +413,6 @@ $(function () {
                 } else {
                     option.height += parseFloat($e.css("height")) + 1;
                 }
-
-                /*if (option.$top.is(".b-open")) {
-                    $e.attr({
-                        depth: depth || ""
-                    });
-                } else {
-                    $e.removeAttr("depth");
-                }*/
 
                 if (!iter.next()) {
                     option.$top.find("~.b-line:first").css({
@@ -439,6 +424,25 @@ $(function () {
             }
         });
         //console.log("--------------------------end")
+    };
+
+    blocks.arrange = function ($elmt) {
+        var $root = blocks.findRootBlock($elmt);
+
+        blocks.circuitTree($root, {
+            before: function (iter, option, callback) {
+                fixupElmt(iter);
+
+                callback();
+            },
+            after: function (iter, option, callback) {
+                if (iter.now().is(".bracketed")) {
+                    //fixupBracket(iter);
+                }
+
+                callback();
+            }
+        });
     };
 
     $tools.droppable({
