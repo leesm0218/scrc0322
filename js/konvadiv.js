@@ -9,8 +9,8 @@ $(function () {
     // http://konvajs.github.io/docs/index.html
 
     // create stage canvas
-    var width = 400;
-    var height = 300;
+    var width = $("#container").width();
+    var height = $("#container").height();
 
     var stage = new Konva.Stage({
         container: 'container',
