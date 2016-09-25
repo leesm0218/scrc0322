@@ -18,12 +18,13 @@
 
 		<script src="lib/jquery-1.12.1.min.js"></script>
 		<script src="lib/jquery-ui.js"></script>
-		<script src="https://cdn.rawgit.com/konvajs/konva/0.13.0/konva.min.js"></script>
+		<!--임의로 캔버스 콘바 세팅때문에 테스트가 안되니까 div + 클래스로 테스트함. 담당자는 캔버스에 적용시켜 해결할것.--> 
+		<!--<script src="https://cdn.rawgit.com/konvajs/konva/0.13.0/konva.min.js"></script>-->
 
         <script src="js/main.js"></script>
 		<script src="js/util.js"></script>
 		<script src="js/main-screen.js"></script>
-		<script src="js/konvadiv.js"></script>
+		<!--<script src="js/konvadiv.js"></script>-->
 		<script src="js/blocks.js"></script>
 		<script src="js/event.js"></script>
 		<script src="js/blocks.event.js"></script>
@@ -112,10 +113,11 @@
 				<footer class="tempfooter"></footer>
             </div>
 			<div class="column2">
-				<div class="workmenulabels">
-							<label name="workmenu" value="01">Tab 1</label>
-							<label name="workmenu" value="02">Tab 2</label>
-							<label name="workmenu" value="03">Tab 3</label>
+				<div class="workmenulabelset">
+							<label name="workmenu" value="01" class="workmenulabel Workmenulabelactive">Tab 1</label>
+							<label name="workmenu" value="02" class="workmenulabel">Tab 2</label>
+							<label name="workmenu" value="03" class="workmenulabel">Tab 3</label>
+							<div style="flex:1; margin:0px; padding:0px; border:2px solid #ccc;"></div>
 				</div>
 				<div class="workmenus">
 					<div class="workmenu" name = "workmenu-visible" value="01">
