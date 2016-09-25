@@ -13,13 +13,11 @@ $(function () {
 
     $workmenu
         .on("mouseover", ".code-piece", function (event) {
-            //console.log("mouseover");
             $(".mouseover").removeClass("mouseover");
             $(util.parents(event.target, ".code-piece")[0]).addClass("mouseover");
         })
         .on("mouseleave", ".code-piece", function (event) {
             $(".mouseover").removeClass("mouseover");
-            //util.parents(event.target, ".code-piece").removeClass("mouseover");
         });
 
     blocks.draggable = function (e, p) {
@@ -31,7 +29,13 @@ $(function () {
         });
     };
 
-    //blocks.draggable(".code-piece", $tools);
+    var changed_blocks = [];
+
+    function invalidateBlock (block) {
+        if (changed_blocks.indexOf(block) == -1) {
+            changed_blocks.push(block);
+        }
+    }
 
     $code.droppable({
         accept : ".workmenu .code-piece",
@@ -44,35 +48,18 @@ $(function () {
                 $elmt = scrc.blocks.create($elmt);
 
                 if ($elmt.hasClass("bracketed")) {
-                    /*var $open_bracket = $elmt.find(".bracket:first");
-                    var $close_bracket = $elmt.find(".bracket:last");
-                    $code.append($open_bracket);
-                    $code.append($close_bracket);
-
-                    $open_bracket.css({
+                    $elmt.removeClass("ui-draggable-dragging");
+                    $code.append($elmt);
+                    $elmt.css({
                         left: ui.offset.left - $code.position().left,
-                        top: ui.offset.top - $code.position().top + 4
+                        top: ui.offset.top - $code.position().top
                     });
-                    $close_bracket.css({
-                        left: ui.offset.left - $code.position().left,
-                        top: ui.offset.top - $code.position().top + 4
-                    });
-
-                    $($open_bracket, $code).draggable({
+                    $($elmt, $code).draggable({
                         cursor: "move",
                         revert: "invalid",
                         helper: "original",
                         drag: drag
                     });
-
-                    $($close_bracket, $code).draggable({
-                        cursor: "move",
-                        revert: "invalid",
-                        helper: "original",
-                        drag: drag
-                    });
-
-                    console.log($open_bracket, $close_bracket)*/
                 } else {
                     $elmt.removeClass("ui-draggable-dragging");
                     $code.append($elmt);
@@ -88,12 +75,10 @@ $(function () {
                         helper: "original",
                         drag: drag
                     });
-
-                    //console.log($elmt.attr("id"));
                 }
                 blocks.resizing($elmt)
             } else if (!$elmt.parent().is(".code")) {
-                var $outer_space = util.parents($elmt, ".space:first");
+                var $outer_space = util.parents($elmt, ".element-space:first");
                 var offset = $elmt.offset();
 
                 $code.append($elmt);
@@ -108,7 +93,7 @@ $(function () {
 
             if ($elmt.hasClass("magnet")) {
                 // 자석 기능
-                var $magnet = $code.find(".code-piece.magneted-bottom:first");
+                var $magnet = $code.find(".magneted-bottom:first");
 
                 if ($magnet.length > 0) {
                     var npid = $magnet.attr("next-piece-id");
@@ -122,26 +107,11 @@ $(function () {
 
                         attach($e, $next);
                     }
-
-                    var deep_count = parseInt($magnet.attr("deep-count")) || 0;
-                    if ($magnet.hasClass("open")) {
-                        if ($elmt.hasClass("close")) {
-                            $elmt.attr("deep-count", deep_count);
-                        } else {
-                            $elmt.attr("deep-count", deep_count + 1);
-                        }
-                    } else if ($elmt.hasClass("close")) {
-                        $elmt.attr("deep-count", deep_count - 1);
-                    } else {
-                        $elmt.attr("deep-count", deep_count);
-                    }
-                } else {
-                    $elmt.attr("deep-count", 0);
                 }
 
-                $code.find(".code-piece").removeClass("magneted-bottom");
+                $code.find(".magnet").removeClass("magneted-bottom");
             } else if ($elmt.hasClass("element")) {
-                var $space = $code.find(".space.in-space:first");
+                var $space = $code.find(".element-space.in-space:first");
 
                 if ($space.length > 0) {
                     var $parent = util.parents($space, ".code>.code-piece");
@@ -156,16 +126,35 @@ $(function () {
                             left: ($parent.offset().left - $code.position().left - 20),
                             top: ($parent.offset().top - $code.position().top + 30)
                         }, 100);
-                        blocks.resizing($other_elmt);
+                        invalidateBlock($other_elmt);
+                        //blocks.resizing($other_elmt);
                     }
                     $space.find(".default").hide();
                     $space.append($elmt);
                     $space.removeClass("in-space");
                     blocks.resizing($parent);
                 }
-            }
+            } else if ($elmt.hasClass("bracketed")) {
+                var $magnet = $code.find(".magneted-bottom:first");
 
-            extrude($elmt);
+                if ($magnet.length > 0) {
+                    var npid = $magnet.attr("next-piece-id");
+
+                    attach($magnet, $elmt);
+
+                    if (npid) {
+                        var $e = last_piece($elmt);
+
+                        var $next = $("#" + npid);
+
+                        attach($e, $next);
+                    }
+                }
+
+                $code.find(".magnet").removeClass("magneted-bottom");
+            }
+            //extrude($elmt);
+            invalidateBlock($elmt);
             releaseTogether($elmt);
             $(".mouseover").removeClass("mouseover");
         }
@@ -208,36 +197,6 @@ $(function () {
         }
     });*/
 
-    function regulate ($parent, $elmt, css, delay)
-    {
-        delay = delay || 100;
-        var $e = $elmt, $p = $e.parent();
-        var old_width = $e.width();
-        var old_height = $e.height();
-
-        console.log("start")
-        $e.css(css);
-        /*do {
-            //console.log($p.width(), $e.width(), old_width, $p.width() + $e.width() - old_width)
-            //console.log($p.height(), $e.height(), old_height, $p.height() + $e.height() - old_height)
-            var new_width = $p.width() + $e.width() - old_width;
-            var new_height = $p.height() + $e.height() - old_height;
-            old_width = $e.width();
-            old_height = $e.height();
-            //console.log(new_width, new_height)
-            $p.css({
-                width: new_width + "px",
-                height: new_height + "px"
-            }, delay);
-            $e = $p;
-            $p = $e.parent();
-            var k=999999999;
-            while(--k);
-            console.log($e, $p.attr("id"), $parent.attr("id"), $p.attr("id") != $parent.attr("id"))
-        } while ($p.attr("id") != $parent.attr("id"));
-        console.log("done")*/
-    }
-
     // 마지막 피스
     function last_piece ($elmt)
     {
@@ -264,29 +223,197 @@ $(function () {
             });
     }
 
+    blocks.findTop = function ($elmt) {
+        var pid;
+        var $top = $elmt;
+
+        while (pid = $top.attr("prev-piece-id")) {
+            $top = $("#" + pid);
+        }
+
+        return $top;
+    };
+
+    blocks.findRootBlock = function ($elmt) {
+        var $top = blocks.findTop($elmt);
+
+        if ($top.is(".bracket")) {
+            return blocks.findRootBlock($top.parent());
+        }
+
+        return $top;
+    };
+
+    function extrude_ () {
+        //console.log(changed_blocks.length)
+        var block = changed_blocks.shift();
+
+        if (block) {
+            var $elmt = util.parents(block, ".code>.code-piece");
+
+            extrude($elmt);
+        }
+    }
+
+    function positioningBracket (iter) {
+        var $elmt = iter.now();
+        var $open = $elmt.find(".b-open"),
+            $line = $elmt.find(".b-line"),
+            $close = $elmt.find(".b-close");
+
+        $line.css({
+            top: ($open.height()) + "px"
+        });
+        $close.css({
+            top: ($open.height() + $line.height()) + "px"
+        });
+        $elmt.css({
+            height: $open.height() + $line.height() + $close.height()
+        })
+    }
+
+    function positioningElmt (iter) {
+        var prev_iter = iter.prev();
+
+        if (!prev_iter) return;
+
+        var $elmt = iter.now(),
+            $prev = prev_iter.now();
+
+        var pos = position($prev, $code);
+
+        $elmt.css({
+            left: pos.left - $code.position().left + ($prev.is(".b-open") ? 19 : 0),
+            top: pos.top - $code.position().top + $prev.height() + 1
+        });
+    }
+
+    blocks.makeIteratorSiblings = function ($elmt) {
+        function makeIter ($e) {
+            return {
+                now: function () {
+                    return $e;
+                },
+                next: function () {
+                    var pid = $e.attr("next-piece-id");
+
+                    if (pid) {
+                        return makeIter($("#" + pid));
+                    } else {
+                        return false;
+                    }
+                },
+                prev: function () {
+                    var pid = $e.attr("prev-piece-id");
+
+                    if (pid) {
+                        return makeIter($("#" + pid));
+                    } else {
+                        return false;
+                    }
+                }
+            };
+        }
+
+        return makeIter($elmt);
+    };
+
+    blocks.circuitSiblings = function ($elmt, callback, last_callback) {
+        var iter = blocks.makeIteratorSiblings($elmt);
+
+        function act (iter, circuit) {
+            if (iter) {
+                callback(iter, circuit);
+            } else {
+                last_callback && last_callback();
+            }
+        }
+
+        function circuit () {
+            iter = iter.next();
+
+            act(iter, circuit);
+        }
+
+        act(iter, circuit);
+    };
+
+    blocks.circuitTree = function ($elmt, callbacks, callback) {
+        var option = {};
+        callbacks.before = callbacks.before || function (iter, option, callback) {
+                callback();
+            };
+        callbacks.after = callbacks.after || function (iter, option, callback) {
+                callback();
+            };
+
+        blocks.circuitSiblings($elmt, function (iter, circuit) {
+            var $e = iter.now();
+
+            callbacks.before(iter, option, function () {
+                if ($e.is(".bracketed")) {
+                    blocks.circuitTree($e.find(">.b-open"), callbacks, function () {
+                        callbacks.after(iter, option, circuit);
+                    });
+                } else {
+                    callbacks.after(iter, option, circuit);
+                }
+            });
+        });
+
+        callback && callback();
+    };
+
     // 정렬
     function extrude ($elmt) {
-        var $elmt = util.parents($elmt, ".code>.code-piece");
+        var $root = blocks.findRootBlock($elmt);
+        var depth = 0;
 
-        var pid;
+        blocks.circuitTree($root, {
+            before: function (iter, option, callback) {
+                var $e = iter.now();
 
-        while (pid = $elmt.attr("prev-piece-id")) {
-            $elmt = $("#" + pid);
-        }
+                positioningElmt(iter);
 
-        var $prev = $elmt;
+                if ($e.is(".bracketed")) {
+                    depth++;
+                }
 
-        while (pid = $elmt.attr("next-piece-id")) {
-            $elmt = $("#" + pid);
+                callback();
+            },
+            after: function (iter, option, callback) {
+                var $e = iter.now();
 
-            var pos = position($prev, $code);
-            $elmt
-                .css({
-                    left: pos.left - $code.position().left,
-                    top: pos.top - $code.position().top + $prev.height() + 1
-                });
-            $prev = $elmt;
-        }
+                if ($e.is(".bracketed")) {
+                    positioningBracket(iter);
+                    depth--;
+                }
+
+                if (!iter.prev()) {
+                    option.$top = $e;
+                    option.height = 1;
+                } else {
+                    option.height += parseFloat($e.css("height")) + 1;
+                }
+
+                if (option.$top.is(".b-open")) {
+                    $e.attr({
+                        depth: depth || ""
+                    });
+                } else {
+                    $e.removeAttr("depth");
+                }
+
+                if (!iter.next()) {
+                    option.$top.siblings(".b-line").css({
+                        height: util.max(option.height, 10)
+                    });
+                }
+
+                callback();
+            }
+        });
+        //console.log("--------------------------end")
     }
 
     $tools.droppable({
@@ -297,14 +424,24 @@ $(function () {
     });
 
     function remove ($elmt) {
-        while ($elmt.length > 0) {
-            $elmt.remove();
-            var pid = $elmt.attr("next-piece-id")
-            $elmt = $("#" + pid);
-        }
+        var $root = blocks.findRootBlock($elmt);
+
+        blocks.circuitTree($root, {
+            before: function (iter, option, callback) {
+                callback();
+            },
+            after: function (iter, option, callback) {
+                var $e = iter.now();
+
+                $e.remove();
+
+                callback();
+            }
+        });
     }
 
     function position ($elmt, $parent) {
+        //console.log($elmt, $elmt.position())
         var result = {
             left: $elmt.position().left,
             right: $elmt.position().right,
@@ -343,6 +480,7 @@ $(function () {
 
             $that
                 .removeAttr("prev-piece-id");
+            invalidateBlock($("#" + prev_piece_id));
         }
 
         //$that.addClass("dragging");
@@ -357,10 +495,10 @@ $(function () {
                     ey = epos.top,
                     ew = $this.width(),
                     eh = $this.height(),
-                    aw = $that.width();
+                    aw = $that.is(".bracketed") ? $that.find(".b-close").width() : $that.width();
 
-                if (ey + eh - 5 <= oy && oy <= ey + eh + 15 &&
-                    ex - aw - 5 <= ox && ox <= ex + ew + 5) {
+                if (ey + eh - 5 <= oy && oy <= ey + eh + 25 &&
+                    ex - aw <= ox && ox <= ex + ew + aw) {
                     $elmts.removeClass("magneted-bottom");
                     $this.addClass("magneted-bottom");
                     break;
@@ -373,15 +511,15 @@ $(function () {
     }
 
     function checkElement (ui) {
-        var $spaces = $(".code .space"),
+        var $spaces = $(".code .element-space"),
             $that = ui.helper;
         var ox = ui.offset.left,
             oy = ui.offset.top;
 
-        $spaces = $spaces.not($that.find(".space"));
+        $spaces = $spaces.not($that.find(".element-space"));
 
         var $outer_space = $that.parent();
-        if ($outer_space.is(".space")) {
+        if ($outer_space.is(".element-space")) {
             $outer_space.find(">.default").show();
         }
 
@@ -438,33 +576,85 @@ $(function () {
 
     function moveTogether ($this)
     {
-        //extrude($this);
-        var next_piece_id = $this.attr("next-piece-id");
-        $this.addClass("dragging");
-        var pos = position($this, $code);
-        //console.log(pos)
-        if (next_piece_id) {
-            var $that = $("#" + next_piece_id + ":visible");
-
-            if ($that.length > 0) {
-                $that.css({
-                    left: pos.left - $code.position().left,
-                    top: pos.top - $code.position().top + $this.height() + 1
-                });
-
-                moveTogether($that);
-            }
+        // .code의 자식일 경우에만
+        if ($this.closest(".code").length == 1) {
+            invalidateBlock($this);
         }
+
+        if ($this.hasClass("dragging")) return;
+
+        var $root = blocks.findRootBlock($this);
+        var zIndexInc = 1;
+
+        blocks.circuitTree($root, {
+            before: function (iter, option, callback) {
+                var $e = iter.now();
+
+                $e.addClass("dragging");
+                $e.css({
+                    "z-index": ""
+                });
+                $e.css({
+                    "z-index": "+=" + zIndexInc
+                });
+                zIndexInc++;
+                if (!$e.is(".bracketed")) {
+                }
+
+                callback();
+            },
+            after: function (iter, option, callback) {
+                var $e = iter.now();
+
+                callback();
+            }
+        });
     }
 
     function releaseTogether ($this)
     {
-        var next_piece_id = $this.attr("next-piece-id");
-        $this.removeClass("dragging");
-        if (next_piece_id) {
-            var $that = $("#" + next_piece_id);
+        invalidateBlock($this);
 
-            releaseTogether($that);
-        }
+        var $root = blocks.findRootBlock($this);
+
+        blocks.circuitTree($root, {
+            before: function (iter, option, callback) {
+                var $e = iter.now();
+
+
+                $e.removeClass("dragging");
+                if (!$e.is(".bracketed")) {
+                    $e.css({
+                        "z-index": ""
+                    });
+                }
+
+                callback();
+            },
+            after: function (iter, option, callback) {
+                var $e = iter.now();
+
+                $e.css({
+                    "z-index": ""
+                });
+                if ($e.is(".bracketed")) {
+                    $e.find(".b-close").css({
+                        "z-index": ""
+                    });
+                }
+
+                callback();
+            }
+        });
     }
+
+    scrc.refresh = function () {
+        requestAnimationFrame(scrc.refresh);
+        //console.log(changed_blocks.length);
+        extrude_();
+    }
+});
+
+$(function () {
+    scrc.refresh();
 });

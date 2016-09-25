@@ -9,8 +9,65 @@ scrc = scrc || {};
 $(function () {
     // 코드 조각들을 클릭하면 코드가 동작한다.
     // TODO: 말풍선으로 출력하도록 바꾼다.
-    // TODO: 제어부의 경우 타이머를 통해 불연속적으로 동작해야 하므로 바꿔야 한다.
+
     var $workmenu = $(".workmenu");
+    var blocks = scrc.namespace("blocks");
+
+    blocks.calculate = function ($elmt, callback) {
+        var binary = scrc.namespace("blocks.calc");
+        var calc = binary[$elmt.attr("calc")].calc;
+
+        callback(calc($elmt[0]));
+    };
+
+    blocks.execute = function ($elmt, callback, option) {
+        option = option || {};
+
+        blocks.circuitSiblings($elmt, function (iter, circuit) {
+            var $e = iter.now();
+            var actions = scrc.namespace("blocks.actions");
+            var action = actions[$e.attr("action")].action;
+
+            requestAnimationFrame(function () {
+                action($e, circuit, option);
+            });
+        }, callback);
+    };
+
+    function findRootElement ($elmt) {
+        var $parent = $elmt.parents(".code-piece.element");
+
+        while ($parent.length != 0) {
+            $elmt = $parent;
+            $parent = $parent.parents(".code-piece.element");
+        }
+
+        return $elmt;
+    }
+
+    function turnon ($elmt) {
+        blocks.circuitTree($elmt, {
+            before: function (iter, option, callback) {
+                var $e = iter.now();
+
+                $e.addClass("acting");
+
+                callback();
+            }
+        });
+    }
+
+    function turnoff ($elmt) {
+        blocks.circuitTree($elmt, {
+            before: function (iter, option, callback) {
+                var $e = iter.now();
+
+                $e.removeClass("acting");
+
+                callback();
+            }
+        });
+    }
 
     $workmenu.on("dblclick",
         [
@@ -18,18 +75,11 @@ $(function () {
             ".code-piece.movement.element"
         ].join(", "),
         function (event) {
-            var $this = $(this);
-            var $parent = $this.parents(".code-piece.element");
+            var $elmt = $(this);
+            $elmt = findRootElement($elmt);
 
-            while ($parent.length != 0) {
-                $this = $parent;
-                $parent = $parent.parents(".code-piece.element");
+            blocks.calculate($elmt, console.log);
 
-            }
-            var binary = scrc.namespace("blocks.calc");
-            var calc = binary[$this.attr("calc")].calc;
-
-            console.log(calc($this[0]));
             return false;
         });
 
@@ -40,51 +90,15 @@ $(function () {
             ".code-piece.control:not(.element)"
         ].join(", "),
         function (event) {
-            var actions = scrc.namespace("blocks.actions");
-            var $this = $(this), pid;
+            var $this = $(this);
+            $this = blocks.findRootBlock($this);
 
-            // 최상위 코드조각 찾기
-            while (pid = $this.attr("prev-piece-id")) {
-                $this = $("#" + pid);
+            if (!$this.is(".acting")) {
+                turnon($this);
+                blocks.execute($this, function () {
+                    turnoff($this);
+                });
             }
-
-            // 동작을 타이머로 끊어서 실행한다.
-            var timer = function ($that) {
-                return function () {
-                    var pid;
-
-                    // 코드조각을 실행하고
-                    var action = actions[$that.attr("action")].action;
-                    action($that[0], function (elmt) {
-                        var $that = $(elmt);
-                        // 하위 코드조각으로 들어가기
-                        if (pid = $that.attr("next-piece-id")) {
-                            //console.log(3);
-                            setTimeout(timer($("#" + pid)), 1);
-                        } else {
-                            // 최하위 코드조각이면
-                            // 상위 코드조각으로 올라가면서 동작중 표시 지우기
-                            var $t = $that;
-                            while (pid = $t.attr("prev-piece-id")) {
-                                $t.removeClass("acting");
-                                $t = $("#" + pid);
-                            }
-                            $t.removeClass("acting");
-                        }
-                    });
-                }
-            };
-
-            // 하위 코드조각을 순회하며 동작중 표시하기
-            var $t = $this;
-            $t.addClass("acting");
-            while (pid = $t.attr("next-piece-id")) {
-                $t = $("#" + pid);
-                $t.addClass("acting");
-            }
-
-            // 동작 시작
-            setTimeout(timer($this), 1);
 
             return false;
         });

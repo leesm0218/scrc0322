@@ -8,11 +8,13 @@ scrc = scrc || {};
 
 $(function () {
     var main_screen = scrc.namespace("main_screen");
+    var blocks = scrc.namespace("blocks");
 
     scrc.namespace("blocks.actions.move").action = function (elmt, callback) {
-        var calc = scrc.blocks.element.space.calc;
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
         var $this = $(elmt);
-        var $space = $this.find(".space");
+        var $space = $this.find(".element-space");
         var dist = calc($space[0]);
 
         if (isNaN(dist)) return callback(elmt);
@@ -33,9 +35,10 @@ $(function () {
     };
 
     scrc.namespace("blocks.actions.right-rotate").action = function (elmt, callback) {
-        var calc = scrc.blocks.element.space.calc;
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
         var $this = $(elmt);
-        var $space = $this.find(".space");
+        var $space = $this.find(".element-space");
         var angle = calc($space[0]);
 
         if (isNaN(angle)) return callback(elmt);
@@ -49,9 +52,10 @@ $(function () {
     };
 
     scrc.namespace("blocks.actions.left-rotate").action = function (elmt, callback) {
-        var calc = scrc.blocks.element.space.calc;
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
         var $this = $(elmt);
-        var $space = $this.find(".space");
+        var $space = $this.find(".element-space");
         var angle = -calc($space[0]);
 
         if (isNaN(angle)) return callback(elmt);
@@ -65,9 +69,10 @@ $(function () {
     };
 
     scrc.namespace("blocks.actions.point-in-direction").action = function (elmt, callback) {
-        var calc = scrc.blocks.element.space.calc;
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
         var $this = $(elmt);
-        var $space = $this.find(".space");
+        var $space = $this.find(".element-space");
         var angle = calc($space[0]);
 
         if (isNaN(angle)) return callback(elmt);
@@ -81,9 +86,10 @@ $(function () {
     };
 
     scrc.namespace("blocks.actions.rach-gu").action = function (elmt, callback) {
-        var calc = scrc.blocks.element.space.calc;
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
         var $this = $(elmt);
-        var $space = $this.find(".space");
+        var $space = $this.find(".element-space");
         var x = calc($space[0]);
         var y = calc($space[1]);
 
@@ -136,11 +142,36 @@ $(function () {
         callback($open[0]);
     };
 
+    scrc.namespace("blocks.actions.repeat").action = function (elmt, callback, option) {
+        var $elmt = $(elmt);
+
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
+        var $space = $elmt.find(">.b-open").find(">.element-space");
+        var n = calc($space[0]);
+
+        function repeat () {
+            if (n > 0) {
+                console.log(n)
+                n--;
+                blocks.execute($elmt.find(">.b-open"), repeat);
+            } else {
+                callback(elmt);
+            }
+        }
+
+        repeat();
+    };
+
+    scrc.namespace("blocks.actions.repeat-start").action = function (elmt, callback, option) {
+        callback(elmt);
+    };
+
     scrc.namespace("blocks.actions.sleep").action = function (elmt, callback) {
-        var space = scrc.namespace("blocks.element.space");
+        var space = scrc.namespace("blocks.element.element-space");
         var calc = space.calc;
         var $this = $(elmt);
-        var $space = $this.find(".space");
+        var $space = $this.find(".element-space");
 
         setTimeout(function () {
             callback(elmt);

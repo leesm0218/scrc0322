@@ -10,12 +10,17 @@
         });
     });
 // workmenu 용 label 추가 이벤트. 처음 화면에서는 적용되어 있지 않기 때문에 초기화가 필요.
+/*
 	$(document).ready(function () {
         $("label[name=workmenu]").bind("click", function(){
 			$(this).css("border-bottom","2px solid #FFFFFF").siblings().css("border-bottom","2px solid #ccc"); 
         });
     });
-
+	
+	$(document).ready(function () {
+		$("label[name=workmenu][value=01]").css("border-bottom","2px solid #FFFFFF"); 
+	});
+*/
 	$(function(){
 		$("label[name=toolbox]").each(function(){
 			var temp0 = $(this).css("background");

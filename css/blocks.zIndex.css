@@ -1,5 +1,16 @@
-.code-piece { z-index: 3; }
-.code-piece.mouseover { z-index: 4; }
-.code-piece.dragging { z-index: 5; }
-.code-piece.mouseover.dragging { z-index: 5; }
-.code-piece.magneted-bottom { z-index: 6;}
+.code-piece { z-index: 30000; }
+.bracketed { z-index: 30000; }
+.bracket { z-index: 30000; }
+.code-piece.mouseover { z-index: 50000; }
+.magnet.magneted-bottom { z-index: 60000; }
+.control.bracketed>.b-line { z-index: 70000; }
+.code-piece.mouseover.dragging { z-index: 80000; }
+.code-piece.dragging { z-index: 90000; }
+.code-piece.bracketed.dragging { z-index: 90000; }
+.bracket.dragging { z-index: 90000; }
+.bracket.dragging~.b-line { z-index: 100000; }
+.bracket.dragging~.b-close { z-index: 90000; }
+
+.b-open:after { z-index: 20000; }
+.b-line:after { z-index: 20000; }
+.b-close:after { z-index: 20000; }

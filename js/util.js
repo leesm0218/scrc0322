@@ -53,36 +53,22 @@ scrc.namespace = function (ns_string) {
         return angle / Math.PI * 180;
     };
 
-    var checkSupportsImport = function () {
-        //console.log( 'import' in document.createElement('link') );
-
-        return 'import' in document.createElement('link');
+    util.composition = function (func1, func2) {
+        func2(func1());
     };
 
     var wait_templates = [];
 
     util.loadTemplate = function (template, callback) {
-        if ( checkSupportsImport && checkSupportsImport() ){
-            checkSupportsImport = undefined;
-            var link = document.createElement('link');
-
-            link.rel = 'import';
-            link.href = "template/code_piece.html";
-
+        if (wait_templates && wait_templates.length == 0) {
             wait_templates.push([template, callback]);
 
-            link.onload = function(e) {
-                var loadHtmlFile = this.import.querySelector('html');
-                var contents  = document.querySelector('body');
-
-                contents.appendChild(loadHtmlFile.cloneNode(true));
+            // $.get("template/code_piece.html", function (data) {
+            setTimeout(function (data) {
+                $("body").append(data);
 
                 util.loadTemplate = function (template, callback) {
-                    var t = document.querySelector(template);
-
-                    var clone = document.importNode(t.content, true);
-
-                    callback(clone);
+                    callback($(template + ">").clone());
 
                     return util;
                 };
@@ -93,13 +79,9 @@ scrc.namespace = function (ns_string) {
                     util.loadTemplate(t[0], t[1]);
                 }
                 wait_templates = undefined;
-            };
-
-            document.head.appendChild(link);
-        } else if (!checkSupportsImport) {
-            wait_templates.push([template, callback]);
+            }, 100);
         } else {
-            alert("template 파일 로드 실패");
+            wait_templates.push([template, callback]);
         }
 
         return util;

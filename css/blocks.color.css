@@ -1,81 +1,231 @@
-.code .number.space.in-space>input { box-shadow: 0px 0px 0px 1px greenyellow; }
-.code-piece.element { box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 0px 0px black; }
-.code-piece.movement { box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 0px 0px black; }
-.code-piece.event { box-shadow: 0.5px 0.5px 1px 0px #FFEE99 inset, 1px 1px 0px 0px black; }
-.code-piece.control { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
+.element-space>input { box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.5) inset; }
+.code .element-space.in-space { box-shadow: 0px 0px 0px 2px white; }
 
 /*****************/
 
-.code-piece.movement.mouseover:not(.acting) {
+.element { box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 0px 0px black; }
+.movement { box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 0px 0px black; }
+.event { box-shadow: 0.5px 0.5px 1px 0px #FFEE99 inset, 1px 1px 0px 0px black; }
+.control:not(.bracketed) { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
+.control.bracketed>.b-open { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
+.control.bracketed>.b-close { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
+.control.bracketed>.b-line {
+    box-shadow: 0.5px 0px 0px 0px #FFDD70 inset,
+                1px 0px 0px 0px black,
+                1px -2px 0px -1px darkorange,
+                0px 4px 0px -1px darkorange; }
+
+/*****************/
+
+/*.movement.mouseover:not(.acting) {
     box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 1px 0px black,
                 1px 1px 3px 1px blue; }
-.code-piece.movement.dragging:not(.acting) {
+.movement.dragging:not(.acting) {
     box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 1px 0px black,
                 1px 1px 3px 1px blue, 5px 5px 3px 0px dimgray; }
-.code-piece.movement.mouseover.dragging:not(.acting) {
+.movement.mouseover.dragging:not(.acting) {
     box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 1px 0px black,
-                1px 1px 3px 1px blue, 5px 5px 3px 0px dimgray; }
-
-.code-piece.operator.mouseover:not(.acting) {
+                1px 1px 3px 1px blue, 5px 5px 3px 0px dimgray; }*/
+/*
+.operator.mouseover:not(.acting) {
     box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 1px 0px black,
                 1px 1px 5px 1px #002200; }
-.code-piece.operator.dragging:not(.acting) {
+.operator.dragging:not(.acting) {
     box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 1px 0px black,
                 1px 1px 5px 1px #002200, 5px 5px 3px 0px dimgray; }
-.code-piece.operator.mouseover.dragging:not(.acting) {
+.operator.mouseover.dragging:not(.acting) {
     box-shadow: 0.5px 0.5px 1px 0px greenyellow inset, 1px 1px 1px 0px black,
                 1px 1px 5px 1px #002200, 5px 5px 3px 0px dimgray; }
 
-.code-piece.event.mouseover:not(.acting) {
+.event.mouseover:not(.acting) {
     box-shadow: 0.5px 0.5px 1px 0px #FFEE99 inset, 1px 1px 1px 0px black,
                 1px 1px 3px 1px darkgoldenrod; }
-.code-piece.event.dragging:not(.acting) {
+.event.dragging:not(.acting) {
     box-shadow: 0.5px 0.5px 1px 0px #FFEE99 inset, 1px 1px 1px 0px black,
                 1px 1px 3px 1px darkgoldenrod, 5px 5px 3px 0px dimgray; }
-.code-piece.event.mouseover.dragging:not(.acting) {
+.event.mouseover.dragging:not(.acting) {
     box-shadow: 0.5px 0.5px 1px 0px #FFEE99 inset, 1px 1px 1px 0px black,
-                1px 1px 3px 1px darkgoldenrod, 5px 5px 3px 0px dimgray; }
-
-.code-piece.control.mouseover:not(.acting) {
+                1px 1px 3px 1px darkgoldenrod, 5px 5px 3px 0px dimgray; }*/
+/*
+.control:not(.bracketed).mouseover:not(.acting) {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
                 1px 1px 3px 1px #CC6A00; }
-.code-piece.control.dragging:not(.acting) {
+.control:not(.bracketed).dragging:not(.acting) {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
                 1px 1px 3px 1px #CC6A00, 5px 5px 3px 0px dimgray; }
-.code-piece.control.mouseover.dragging:not(.acting) {
+.control:not(.bracketed).mouseover.dragging:not(.acting) {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
-                1px 1px 3px 1px #CC6A00, 5px 5px 3px 0px dimgray; }
+                1px 1px 3px 1px #CC6A00, 5px 5px 3px 0px dimgray; }*/
+
+/*.bracketed.mouseover:not(.acting) {
+    box-shadow: -1px 0px 3px -1px #CC6A00; }*/
+/*.bracketed.dragging:not(.acting),
+.bracketed.mouseover.dragging:not(.acting) {
+    box-shadow: -1px 0px 3px -1px #CC6A00, 5px 5px 3px 0px dimgray; }*/
+
+.bracketed.mouseover:not(.acting) .b-open {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+    1px 0px 3px 0px #CC6A00; }
+.bracketed.dragging:not(.acting) .b-open,
+.bracketed.mouseover.dragging:not(.acting) .b-open {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+    1px 0px 3px 0px #CC6A00, 5px 5px 3px 0px dimgray; }
+.bracketed.mouseover:not(.acting) .b-line {
+    box-shadow: 0.5px 0px 0px 0px #FFDD70 inset,
+    1px 0px 0px 0px black,
+    1px -2px 0px -1px darkorange,
+    0px 4px 0px -1px darkorange,
+    1px 0px 3px 0px #CC6A00; }
+.bracketed.dragging:not(.acting) .b-line,
+.bracketed.mouseover.dragging:not(.acting) .b-line {
+    box-shadow: 0.5px 0px 0px 0px #FFDD70 inset,
+    1px 0px 0px 0px black,
+    1px -2px 0px -1px darkorange,
+    0px 4px 0px -1px darkorange,
+    1px 0px 3px 0px #CC6A00, 5px 0px 3px -5px dimgray; }
+.bracketed.mouseover:not(.acting) .b-close {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+    1px 0px 3px 0px #CC6A00; }
+.bracketed.dragging:not(.acting) .b-close,
+.bracketed.mouseover.dragging:not(.acting) .b-close {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+    1px 0px 3px 0px #CC6A00, 5px 5px 3px 0px dimgray; }
+
 
 /*****************/
 
-.code .code-piece.movement.magneted-bottom {
+/*** 마우스오버, 드래그 시의 그림자 ***/
+/* 기본 */
+.mouseover:before,
+.dragging:before,
+.bracketed.mouseover:not(.acting) .b-open:before,
+.bracketed.mouseover:not(.acting) .b-line:before,
+.bracketed.mouseover:not(.acting) .b-close:before {
+    content: "　";
+    position: absolute;
+    height: inherit;
+    width: inherit; }
+
+/* 무브먼트 */
+.movement.mouseover:not(.acting):before {
+    box-shadow: 1px 1px 3px 1px blue; }
+.movement.dragging:not(.acting):before {
+    box-shadow: 1px 1px 3px 1px blue, 5px 5px 3px 0px dimgray; }
+/*.movement.mouseover:not(.acting)[next-piece-id]:before {
+    box-shadow: 1px 1px 3px 1px blue; }
+.movement.dragging:not(.acting)[next-piece-id]:before {
+    box-shadow: 1px 1px 3px 1px blue, 8px 3px 3px -2px dimgray; }
+.movement.mouseover:not(.acting)[next-piece-id][prev-piece-id]:before {
+    box-shadow: 1px 1px 3px 1px blue; }
+.movement.dragging:not(.acting)[next-piece-id][prev-piece-id]:before {
+    box-shadow: 1px 1px 3px 1px blue, 5px 0px 3px 1px dimgray; }
+.movement.mouseover:not(.acting)[prev-piece-id]:before {
+    box-shadow: 1px 1px 3px 1px blue; }
+.movement.dragging:not(.acting)[prev-piece-id]:before {
+    box-shadow: 1px 1px 3px 1px blue, 5px 0px 3px 1px dimgray, 5px 5px 3px 1px dimgray; }*/
+
+/* 연산자 */
+.operator.mouseover:not(.acting):before {
+    box-shadow: 1px 1px 5px 1px #002200; }
+.operator.dragging:not(.acting):before {
+    box-shadow: 1px 1px 5px 1px #002200, 5px 5px 3px 0px dimgray; }
+
+/* 이벤트 */
+.event.mouseover:not(.acting):before {
+    box-shadow: 1px 1px 3px 1px darkgoldenrod; }
+.event.dragging:not(.acting):before {
+    box-shadow: 1px 1px 3px 1px darkgoldenrod, 5px 5px 3px 0px dimgray; }
+/*.event.mouseover:not(.acting)[next-piece-id]:before {
+    box-shadow: 1px 1px 3px 1px darkgoldenrod; }
+.event.dragging:not(.acting)[next-piece-id]:before {
+    box-shadow: 1px 1px 3px 1px darkgoldenrod, 8px 3px 3px -2px dimgray; }
+.event.mouseover:not(.acting)[next-piece-id][prev-piece-id]:before {
+    box-shadow: 1px 1px 3px 1px darkgoldenrod; }
+.event.dragging:not(.acting)[next-piece-id][prev-piece-id]:before {
+    box-shadow: 1px 1px 3px 1px darkgoldenrod, 5px 0px 3px 1px dimgray; }
+.event.mouseover:not(.acting)[prev-piece-id]:before {
+    box-shadow: 1px 1px 3px 1px darkgoldenrod; }
+.event.dragging:not(.acting)[prev-piece-id]:before {
+    box-shadow: 1px 1px 3px 1px darkgoldenrod, 5px 0px 3px 1px dimgray, 5px 5px 3px 1px dimgray; }*/
+
+/* 컨트롤 */
+.control:not(.bracketed).mouseover:not(.acting):before {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+    1px 1px 3px 1px #CC6A00; }
+.control:not(.bracketed).dragging:not(.acting):before {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+    1px 1px 3px 1px #CC6A00, 5px 5px 3px 0px dimgray; }
+/*.control:not(.bracketed).mouseover:not(.acting)[next-piece-id]:before {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+    1px 1px 3px 1px #CC6A00; }
+.control:not(.bracketed).dragging:not(.acting)[next-piece-id]:before {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+    1px 1px 3px 1px #CC6A00, 8px 3px 3px -2px dimgray; }
+.control:not(.bracketed).mouseover:not(.acting)[next-piece-id][prev-piece-id]:before {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+    1px 1px 3px 1px #CC6A00; }
+.control:not(.bracketed).dragging:not(.acting)[next-piece-id][prev-piece-id]:before {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+    1px 1px 3px 1px #CC6A00, 5px 0px 3px 1px dimgray; }
+.control:not(.bracketed).mouseover:not(.acting)[prev-piece-id]:before {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+    1px 1px 3px 1px #CC6A00; }
+.control:not(.bracketed).dragging:not(.acting)[prev-piece-id]:before {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+    1px 1px 3px 1px #CC6A00, 5px 0px 3px 1px dimgray, 5px 5px 3px 1px dimgray; }*/
+
+/* 괄호 */
+/*.bracketed.mouseover:not(.acting) .b-open:before,
+.bracketed.mouseover:not(.acting) .b-close:before {
+    box-shadow: 1px 1px 3px 1px #CC6A00;
+}
+.bracketed.mouseover:not(.acting) .b-line:before {
+    box-shadow: 0px 0px 3px 0px #CC6A00;
+}*/
+
+/*****************/
+
+/* 마그넷 표시 */
+:not(.bracketed).magnet.magneted-bottom:before,
+.bracketed.magnet.magneted-bottom .b-close:before {
+    content: "　";
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    box-shadow: 0px 10px 10px -5px gold;
+}
+
+/*.code .movement.magnet.magneted-bottom {
     box-shadow: 0.5px 0.5px 1px 0px deepskyblue inset, 1px 1px 1px 0px black,
                 0px 10px 10px -5px gold; }
-.code .code-piece.event.magneted-bottom {
+.code .event.magnet.magneted-bottom {
     box-shadow: 0.5px 0.5px 1px 0px goldenrod inset, 1px 1px 1px 0px black,
                 0px 10px 10px -5px gold; }
-.code .code-piece.control.magneted-bottom {
+.code .control.magnet.magneted-bottom .b-close {
     box-shadow: 0.5px 0.5px 1px 0px orange inset, 1px 1px 1px 0px black,
                 0px 10px 10px -5px gold; }
+.code .b-open.magnet.magneted-bottom {
+    box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
+                0px 10px 10px -5px gold; }*/
 
 /*****************/
 
-.code .code-piece.acting { box-shadow: 0px 0px 10px 2px gold; }
-.code .code-piece.acting[next-piece-id] {
+.code .acting { box-shadow: 0px 0px 10px 2px gold; }
+.code .acting[next-piece-id] {
     box-shadow:
             -5px -5px 10px -3px gold,
             7px 3px 5px -5px gold,
             -7px 3px 5px -5px gold,
             5px -5px 10px -3px gold;
 }
-.code .code-piece.acting[prev-piece-id] {
+.code .acting[prev-piece-id] {
     box-shadow:
             -5px 5px 10px -3px gold,
             7px -3px 5px -5px gold,
             -7px -3px 5px -5px gold,
             5px 5px 10px -3px gold;
 }
-.code .code-piece.acting[prev-piece-id][next-piece-id] {
+.code .acting[prev-piece-id][next-piece-id] {
     box-shadow:
             5px 0px 10px -3px gold,
             -5px 0px 10px -3px gold;
@@ -83,9 +233,10 @@
 
 /*****************/
 
-.code-piece.operator { background-color:forestgreen; }
-.code-piece.sound { background-color:rebeccapurple; }
-.code-piece.movement { background-color: #003eff; }
-.code-piece.event { background-color: darkgoldenrod; margin-right: 30px; }
-.code-piece.control { background-color: darkorange; }
-
+.operator { background-color:forestgreen; }
+.sound { background-color:rebeccapurple; }
+.movement { background-color: #003eff; }
+.event { background-color: darkgoldenrod; margin-right: 30px; }
+.control { background-color: darkorange; }
+.control>.b-line { background-color: inherit; }
+.control.bracketed>.bracket { background-color: darkorange; }

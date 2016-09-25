@@ -1,7 +1,7 @@
 /**
  * Created by Choi on 2016-08-03.
  */
-var width = window.innerWidth;
+/*var width = window.innerWidth;
 var height = window.innerHeight;
 
 // first we need Konva core things: stage and layer
@@ -95,3 +95,4 @@ var toolselect = document.getElementById('shapetoolselect');
 toolselect.addEventListener('change', function() {
     mode = toolselect.value;
 });
+*/

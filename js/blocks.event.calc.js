@@ -31,7 +31,7 @@ $(function () {
 
     // 여러 엘리먼트들이 들어갈 수 있는 빈공간.
     // 내부에는 '하나'의 엘리먼트만 들어갈 수 있다.
-    scrc.namespace("blocks.element.space").calc = function (elmt) {
+    scrc.namespace("blocks.element.element-space").calc = function (elmt) {
         var $this = $(elmt);
         var $inside_elmt = $this.find(">.element:visible");
         var calcs = scrc.namespace("blocks.calc");
@@ -48,10 +48,10 @@ $(function () {
     };
 
     var calc = scrc.namespace("blocks.element.operator.binary").calc = function (elmt) {
-        var space = scrc.namespace("blocks.element.space");
+        var space = scrc.namespace("blocks.element.element-space");
         var calc = space.calc;
         var $this = $(elmt);
-        var $space = $this.find(">.space");
+        var $space = $this.find(">.element-space");
 
         return operator.methods.binary[$this.attr("calc")](calc($space[0]), calc($space[1]));
     };
