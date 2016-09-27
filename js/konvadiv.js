@@ -5,6 +5,7 @@ scrc = scrc || {};
 
 $(function () {
     var main_screen = scrc.namespace("main_screen");
+    var script = scrc.namespace("script");
 
     // http://konvajs.github.io/docs/index.html
 
@@ -56,6 +57,8 @@ $(function () {
                 layer.draw();
             });
             main_screen.imgs[myimg._id] = myimg;
+
+            script.add();
         }
     }
 
@@ -111,6 +114,14 @@ $(function () {
         layer.add(box);
         main_screen.imgs[box._id] = box;
         main_screen.select(box._id);
+
+        var newlist = document.createElement("li");
+        $(newlist).text(colors[i]).attr("id", box._id);
+        var node = $("<div>").text(colors[i]).attr("id", box._id);
+        //newlist.appendChild(node[0]);
+        var element = document.getElementById("sprite_list");
+        element.classList.toggle('selected');
+        element.appendChild(newlist);
     }
 
 
@@ -137,4 +148,13 @@ $(function () {
     stage.add(layer);
 
     main_screen.stage = stage;
+
+    main_screen.moveToTop = function (id) {
+        layer.getChildren(function (shape,_,__) {
+            if (shape._id == id) {
+                shape.moveToTop();
+                layer.draw();
+            }
+        })
+    }
 });

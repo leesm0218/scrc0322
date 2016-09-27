@@ -321,6 +321,16 @@ body html { display: none; }
 	margin:0px; padding:0px; border:0px solid #c00;
 	background:linear-gradient(90deg,#5cb712 10%,rgb(255,255,255) 30% ,rgb(255,255,255) 40%);
 }
+.toollabels label[value="09"]{
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg, rgb(238, 125, 22) 10%,rgb(255,255,255) 30% ,rgb(255,255,255) 40%);
+}
+.toollabels label[value="10"]{
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg, rgb(99, 45, 153) 10%,rgb(255,255,255) 30% ,rgb(255,255,255) 40%);
+}
 
 .toollabels label[value="01"]:hover {
 	flex:0; min-width:50%; max-height:40px;
@@ -361,6 +371,16 @@ body html { display: none; }
 	flex:0; min-width:50%; max-height:40px;
 	margin:0px; padding:0px; border:0px solid #c00;
 	background:linear-gradient(90deg,#5cb712 100%,rgb(255,255,255) 0%);
+}
+.toollabels label[value="09"]:hover {
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg, rgb(238, 125, 22) 100%,rgb(255,255,255) 0%);
+}
+.toollabels label[value="10"]:hover {
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg, rgb(99, 45, 153) 100%,rgb(255,255,255) 0%);
 }
 
 

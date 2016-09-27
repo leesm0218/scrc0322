@@ -163,7 +163,49 @@ $(function () {
         repeat();
     };
 
-    scrc.namespace("blocks.actions.repeat-start").action = function (elmt, callback, option) {
+    scrc.namespace("blocks.actions.infinite-repeat").action = function (elmt, callback, option) {
+        var $elmt = $(elmt);
+
+        function repeat () {
+            if (true) {
+                blocks.execute($elmt.find(">.b-open"), repeat);
+            } else {
+                callback(elmt);
+            }
+        }
+
+        repeat();
+    };
+
+    scrc.namespace("blocks.actions.if").action = function (elmt, callback, option) {
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
+        var $elmt = $(elmt);
+        var $space = $elmt.find(".element-space");
+        var condition = calc($space[0]);
+
+        if (condition) {
+            blocks.execute($elmt.find(">.b-open:first"), callback);
+        } else {
+            callback(elmt);
+        }
+    };
+
+    scrc.namespace("blocks.actions.if-else").action = function (elmt, callback, option) {
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
+        var $elmt = $(elmt);
+        var $space = $elmt.find(".element-space");
+        var condition = calc($space[0]);
+
+        if (condition) {
+            blocks.execute($($elmt.find(">.b-open")[0]), callback);
+        } else {
+            blocks.execute($($elmt.find(">.b-open")[1]), callback);
+        }
+    };
+
+    scrc.namespace("blocks.actions.non-action").action = function (elmt, callback, option) {
         callback(elmt);
     };
 

@@ -2,7 +2,7 @@
 //name 을 label 과 div 를 같지 않게 한 이유는 "." + $(this).attr( 'name' ) 이 아닌 단순히 name 으로 찾을때 , label 이 검색되어 버리지 않게 하기 위함.
 //실수방지의도.
     $(document).ready(function () {
-        $("label[name=workmenu]").bind("click", function(){
+        $("label").bind("click", function(){
 			$("." + $(this).attr( 'name' ) + "[value=" + $(this).attr( 'value' )+ "]").attr( 'name' , $(this).attr( 'name' ) + '-visible')
 			//class 가 $(this).attr( 'name' ) 이고 value 가 $(this).attr( 'value' ) 인 목표를 찾고 name 변수를 $(this).attr( 'name' ) + '-visible' 로 바꾼다.
 			.siblings()//바꾼것 이외의 목표들을 찾는다.
@@ -27,7 +27,7 @@
 		$("label[name=workmenu][value=01]").css("border-bottom","2px solid #FFFFFF");
 	});
 */
-	$(function(){
+	/*$(function(){
 		$("label[name=toolbox]").each(function(){
 			var temp0 = $(this).css("background");
 			var temp1 = $(this).css("background").split("%)");
@@ -35,4 +35,4 @@
 			var tempcss = "rgb" + temp2[1] + "rgb" +temp2[parseInt($(this).attr( 'value' ))+2] + "rgb(255,255,255) 0%," +"rgb" + temp2[2].split("%,")[0]+"%)" + temp1[1];
 			$(this).css("background", tempcss); 
 		});
-    });
+    });*/
