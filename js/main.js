@@ -32,7 +32,8 @@ $(function() {
 //label(name(라디오탭 이름) , value(라디오탭 번호)) 과 div(class(라디오탭 이름) , name(라디오탭의 상태) , value(라디오탭 번호))
 //name 을 label 과 div 를 같지 않게 한 이유는 "." + $(this).attr( 'name' ) 이 아닌 단순히 name 으로 찾을때 , label 이 검색되어 버리지 않게 하기 위함.
 //실수방지의도.
-$(function () {
+//radiofunction 으로 옮김
+/*$(function () {
 	$("label").bind("click", function(){
 		$("." + $(this).attr( 'name' ) + "[value=" + $(this).attr( 'value' )+ "]").attr( 'name' , $(this).attr( 'name' ) + '-visible')
 			//class 가 $(this).attr( 'name' ) 이고 value 가 $(this).attr( 'value' ) 인 목표를 찾고 name 변수를 $(this).attr( 'name' ) + '-visible' 로 바꾼다.
@@ -41,6 +42,7 @@ $(function () {
 	});
 });
 
+*/
 $(function () {
 	var resource = scrc.namespace("scrc.resource");
 

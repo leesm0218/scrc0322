@@ -35,7 +35,7 @@
 		<script src="js/blocks.variable.js"></script>
 		<script src="js/sound.js"></script>
 		<script src="js/script.js"></script>
-		
+
 		<script src="js/radioFunction.js"></script>
 
 		<script src="js/shape.js"></script>
@@ -87,6 +87,9 @@
 				</div>
 				<div id="container"></div>
 				<!--<canvas id="myCanvas" class="screen"></canvas>-->
+				<div id="container2" class="test">
+					<div id="container3" class="testcontent"></div>
+				</div>
 				<div class="screenxy">x:연동필요 y:연동필요</div>
 				<div class="spritebar">
 					<img class="spritebutton cameraOff"></img>
@@ -112,10 +115,11 @@
 				<footer class="tempfooter"></footer>
             </div>
 			<div class="column2">
-				<div class="workmenulabels">
-							<label name="workmenu" value="01">스크립트</label>
-							<label name="workmenu" value="02">모양</label>
-							<label name="workmenu" value="03">소리</label>
+				<div class="workmenulabelset">
+							<label name="workmenu" value="01" class="workmenulabel Workmenulabelactive">스크립트</label>
+							<label name="workmenu" value="02" class="workmenulabel">모양</label>
+							<label name="workmenu" value="03" class="workmenulabel">소리</label>
+							<div style="flex:1; margin:0px; padding:0px; border:2px solid #ccc;"></div>
 				</div>
 				<div class="workmenus">
 					<div class="workmenu" name = "workmenu-visible" value="01">

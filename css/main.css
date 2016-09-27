@@ -3,7 +3,7 @@
 }
 
 html{
-	width:99%; height:99%; display:flex; flex-wrap: nowrap;
+	width:99%; height:99%; display:flex; flex-wrap: wrap; /*임시땜빵 명령어. 코드화면이 visible 되면 아래로 뭔가 추가되어 스크롤바가 생기는 현상 방지.*/overflow:hidden;
 }
 
 body html { display: none; }
@@ -18,7 +18,7 @@ body html { display: none; }
 
 .body {
 	flex:1; width:99%; height:99%; min-width:1000px; min-height:750px;
-	display:flex; flex-wrap: nowrap; flex-direction: column;
+	display:flex; flex-wrap: wrap; flex-direction: column;
 }
 
 
@@ -115,12 +115,43 @@ body html { display: none; }
 
 .column1 {
 	flex:1; max-width:480px;
-	display:flex; flex-direction: column; flex-wrap: nowrap;
+	display:flex; flex-direction: column; flex-wrap: nowrap; /*justify-content: space-between; align-items:stretch; align-content:stretch;*/
+	/*overflow:scroll;
+	resize:both;*/
 }
+/*
+.test{
+	min-width:480px; min-height:360px;
+    position: relative;
+	justify-content: space-around;
+}
+
+.testcontent{
+  flex: 1 0 auto;
+  height:auto;
+  background-color: #9c9aa2;
+}
+.testcontent:before{
+    float:left;
+    padding-top:25%;
+  background-color: #9c9aa2;
+}
+*/
+
+.test {
+  width: 100%;
+  padding-bottom: 75%;
+}
+.testcontent{
+	width:100%;
+	height:100%;
+}
+
+
 .screenbar{
 	border:2px solid #ccc;
 	border-radius: 15px 15px 0px 0px;
-	flex:0; min-width:480px; max-width:480px; min-height:40px; max-height:40px;
+	flex:0; min-width:480px;min-height:40px; max-height:40px;
 }
 .floatright{
 	float:right;
@@ -140,16 +171,16 @@ body html { display: none; }
 }
 .screen {
 	border:2px solid #ccc;
-	flex:0; min-width:480px; max-width:480px; min-height:350px; max-height:350px;
+	flex:0; min-width:480px; min-height:350px; max-height:350px;
 }
 .screenxy{
-	flex:0; min-width:480px; max-width:480px; min-height:20px; max-height:20px;
+	flex:0; min-width:480px;min-height:20px; max-height:20px;
 	text-align:right;
 }
 .spritebar{
 	border:2px solid #ccc;
 	border-radius: 15px 15px 0px 0px;
-	flex:0; min-width:480px; max-width:480px; min-height:40px; max-height:40px;
+	flex:0; min-width:480px; min-height:40px; max-height:40px;
 }
 .spritebutton{
 	margin:0px; padding:7px;
@@ -171,7 +202,7 @@ body html { display: none; }
 }
 .sprite-wrap{
 	border:2px solid #ccc;
-	flex:1;  max-width:480px; display:flex; flex-direction: row; flex-wrap: nowrap;
+	flex:1 1 auto;  min-width:480px; min-height:360px; display:flex; flex-direction: row; flex-wrap: nowrap;
 }
 .sprite {
 	flex:1;  max-width:320px;
@@ -185,13 +216,23 @@ body html { display: none; }
 	flex:1;
 	display:flex;  flex-direction: column; flex-wrap: nowrap;
 }
-.workmenulabels{
+
+
+
+
+.workmenulabelset{
 	width:100%; min-height:27px; max-height:27px;
-	margin:0px; border-bottom:2px solid #ccc;
+	margin:0px; border-bottom:0px solid #ccc;
 	display:flex;  flex-direction: row; flex-wrap: nowrap;
 }
-.workmenulabels label{
-	margin:0px; padding:0px; border:2px solid #ccc; border-bottom: 2px solid #ccc; margin-bottom: -2px;
+.workmenulabel{
+	margin:0px; padding:0px; border:2px solid #ccc;
+}
+.workmenulabel:hover {
+	margin:0px; padding:0px; border:2px solid #ccc; border-bottom: 0px solid #ccc;
+}
+.Workmenulabelactive {
+	margin:0px; padding:0px; border:2px solid #ccc; border-bottom: 0px solid #ccc;
 }
 .workmenus{
 	visibility: visible;
@@ -216,8 +257,9 @@ body html { display: none; }
 
 .tools{
 	visibility:inherit;
-	flex:1; min-width:220px; max-width:220px;
+	flex:1; min-width:220px; max-width:220px; margin-top:2px;
 	display:flex; align-items: flex-start; align-content: flex-start; flex-direction:row; flex-wrap: wrap;
+	border-top: 0px solid #C00;
 }
 
 .toolboxes {
@@ -232,11 +274,96 @@ body html { display: none; }
 	display:flex;  align-items: flex-start; align-content: flex-start; flex-direction:row; flex-wrap: wrap;
 	margin:0px; border:0px solid #c00;
 }
+/*
 .toollabels label{
 	flex:0; min-width:50%; max-height:40px;
 	margin:0px; padding:0px; border:0px solid #c00;
 	background:linear-gradient(90deg,rgb(255,255,255) 73%,#4a6cd4 27%,#c88330 27%,#8a55d7 27%,#e1a91a 27%,#bb42c3 27%,#2ca5e2 27%,#0e9a6c 27%,#5cb712 27%,#ee7d16 27%,#632d99 27%);
 }
+*/
+.toollabels label[value="01"] {
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#4a6cd4 10%,rgb(255,255,255) 30% ,rgb(255,255,255) 40%);
+}
+.toollabels label[value="02"]{
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#c88330 10%,rgb(255,255,255) 30% ,rgb(255,255,255) 40%);
+}
+.toollabels label[value="03"]{
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#8a55d7 10%,rgb(255,255,255) 30% ,rgb(255,255,255) 40%);
+}
+.toollabels label[value="04"]{
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#e1a91a 10%,rgb(255,255,255) 30% ,rgb(255,255,255) 40%);
+}
+.toollabels label[value="05"]{
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#bb42c3 10%,rgb(255,255,255) 30% ,rgb(255,255,255) 40%);
+}
+.toollabels label[value="06"]{
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#2ca5e2 10%,rgb(255,255,255) 30% ,rgb(255,255,255) 40%);
+}
+.toollabels label[value="07"]{
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#0e9a6c 10%,rgb(255,255,255) 30% ,rgb(255,255,255) 40%);
+}
+.toollabels label[value="08"]{
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#5cb712 10%,rgb(255,255,255) 30% ,rgb(255,255,255) 40%);
+}
+
+.toollabels label[value="01"]:hover {
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#4a6cd4 100%,rgb(255,255,255) 0%);
+}
+.toollabels label[value="02"]:hover {
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#c88330 100%,rgb(255,255,255) 0%);
+}
+.toollabels label[value="03"]:hover {
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#8a55d7 100%,rgb(255,255,255) 0%);
+}
+.toollabels label[value="04"]:hover {
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#e1a91a 100%,rgb(255,255,255) 0%);
+}
+.toollabels label[value="05"]:hover {
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#bb42c3 100%,rgb(255,255,255) 0%);
+}
+.toollabels label[value="06"]:hover {
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#2ca5e2 100%,rgb(255,255,255) 0%);
+}
+.toollabels label[value="07"]:hover {
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#0e9a6c 100%,rgb(255,255,255) 0%);
+}
+.toollabels label[value="08"]:hover {
+	flex:0; min-width:50%; max-height:40px;
+	margin:0px; padding:0px; border:0px solid #c00;
+	background:linear-gradient(90deg,#5cb712 100%,rgb(255,255,255) 0%);
+}
+
+
 .toolboxes{
 	visibility: inherit;
 	flex:1; min-width:100%; min-height:100%;
@@ -377,15 +504,15 @@ body html { display: none; }
 }
 
 .imageLinetool{
-	flex:1; min-height:200px; max-height:200px;
+	flex:1;
 }
 
 .imagePalette{
-	flex:1; min-height:200px; max-height:200px;
+	flex:1;
 }
 
 .imageEtctool{
-	flex:1; min-height:200px; max-height:200px;
+	flex:1;
 }
 
 
@@ -489,7 +616,7 @@ body html { display: none; }
 
 .content {
 	max-height: 30%;
-	overflow: auto;
+	/*overflow: auto;*/
 }
 
 
@@ -498,7 +625,7 @@ body html { display: none; }
 	position:relative;
 	width:30px;
 	height:30px;
-	overflow:hidden;
+	/*overflow:hidden;*/
 }
 .file_input_hidden{
 	position:absolute;
