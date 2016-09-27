@@ -213,6 +213,7 @@
 /*****************/
 
 .code .acting { box-shadow: 0px 0px 10px 2px gold; }
+.code .acting .b-close { box-shadow: 0px 0px 10px 2px gold; }
 .code .acting[next-piece-id] {
     box-shadow:
             -5px -5px 10px -3px gold,
