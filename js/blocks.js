@@ -119,7 +119,6 @@ $(function () {
         $elmt = $($elmt);
 
         while(!$elmt.is(".toolbox .code-piece, .code>.code-piece")) {
-            break;
             $elmt = $elmt.parent();
         }
         if ($elmt.is(".bracketed")) {
@@ -138,7 +137,32 @@ $(function () {
         }
 
         $table.append($("<li>").append(e));
-    }
+    };
+
+    blocks.position = function ($elmt, $parent) {
+        var result = {
+            left: $elmt.position().left,
+            right: $elmt.position().right,
+            top: $elmt.position().top,
+            bottom: $elmt.position().bottom
+        };
+
+        var $p = $elmt.parent();
+        while ($p && $p.attr("id") != $parent.attr("id")) {
+            result.left += $p.position().left;
+            result.right += $p.position().right;
+            result.top += $p.position().top;
+            result.bottom += $p.position().bottom;
+            $p = $p.parent();
+        }
+
+        result.left += $parent.position().left;
+        result.right += $parent.position().right;
+        result.top += $parent.position().top;
+        result.bottom += $parent.position().bottom;
+
+        return result;
+    };
 });
 
 $(function () {
@@ -154,7 +178,7 @@ $(function () {
                 if ($(e).is(".code-piece")) {
                     blocks.draggable(e, ".toolbox");
                     blocks.resizing($(e));
-                    blocks.align($(e));
+                    blocks.alignmentHeight($(e));
                 }
             });
         })
@@ -166,7 +190,7 @@ $(function () {
                 if ($(e).is(".code-piece")) {
                     blocks.draggable(e, ".toolbox");
                     blocks.resizing($(e));
-                    blocks.align($(e));
+                    blocks.alignmentHeight($(e));
                 }
             })
         })
@@ -178,7 +202,7 @@ $(function () {
                 if ($(e).is(".code-piece")) {
                     blocks.draggable(e, ".toolbox");
                     blocks.resizing($(e));
-                    blocks.align($(e));
+                    blocks.alignmentHeight($(e));
                 }
             });
         })
@@ -190,7 +214,7 @@ $(function () {
                 if ($(e).is(".code-piece")) {
                     blocks.draggable(e, ".toolbox");
                     blocks.resizing($(e));
-                    blocks.align($(e));
+                    blocks.alignmentHeight($(e));
                 }
             });
         })
@@ -202,7 +226,7 @@ $(function () {
                 if ($(e).is(".code-piece")) {
                     blocks.draggable(e, ".toolbox");
                     blocks.resizing($(e));
-                    blocks.align($(e));
+                    blocks.alignmentHeight($(e));
                 }
             });
         });

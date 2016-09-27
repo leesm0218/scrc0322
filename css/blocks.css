@@ -20,7 +20,7 @@
 /*****************/
 
 .code-piece .text { position: absolute; }
-.code-piece>.element-space { border: 0px; padding: 0px; box-sizing: border-box; background-color: white; justify-content: center; }
+.code-piece>.element-space { border: 0px; padding: 0px; box-sizing: border-box; justify-content: center; }
 
 .element-space >input { width:10px; height: 16px; margin: 0px; border: 0px; padding: 0 2px; font-size: medium; }
 pre.text { display: inline-block; border: 0; padding: 0; width: auto; height: 16px; font-size: small; font-family: 새굴림; font-weight: inherit; }
