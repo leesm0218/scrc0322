@@ -5,7 +5,7 @@
     background-color: #efefef;
 }
 .sprite {
-    flex:1;  max-width:320px;
+    flex:1;  min-width:480px;
     border: 1px solid #ccc;
 }
 .spritebar{
