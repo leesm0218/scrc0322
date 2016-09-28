@@ -272,7 +272,7 @@ $(function () {
         requestAnimationFrame(scrc.refresh);
         //console.log(changed_blocks.length);
         realignment();
-    }
+    };
 
     // 괄호의 위치와 높이를 정해준다.
     function fixupBracket (iter) {

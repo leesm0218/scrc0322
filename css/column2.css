@@ -1,0 +1,14 @@
+.workmenu {
+    background-color: #efefef;
+}
+.horizon-separation-line {
+    height: 0px;
+    width: 100%;
+    margin: 5px;
+    border-top: 1px gray solid;
+    border-bottom: 1px white solid;
+}
+
+.code {
+    border: 1px solid gray;
+}
