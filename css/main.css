@@ -1,5 +1,5 @@
 ﻿* {
-	margin:0px; padding:0px; border:0px solid #ccc;
+	margin:0px; padding:0px;
 }
 
 html{
@@ -207,13 +207,16 @@ body html { display: none; }
 }
 .workmenulabel{
 	margin:0px; padding:0px; border:2px solid #ccc;
+	margin-right:-2px;
 }
 .workmenulabel:hover {
 	margin:0px; padding:0px; border:2px solid #ccc; border-bottom: 0px solid #ccc;
+	margin-right:-2px;
 	background-color: #efefef;
 }
 .Workmenulabelactive {
 	margin:0px; padding:0px; border:2px solid #ccc; border-bottom: 0px solid #ccc;
+	margin-right:-2px;
 	background-color: #efefef;
 }
 .workmenus{
