@@ -8,12 +8,14 @@
 .event { box-shadow: 0.5px 0.5px 1px 0px #FFEE99 inset, 1px 1px 0px 0px black; }
 .control:not(.bracketed) { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
 .control.bracketed>.b-open { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
+.control.bracketed>.b-else { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
 .control.bracketed>.b-close { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
 .control.bracketed>.b-line {
     box-shadow: 0.5px 0px 0px 0px #FFDD70 inset,
                 1px 0px 0px 0px black,
-                1px -2px 0px -1px darkorange,
-                0px 4px 0px -1px darkorange; }
+                1px -2px 0px -1px rgb(225, 169, 26),
+                0px 4px 0px -1px rgb(225, 169, 26); }
+.variable { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
 
 /*****************/
 
@@ -65,7 +67,7 @@
 
 .bracketed.mouseover:not(.acting) .b-open {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
-    1px 0px 3px 0px #CC6A00; }
+    1px 0px 3px 0px rgb(200, 169, 26); }
 .bracketed.dragging:not(.acting) .b-open,
 .bracketed.mouseover.dragging:not(.acting) .b-open {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
@@ -73,15 +75,15 @@
 .bracketed.mouseover:not(.acting) .b-line {
     box-shadow: 0.5px 0px 0px 0px #FFDD70 inset,
     1px 0px 0px 0px black,
-    1px -2px 0px -1px darkorange,
-    0px 4px 0px -1px darkorange,
+    1px -2px 0px -1px rgb(225, 169, 26),
+    0px 4px 0px -1px rgb(225, 169, 26),
     1px 0px 3px 0px #CC6A00; }
 .bracketed.dragging:not(.acting) .b-line,
 .bracketed.mouseover.dragging:not(.acting) .b-line {
     box-shadow: 0.5px 0px 0px 0px #FFDD70 inset,
     1px 0px 0px 0px black,
-    1px -2px 0px -1px darkorange,
-    0px 4px 0px -1px darkorange,
+    1px -2px 0px -1px rgb(225, 169, 26),
+    0px 4px 0px -1px rgb(225, 169, 26),
     1px 0px 3px 0px #CC6A00, 5px 0px 3px -5px dimgray; }
 .bracketed.mouseover:not(.acting) .b-close {
     box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 1px 0px black,
@@ -101,7 +103,7 @@
 .bracketed.mouseover:not(.acting) .b-open:before,
 .bracketed.mouseover:not(.acting) .b-line:before,
 .bracketed.mouseover:not(.acting) .b-close:before {
-    content: "　";
+    content: "";
     position: absolute;
     height: inherit;
     width: inherit; }
@@ -188,7 +190,7 @@
 /* 마그넷 표시 */
 :not(.bracketed).magnet.magneted-bottom:before,
 .bracketed.magnet.magneted-bottom .b-close:before {
-    content: "　";
+    content: "";
     position: absolute;
     height: inherit;
     width: inherit;
@@ -211,6 +213,7 @@
 /*****************/
 
 .code .acting { box-shadow: 0px 0px 10px 2px gold; }
+.code .acting .b-close { box-shadow: 0px 0px 10px 2px gold; }
 .code .acting[next-piece-id] {
     box-shadow:
             -5px -5px 10px -3px gold,
@@ -237,6 +240,7 @@
 .sound { background-color:rebeccapurple; }
 .movement { background-color: #003eff; }
 .event { background-color: darkgoldenrod; margin-right: 30px; }
-.control { background-color: darkorange; }
+.control { background-color: rgb(225, 169, 26); }
 .control>.b-line { background-color: inherit; }
-.control.bracketed>.bracket { background-color: darkorange; }
+.control.bracketed>.bracket { background-color: rgb(225, 169, 26); }
+.variable { background-color: darkorange; }

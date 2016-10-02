@@ -13,7 +13,7 @@ $(function () {
     //
     var operator = scrc.namespace("blocks.element.operator");
     operator.methods = {
-        binary : {
+        binary: {
             "plus": function (lhs, rhs) {
                 return lhs + rhs;
             },
@@ -25,6 +25,29 @@ $(function () {
             },
             "sub": function (lhs, rhs) {
                 return lhs / rhs;
+            },
+            "random": function (lhs, rhs) {
+                return lhs + Math.floor(Math.random() * rhs);
+            },
+            "lt": function (lhs, rhs) {
+                return lhs < rhs;
+            },
+            "gt": function (lhs, rhs) {
+                return lhs > rhs;
+            },
+            "eq": function (lhs, rhs) {
+                return lhs == rhs;
+            },
+            "and": function (lhs, rhs) {
+                return lhs && rhs;
+            },
+            "or": function (lhs, rhs) {
+                return lhs || rhs;
+            }
+        },
+        monoary: {
+            "not": function (lhs) {
+                return !lhs;
             }
         }
     };
@@ -47,7 +70,7 @@ $(function () {
         return parseFloat(elmt.value);
     };
 
-    var calc = scrc.namespace("blocks.element.operator.binary").calc = function (elmt) {
+    var binary_calc = scrc.namespace("blocks.element.operator.binary").calc = function (elmt) {
         var space = scrc.namespace("blocks.element.element-space");
         var calc = space.calc;
         var $this = $(elmt);
@@ -56,10 +79,36 @@ $(function () {
         return operator.methods.binary[$this.attr("calc")](calc($space[0]), calc($space[1]));
     };
 
-    scrc.namespace("blocks.calc.plus").calc = calc;
-    scrc.namespace("blocks.calc.minus").calc = calc;
-    scrc.namespace("blocks.calc.mul").calc = calc;
-    scrc.namespace("blocks.calc.sub").calc = calc;
+    var monoary_calc = scrc.namespace("blocks.element.operator.monoary").calc = function (elmt) {
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
+        var $this = $(elmt);
+        var $space = $this.find(">.element-space");
+
+        return operator.methods.monoary[$this.attr("calc")](calc($space[0]));
+    };
+
+    scrc.namespace("blocks.calc.plus").calc = binary_calc;
+    scrc.namespace("blocks.calc.minus").calc = binary_calc;
+    scrc.namespace("blocks.calc.mul").calc = binary_calc;
+    scrc.namespace("blocks.calc.sub").calc = binary_calc;
+    scrc.namespace("blocks.calc.random").calc = binary_calc;
+    scrc.namespace("blocks.calc.lt").calc = binary_calc;
+    scrc.namespace("blocks.calc.gt").calc = binary_calc;
+    scrc.namespace("blocks.calc.eq").calc = binary_calc;
+    scrc.namespace("blocks.calc.and").calc = binary_calc;
+    scrc.namespace("blocks.calc.or").calc = binary_calc;
+
+    scrc.namespace("blocks.calc.not").calc = monoary_calc;
+
+    scrc.namespace("blocks.calc.not").calc = function (elmt) {
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
+        var $elmt = $(elmt);
+        var $space = $elmt.find(">.element-space");
+
+        return !calc($space[0]);
+    };
 
     scrc.namespace("blocks.calc.x-position").calc = function (elmt) {
         var $this = $(elmt);

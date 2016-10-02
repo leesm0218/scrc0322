@@ -13,27 +13,6 @@ $(function () {
     var $workmenu = $(".workmenu");
     var blocks = scrc.namespace("blocks");
 
-    blocks.calculate = function ($elmt, callback) {
-        var binary = scrc.namespace("blocks.calc");
-        var calc = binary[$elmt.attr("calc")].calc;
-
-        callback(calc($elmt[0]));
-    };
-
-    blocks.execute = function ($elmt, callback, option) {
-        option = option || {};
-
-        blocks.circuitSiblings($elmt, function (iter, circuit) {
-            var $e = iter.now();
-            var actions = scrc.namespace("blocks.actions");
-            var action = actions[$e.attr("action")].action;
-
-            requestAnimationFrame(function () {
-                action($e, circuit, option);
-            });
-        }, callback);
-    };
-
     function findRootElement ($elmt) {
         var $parent = $elmt.parents(".code-piece.element");
 
@@ -68,6 +47,27 @@ $(function () {
             }
         });
     }
+
+    blocks.calculate = function ($elmt, callback) {
+        var binary = scrc.namespace("blocks.calc");
+        var calc = binary[$elmt.attr("calc")].calc;
+
+        callback(calc($elmt[0]));
+    };
+
+    blocks.execute = function ($elmt, callback, option) {
+        option = option || {};
+
+        blocks.circuitSiblings($elmt, function (iter, circuit) {
+            var $e = iter.now();
+            var actions = scrc.namespace("blocks.actions");
+            var action = actions[$e.attr("action")].action;
+
+            requestAnimationFrame(function () {
+                action($e, circuit, option);
+            });
+        }, callback);
+    };
 
     $workmenu.on("dblclick",
         [

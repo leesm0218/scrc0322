@@ -88,31 +88,37 @@ $(function () {
     }
 
     function resize_bracket ($elmt) {
-        var $open = $elmt.find(">.bracket.b-open"),
-            $line = $elmt.find(">.bracket.b-line"),
+        var $opens = $elmt.find(">.bracket.b-open"),
+            $lines = $elmt.find(">.bracket.b-line"),
             $close = $elmt.find(">.bracket.b-close");
 
-        resize($open);
-        resize_b_line($line);
+        $opens.each(function (i, e) {
+            resize($(e));
+        });
+        $lines.each(function (i, e) {
+            resize_b_line($(e));
+        });
         resize($close);
 
-        $open.css({ top: 0 + "px", margin: 0 });
+        /*$open.css({ top: 0 + "px", margin: 0 });
         $line.css({ top: ($open.position().top + $open.height()) + "px", margin: 0
+        });*/
+        $($opens[1]).css({ top: ($($lines[0]).position().top + $($lines[0]).height()) + "px", margin: 0,
+            width: $($opens[0]).outerWidth() + "px"
         });
-        $close.css({ top: ($line.position().top + $line.height()) + "px", margin: 0,
-            width: $open.outerWidth() + "px"
+        $close.css({ top: ($($lines[0]).position().top + $($lines[0]).height()) + "px", margin: 0,
+            width: $($opens[0]).outerWidth() + "px"
         });
 
-        $elmt.css({
+        /*$elmt.css({
             height: $open.outerHeight() + $line.outerHeight() + $close.outerHeight()
-        });
+        });*/
     }
 
     blocks.resizing = function ($elmt) {
         $elmt = $($elmt);
 
         while(!$elmt.is(".toolbox .code-piece, .code>.code-piece")) {
-            break;
             $elmt = $elmt.parent();
         }
         if ($elmt.is(".bracketed")) {
@@ -131,7 +137,32 @@ $(function () {
         }
 
         $table.append($("<li>").append(e));
-    }
+    };
+
+    blocks.position = function ($elmt, $parent) {
+        var result = {
+            left: $elmt.position().left,
+            right: $elmt.position().right,
+            top: $elmt.position().top,
+            bottom: $elmt.position().bottom
+        };
+
+        var $p = $elmt.parent();
+        while ($p && $p.attr("id") != $parent.attr("id")) {
+            result.left += $p.position().left;
+            result.right += $p.position().right;
+            result.top += $p.position().top;
+            result.bottom += $p.position().bottom;
+            $p = $p.parent();
+        }
+
+        result.left += $parent.position().left;
+        result.right += $parent.position().right;
+        result.top += $parent.position().top;
+        result.bottom += $parent.position().bottom;
+
+        return result;
+    };
 });
 
 $(function () {
@@ -143,9 +174,12 @@ $(function () {
             var $div = $("<div>").append(template);
 
             $div.find(">*").each(function (i, e) {
-                blocks.addUl(e, ".toolbox[value=01]");
-                blocks.draggable(e, ".toolbox");
-                blocks.resizing(e);
+                blocks.addUl(e, ".toolbox[value=08]");
+                if ($(e).is(".code-piece")) {
+                    blocks.draggable(e, ".toolbox");
+                    blocks.resizing($(e));
+                    blocks.alignmentHeight($(e));
+                }
             });
         })
         .loadTemplate(".scrc-template.code-piece.movement", function (template) {
@@ -153,26 +187,47 @@ $(function () {
 
             $div.find(">*").each(function (i, e) {
                 blocks.addUl(e, ".toolbox[value=01]");
-                blocks.draggable(e, ".toolbox");
-                blocks.resizing(e);
+                if ($(e).is(".code-piece")) {
+                    blocks.draggable(e, ".toolbox");
+                    blocks.resizing($(e));
+                    blocks.alignmentHeight($(e));
+                }
             })
         })
         .loadTemplate(".scrc-template.code-piece.event", function (template) {
             var $div = $("<div>").append(template);
 
             $div.find(">*").each(function (i, e) {
-                blocks.addUl(e, ".toolbox[value=01]");
-                blocks.draggable(e, ".toolbox");
-                blocks.resizing(e);
+                blocks.addUl(e, ".toolbox[value=02]");
+                if ($(e).is(".code-piece")) {
+                    blocks.draggable(e, ".toolbox");
+                    blocks.resizing($(e));
+                    blocks.alignmentHeight($(e));
+                }
             });
         })
         .loadTemplate(".scrc-template.code-piece.control", function (template) {
             var $div = $("<div>").append(template);
 
             $div.find(">*").each(function (i, e) {
-                blocks.addUl(e, ".toolbox[value=01]");
-                blocks.draggable(e, ".toolbox");
-                blocks.resizing(e);
+                blocks.addUl(e, ".toolbox[value=04]");
+                if ($(e).is(".code-piece")) {
+                    blocks.draggable(e, ".toolbox");
+                    blocks.resizing($(e));
+                    blocks.alignmentHeight($(e));
+                }
+            });
+        })
+        .loadTemplate(".scrc-template.code-piece.data", function (template) {
+            var $div = $("<div>").append(template);
+
+            $div.find(">*").each(function (i, e) {
+                blocks.addUl(e, ".toolbox[value=09]");
+                if ($(e).is(".code-piece")) {
+                    blocks.draggable(e, ".toolbox");
+                    blocks.resizing($(e));
+                    blocks.alignmentHeight($(e));
+                }
             });
         });
 });
