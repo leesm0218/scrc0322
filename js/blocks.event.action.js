@@ -9,6 +9,7 @@ scrc = scrc || {};
 $(function () {
     var main_screen = scrc.namespace("main_screen");
     var blocks = scrc.namespace("blocks");
+    var variables = scrc.namespace("blocks.variables");
 
     scrc.namespace("blocks.actions.move").action = function (elmt, callback) {
         var space = scrc.namespace("blocks.element.element-space");
@@ -218,5 +219,23 @@ $(function () {
         setTimeout(function () {
             callback(elmt);
         }, calc($space[0]) * 1000);
+    };
+
+    scrc.namespace("blocks.actions.assign").action = function (elmt, callback) {
+        var space = scrc.namespace("blocks.element.element-space");
+        var calc = space.calc;
+        var $this = $(elmt);
+        var $variable = $this.find(">.element-space>.variable.element");
+        var variable_id = $variable.attr("variable-id");
+        var $space = $this.find(">.element-space");
+
+        if (variable_id) {
+            var value = calc($space[1])
+            variables[variable_id] = value;
+            //$(".variable.element[variable-id=" + variable_id + "]").attr("title", value);
+        }
+        console.log(variables);
+
+        callback(elmt);
     };
 });

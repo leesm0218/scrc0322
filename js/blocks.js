@@ -118,8 +118,11 @@ $(function () {
     blocks.resizing = function ($elmt) {
         $elmt = $($elmt);
 
+        console.log($elmt)
         while(!$elmt.is(".toolbox .code-piece, .code>.code-piece")) {
+            console.log($elmt)
             $elmt = $elmt.parent();
+            break;
         }
         if ($elmt.is(".bracketed")) {
             resize_bracket($elmt);
@@ -223,6 +226,18 @@ $(function () {
 
             $div.find(">*").each(function (i, e) {
                 blocks.addUl(e, ".toolbox[value=09]");
+                if ($(e).is(".code-piece")) {
+                    blocks.draggable(e, ".toolbox");
+                    blocks.resizing($(e));
+                    blocks.alignmentHeight($(e));
+                }
+            });
+        })
+        .loadTemplate(".scrc-template.code-piece.additional", function (template) {
+            var $div = $("<div>").append(template);
+
+            $div.find(">*").each(function (i, e) {
+                blocks.addUl(e, ".toolbox[value=10]");
                 if ($(e).is(".code-piece")) {
                     blocks.draggable(e, ".toolbox");
                     blocks.resizing($(e));

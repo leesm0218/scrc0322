@@ -16,6 +16,9 @@
                 1px -2px 0px -1px rgb(225, 169, 26),
                 0px 4px 0px -1px rgb(225, 169, 26); }
 .variable { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
+.data { box-shadow: 0.5px 0.5px 1px 0px #FFDD70 inset, 1px 1px 0px 0px black; }
+.function { box-shadow: 0.5px 0.5px 1px 0px rgb(255, 212, 254) inset, 1px 1px 0px 0px black; }
+.function-define { box-shadow: 0.5px 0.5px 1px 0px rgb(255, 212, 254) inset, 1px 1px 0px 0px black; }
 
 /*****************/
 
@@ -244,3 +247,6 @@
 .control>.b-line { background-color: inherit; }
 .control.bracketed>.bracket { background-color: rgb(225, 169, 26); }
 .variable { background-color: darkorange; }
+.data { background-color: darkorange; }
+.function { background-color: rgb(99, 45, 153); }
+.function-define { background-color: rgb(99, 45, 153); }
