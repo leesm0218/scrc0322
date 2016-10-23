@@ -15,6 +15,8 @@
 		<link rel="stylesheet" type="text/css" href="css/blocks.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="css/blocks.color.css" media="all" />
 		<link rel="stylesheet" type="text/css" href="css/blocks.zIndex.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="css/sprite.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="css/column2.css" media="all" />
 
 		<script src="lib/jquery-1.12.1.min.js"></script>
 		<script src="lib/jquery-ui.js"></script>
@@ -26,16 +28,16 @@
 		<script src="js/konvadiv.js"></script>
 		<script src="js/blocks.js"></script>
 		<script src="js/event.js"></script>
+		<script src="js/blocks.drag.js"></script>
 		<script src="js/blocks.event.js"></script>
 		<script src="js/blocks.event.action.js"></script>
 		<script src="js/blocks.event.calc.js"></script>
-		<script src="js/blocks.drag.js"></script>
+		<script src="js/blocks.event.drag.js"></script>
+		<script src="js/blocks.circuit.js"></script>
+		<script src="js/blocks.variable.js"></script>
 		<script src="js/sound.js"></script>
 		<script src="js/script.js"></script>
-		
 		<script src="js/radioFunction.js"></script>
-
-		<script src="js/shape.js"></script>
     </head>
 
     <body class="body">
@@ -82,9 +84,12 @@
 					<img class="screenbutton stopbuttonOff floatright"></img>
 					<img class="screenbutton startbuttonOff floatright"></img>
 				</div>
-				<div id="container"></div>
+				<div id="container" class="screen"></div>
 				<!--<canvas id="myCanvas" class="screen"></canvas>-->
-				<div class="screenxy">x:연동필요 y:연동필요</div>
+				<!--<div id="container2" class="test">-->
+					<!--<div id="container3" class="testcontent"></div>-->
+				<!--</div>-->
+				<div class="screenxy"><!--x:연동필요 y:연동필요--></div>
 				<div class="spritebar">
 					<img class="spritebutton cameraOff"></img>
 					<label class="spritebutton importOff" for="input"></label>
@@ -93,47 +98,51 @@
 					<img class="spritebutton libraryOff"></img>
 				</div>
 				<div class="sprite-wrap">
-					<div class="spritebackground"></div>
-
+					<!--<div class="spritebackground"></div>-->
 					<div class="sprite">
 
 						<ul id="sprite_list">
 						</ul>
 
 					</div>
-
 				</div>
 				<footer class="tempfooter"></footer>
             </div>
 			<div class="column2">
-				<div class="workmenulabels">
-							<label name="workmenu" value="01">Tab 1</label>
-							<label name="workmenu" value="02">Tab 2</label>
-							<label name="workmenu" value="03">Tab 3</label>
+				<div class="workmenulabelset">
+							<label name="workmenu" value="01" class="workmenulabel Workmenulabelactive">스크립트</label>
+							<label name="workmenu" value="02" class="workmenulabel">모양</label>
+							<label name="workmenu" value="03" class="workmenulabel">소리</label>
+							<div id="empty-line"></div>
 				</div>
 				<div class="workmenus">
 					<div class="workmenu" name = "workmenu-visible" value="01">
 						<div class="tools">
 
 							<div class="toollabels">
-								<label name="toolbox" value="01">Tab 1</label>
-								<label name="toolbox" value="02">Tab 2</label>
-								<label name="toolbox" value="03">Tab 3</label>
-								<label name="toolbox" value="04">Tab 4</label>
-								<label name="toolbox" value="05">Tab 5</label>
-								<label name="toolbox" value="06">Tab 6</label>
-								<label name="toolbox" value="07">Tab 7</label>
-								<label name="toolbox" value="08">Tab 8</label>
+								<label name="toolbox" value="01">동작</label>
+								<label name="toolbox" value="02">이벤트</label>
+								<label name="toolbox" value="03">형태</label>
+								<label name="toolbox" value="04">제어</label>
+								<label name="toolbox" value="05">소리</label>
+								<label name="toolbox" value="06">관찰</label>
+								<label name="toolbox" value="07">펜</label>
+								<label name="toolbox" value="08">연산</label>
+								<label name="toolbox" value="09">데이터</label>
+								<label name="toolbox" value="10">추가 블록</label>
 							</div>
+							<div class="horizon-separation-line">　</div>
 							<div class="toolboxes">
 								<div class="toolbox" name = "toolbox-visible"value="01"></div>
-								<div class="toolbox" name = "toolbox-hidden" value="02">0002</div>
-								<div class="toolbox" name = "toolbox-hidden" value="03">0003</div>
-								<div class="toolbox" name = "toolbox-hidden" value="04">0004</div>
-								<div class="toolbox" name = "toolbox-hidden" value="05">0005</div>
-								<div class="toolbox" name = "toolbox-hidden" value="06">0006</div>
-								<div class="toolbox" name = "toolbox-hidden" value="07">0007</div>
-								<div class="toolbox" name = "toolbox-hidden" value="08">0008</div>
+								<div class="toolbox" name = "toolbox-hidden" value="02"></div>
+								<div class="toolbox" name = "toolbox-hidden" value="03"></div>
+								<div class="toolbox" name = "toolbox-hidden" value="04"></div>
+								<div class="toolbox" name = "toolbox-hidden" value="05"></div>
+								<div class="toolbox" name = "toolbox-hidden" value="06"></div>
+								<div class="toolbox" name = "toolbox-hidden" value="07"></div>
+								<div class="toolbox" name = "toolbox-hidden" value="08"></div>
+								<div class="toolbox" name = "toolbox-hidden" value="09"></div>
+								<div class="toolbox" name = "toolbox-hidden" value="10"></div>
 							</div>
 
 							<footer class="tempfooter"></footer>
@@ -224,8 +233,13 @@
 		</div>
 
 		<div class="scrc-template code-piece control">
+	<span class="code-piece control magnet" action="sleep">
+		<span class="element-space number"><!--
+		---><input class="default element number" type="text" calc="number" return-type="number" value="0"></span><!--
+	---><pre class="text">초 기다리기</pre>
+	</span>
 	<span class="code-piece control bracketed b-out magnet" action="repeat">
-		<span class="bracket magnet b-open" action="repeat-start">
+		<span class="bracket magnet b-open" action="non-action">
 			<span class="element-space number"><!--
 			---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
 		---></span>
@@ -240,10 +254,60 @@
 			<pre class="text">¶</pre>
 		</span>
 	</span>
-	<span class="code-piece control magnet" action="sleep">
-		<span class="element-space number"><!--
-		---><input class="default element number" type="text" calc="number" return-type="number" value="0"></span><!--
-	---><pre class="text">초 기다리기</pre>
+	<span class="code-piece control bracketed b-out magnet" action="infinite-repeat">
+		<span class="bracket magnet b-open" action="non-action">
+			<pre class="text">무한 반복하기</pre>
+		</span>
+		<span class="bracket b-line">
+			<pre class="text">　</pre>
+			<span class="movement-space">
+			</span>
+		</span>
+		<span class="bracket b-close">
+			<pre class="text">¶</pre>
+		</span>
+	</span>
+	<span class="code-piece control bracketed b-out magnet" action="if">
+		<span class="bracket magnet b-open" action="non-action">
+			<pre class="text">만약 </pre>
+			<span class="element-space number"><!--
+			---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+		---></span>
+			<pre class="text"> 라면</pre>
+		</span>
+		<span class="bracket b-line">
+			<pre class="text">　</pre>
+			<span class="movement-space">
+			</span>
+		</span>
+		<span class="bracket b-close">
+			<pre class="text">¶</pre>
+		</span>
+	</span>
+	<span class="code-piece control bracketed b-out magnet" action="if-else">
+		<span class="bracket magnet b-open" action="non-action">
+			<pre class="text">만약 </pre>
+			<span class="element-space number"><!--
+			---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+		---></span>
+			<pre class="text"> 라면</pre>
+		</span>
+		<span class="bracket b-line">
+			<pre class="text">　</pre>
+			<span class="movement-space">
+			</span>
+		</span>
+		<span class="bracket magnet b-open" action="non-action">
+			<pre class="text">아니면</pre>
+		</span>
+		<span class="bracket b-line">
+			<pre class="text">　</pre>
+			<span class="movement-space">
+			</span>
+		</span>
+		<span class="bracket b-close">
+			<pre class="text">¶</pre>
+		</span>
 	</span>
 		</div>
 
@@ -283,6 +347,68 @@
 	---><span class="element-space number"><!--
 		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
 	---></span>
+	</span>
+	<span class="code-piece binary operator element" calc="random" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="1"><!--
+	---></span><!--
+	---><pre class="text">부터</pre><!--
+	---><span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="9"><!--
+	---></span><!--
+	---><pre class="text">사이의 난수</pre><!--
+	--->
+	</span>
+	<span class="code-piece binary operator element" calc="lt" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">&lt</pre><!--
+	---><span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span>
+	</span>
+	<span class="code-piece binary operator element" calc="eq" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">＝</pre><!--
+	---><span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span>
+	</span>
+	<span class="code-piece binary operator element" calc="gt" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">&gt</pre><!--
+	---><span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span>
+	</span>
+	<span class="code-piece binary operator element" calc="and" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">그리고</pre><!--
+	---><span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span>
+	</span>
+	<span class="code-piece binary operator element" calc="or" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">또는</pre><!--
+	---><span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span>
+	</span>
+	<span class="code-piece monoary operator element" calc="not" return-type="number">
+		<span class="element-space number"><!--
+		---><input class="default element number" calc="number" type="text" return-type="number" value="0"><!--
+	---></span><!--
+	---><pre class="text">가(이) 아니다</pre>
 	</span>
 		</div>
 
@@ -327,6 +453,14 @@
 	</span>
 	<span class="code-piece movement element" calc="comhair">
 		<pre class="text">방향</pre>
+	</span>
+		</div>
+		<div class="scrc-template code-piece data">
+	<!--<button id="create_variable">변수 만들기</button>-->
+		</div>
+		<div class="scrc-template code-piece variable">
+	<span class="code-piece variable element" calc="value">
+		<pre class="text">noname</pre>
 	</span>
 		</div>
     </body>

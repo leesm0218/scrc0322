@@ -1,3 +1,29 @@
+
+.sprite-wrap{
+    border:2px solid #ccc;
+    flex:1 1 auto;  min-width:480px; min-height:360px; display:flex; flex-direction: row; flex-wrap: nowrap;
+    background-color: #efefef;
+}
+.sprite {
+    flex:1;  min-width:480px;
+    border: 1px solid #ccc;
+}
+.spritebar{
+    border:2px solid #ccc;
+    border-radius: 15px 15px 0px 0px;
+    flex:0; min-width:480px; min-height:40px; max-height:40px;
+    background-color: #efefef;
+}
+.spritebutton{
+    margin:0px; padding:7px;
+
+    min-width:28px; max-width:28px; min-height:28px; max-height:28px;
+    float:right;
+}
+.spritebackground{
+    flex:1;  max-width:80px;
+}
+
 /* list 점 지우기 */
 ul#sprite_list {
     list-style:none;
@@ -33,10 +59,21 @@ ul#sprite_list li.selected {
     right: 0;
     top: 0;
     bottom: 0;
-
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
 }
 
 .close:hover {
     background-color: #f44336;
     color: white;
+}
+
+.spritebutton_div{
+    float:right;
+    position:relative;
+    width:30px;
+    height:30px;
+    /*overflow:hidden;*/
 }
