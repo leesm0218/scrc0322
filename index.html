@@ -39,6 +39,7 @@
 		<script src="js/sound.js"></script>
 		<script src="js/script.js"></script>
 		<script src="js/radioFunction.js"></script>
+		<script src="js/menu.js"></script>
     </head>
 
     <body class="body">
@@ -48,10 +49,9 @@
 				<img class="menuLi languageButtonbutton"></img>
 				<label class="menuLi">파일
 					<ul class="submenuUl">
-						<li class="submenuLi"><a>새로만들기</a></li>
-						<li class="submenuLi"><a>코드 업로드</a></li>
-						<li class="submenuLi"><a>코드 다운로드</a></li>
-						<li class="submenuLi"><a>코드 초기화</a></li>
+						<li class="submenuLi"><a id="new_project">새로만들기</a></li>
+						<li class="submenuLi"><a id="save_project">프로젝트 저장</a></li>
+						<li class="submenuLi"><a id="load_project">프로젝트 불러오기</a></li>
 					</ul>
 				</label>
 				<label class="menuLi">편집
@@ -148,7 +148,7 @@
 
 							<footer class="tempfooter"></footer>
 						</div>
-						<div class="code">코드</div>
+						<div class="code"></div>
 						<footer class="tempfooter"></footer>
 					</div>
 					<div class="workmenu" name = "workmenu-hidden" value="02">

@@ -29,8 +29,16 @@ $(function () {
     $(".spritebar input").on("change", handleFiles);
 
     function handleFiles(e) {
+        var file_name = e.target.files[0].name;
+
+        //var url = URL.createObjectURL(e.target.files[0]);
+        main_screen.addImage(file_name);
+    }
+
+    main_screen.addImage = function (file_name, callback) {
+        var url = "scratch_images/" + file_name;
+
         var img = new Image();
-        var url = URL.createObjectURL(e.target.files[0]);
         img.src = url;
 
         img.onload = function () {
@@ -59,28 +67,12 @@ $(function () {
             main_screen.select(myimg._id);
 
             var $sprite_list = $("#sprite_list");
-            var title = document.getElementById("input").value.split("\\").pop().split(".").shift();
+            var title = file_name.split(".").shift();
             var $new_list = $("<li>").attr("id", myimg._id);
 
             $new_list.on("click", function (ev) {
-                /*var shape = main_screen.imgs[myimg._id];
-                shape.moveToTop();
-                $("#sprite_list li").removeClass("selected");
-                $("#sprite_list li[id='" + shape._id + "']").addClass("selected");
-                console.log(shape._id)
-                main_screen.select(shape._id);
-                layer.draw();*/
-
-
                 $("#sprite_list li").removeClass("selected");
                 $new_list.addClass("selected");
-
-                var $shape = $(ev.target);
-                // shape에 id 프로퍼티가 없으므로 새로운 태그를 만들어 거기에 id를 넣었음.
-                // konvadiv.js의 120번쨰 줄부터
-                // select함수의 동작을 위해 select함수도 약간 고침.
-                // main_screen.js의 select함수와 konvadiv.js의 154번쨰 줄부터
-                console.log($new_list.attr("id"))
                 main_screen.select($new_list.attr("id"));
             });
             var list_img = new Image();
@@ -98,6 +90,7 @@ $(function () {
                 layer.getChildren(function (shape) {
                     if (shape._id == id) {
                         shape.remove();
+                        $(".code .code-piece[target-id=" + id + "]").remove();
                         layer.draw();
                     }
                 })
@@ -109,36 +102,16 @@ $(function () {
             $sprite_list.find("li").removeClass("selected");
             $new_list.addClass("selected");
 
-            /* 파일 추가시 스크립트 추가, 일단 파일경로(fakepath)만 */
-            /*var newlist = document.createElement("li");
-            var inputValue = document.getElementById("input").value;
-            $(newlist).text(inputValue).attr("id", myimg._id);
-            var element = document.getElementById("sprite_list");
-            element.classList.toggle('selected');
-
-            // Create X(close) button and append it to each list item
-            var myNodelist = $(element).find("LI");
-            var i;
-            for (i =  0; i < myNodelist.length; i++) {
-                var span = document.createElement("SPAN");
-                var txt = document.createTextNode("\u00D7");
-                span.className = "close";
-                span.appendChild(txt);
-                myNodelist[i].appendChild(span);
-            }
-
-            // Click on a close button to hide the current list item
-            var close = document.getElementsByClassName("close");
-            var i;
-            for (i =  0; i < close.length; i++) {
-                close[i].onclick = function() {
-                    var div = this.parentElement;
-                    div.style.display = "none";
-
-                }
-            }*/
+            callback && callback(myimg);
         }
-    }
+    };
+
+    main_screen.clear = function () {
+        layer.destroyChildren()
+        stage.clear();
+        var $sprite_list = $("#sprite_list");
+        $sprite_list.html("");
+    };
 
 
     //mouseover stroke event

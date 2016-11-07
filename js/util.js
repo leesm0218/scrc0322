@@ -28,7 +28,7 @@ scrc.namespace = function (ns_string) {
     var util = scrc.namespace("util");
 
     util.uniqueId = (function(){
-        var id=0;
+        var id = Math.floor(Math.random() * (Math.pow(2, 28))) + 0;
 
         return function(){ return "--uq--id--" + id++;}
     })();
