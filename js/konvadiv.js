@@ -48,7 +48,6 @@ $(function () {
                 stroke:"red",
                 strokeWidth: 2,
                 strokeEnabled: false
-
             });
             layer.add(myimg);
             layer.draw();
