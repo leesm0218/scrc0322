@@ -1,7 +1,7 @@
 
 .sprite-wrap{
     border:2px solid #ccc;
-    flex:1 1 auto;  min-width:480px; /*min-height:360px;*/ display:flex; flex-direction: row; flex-wrap: nowrap;
+    flex:1 1 auto;  min-width:480px; min-height:360px; display:flex; flex-direction: row; flex-wrap: nowrap;
     background-color: #efefef;
 }
 .sprite {
@@ -25,17 +25,25 @@
 }
 
 /* list 점 지우기 */
-ul#sprite_list {
+#sprite_list {
     list-style:none;
+	display:flex;
+	flex-direction: row;
+    flex-wrap: wrap;
+	align-content:flex-start;
 }
 /* Style the list items */
-ul#sprite_list li {
+#sprite_list li {
     cursor: pointer;
     position: relative;
-    padding: 12px 8px 12px 8px;
-    background: #eee;
     font-size: 18px;
     transition: 0.2s;
+	align-self:flex-start ;
+	background-color: #efefef;
+
+	flex:0 0;
+	min-width:120px;
+	min-height:120px;
 
     /* make the list items unselectable */
     -webkit-user-select: none;

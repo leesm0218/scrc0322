@@ -122,7 +122,7 @@ $(function () {
         while(!$elmt.is(".toolbox .code-piece, .code>.code-piece")) {
             console.log($elmt)
             $elmt = $elmt.parent();
-            break;
+            //break;
         }
         if ($elmt.is(".bracketed")) {
             resize_bracket($elmt);
