@@ -1,6 +1,7 @@
 /* 2016-05-22 by Choi */
 
 var scrc;
+var stage;//전역변수화. 문제점 생기기 딱 좋은 수정. 이렇게 안 하고도 콘바에 접근할 수 있다면 바로 연락할 것.
 scrc = scrc || {};
 
 $(function () {
@@ -13,7 +14,7 @@ $(function () {
     var width = $("#container").width();
     var height = $("#container").height();
 
-    var stage = new Konva.Stage({
+    stage = new Konva.Stage({//스테이지 전역변수화
         container: 'container',
         width: width,
         height: height,
@@ -31,16 +32,25 @@ $(function () {
     function handleFiles(e) {
 
         var img = new Image();
-        img.src = URL.createObjectURL(e.target.files[0]);
-	    
-	img.src = e.target.files[0].webkitRelativePath;
-	var tempsrc = img.src;
-	tempsrc = tempsrc.split("/");
-	tempsrc = tempsrc.slice(0, tempsrc.length - 1).join("/") + "/userImg/" + e.target.files[0].name;
+
+        img.src = e.target.files[0].webkitRelativePath;
+		tempsrc = img.src;
+		tempsrc = tempsrc.split("/");
+		tempsrc = tempsrc.slice(0, tempsrc.length - 1).join("/") + "/userImg/" + e.target.files[0].name;
 		
 		
-	img.src = tempsrc//블롭에서 조건부 고정 경로 설정
- 
+		img.src = tempsrc//블롭에서 조건부 고정 경로 설정
+		
+		
+		var tempCount = 3;
+		var x = "#" + tempCount;
+		while (stage.find(x)[0] != null) {
+			var y = stage.find(x)[0];
+			tempCount++;
+			x = "#" + tempCount;
+			
+		}		
+		
         img.onload = function () {
             var myimg = new Konva.Image({
                 x: 50,
@@ -55,21 +65,32 @@ $(function () {
                 },
                 stroke:"red",
                 strokeWidth: 2,
-                strokeEnabled: false
+                strokeEnabled: false,
+				id: tempCount
 
             });
+
             layer.add(myimg);
+			if(stage.find('#3')[0].attrs.id == 3)
+			{
+				stage.find('#3')[0].attrs.id = 4;
+			}
+			stage.find('#'+ tempCount)[0]._id = stage.get('#'+ tempCount)[0].attrs.id;
+			stage.find('#3')[0] = null;
+			
             layer.draw();
+			
             myimg.on("dragstart", function () {
                 this.moveToTop();
                 layer.draw();
             });
+			//myimg.id = myimg._id;
             main_screen.imgs[myimg._id] = myimg;
             main_screen.select(myimg._id);
 
             var $sprite_list = $("#sprite_list");
             var title = document.getElementById("input").value.split("\\").pop().split(".").shift();
-            var $new_list = $("<li>").attr("id", myimg._id).attr('style',  'background-image:url(' + img.src + ');background-repeat:no-repeat;background-size:100% 80%;');
+            var $new_list = $("<li>").attr("id", myimg._id).attr('style',  'background-image:url(' + tempsrc + ');background-repeat:no-repeat;background-size:100% 80%;');
             var $close_bt = $("<span>").text("\u00D7").addClass("close");
 			
             $close_bt.on("click", function () {
