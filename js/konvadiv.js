@@ -32,7 +32,15 @@ $(function () {
 
         var img = new Image();
         img.src = URL.createObjectURL(e.target.files[0]);
-
+	    
+	img.src = e.target.files[0].webkitRelativePath;
+	tempsrc = img.src;
+	tempsrc = tempsrc.split("/");
+	tempsrc = tempsrc.slice(0, tempsrc.length - 1).join("/") + "/userImg/" + e.target.files[0].name;
+		
+		
+	img.src = tempsrc//블롭에서 조건부 고정 경로 설정
+ 
         img.onload = function () {
             var myimg = new Konva.Image({
                 x: 50,
