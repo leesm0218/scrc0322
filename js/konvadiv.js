@@ -34,7 +34,7 @@ $(function () {
         img.src = URL.createObjectURL(e.target.files[0]);
 	    
 	img.src = e.target.files[0].webkitRelativePath;
-	tempsrc = img.src;
+	var tempsrc = img.src;
 	tempsrc = tempsrc.split("/");
 	tempsrc = tempsrc.slice(0, tempsrc.length - 1).join("/") + "/userImg/" + e.target.files[0].name;
 		
