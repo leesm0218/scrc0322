@@ -29,9 +29,9 @@ $(function () {
     $(".spritebar input").on("change", handleFiles);
 
     function handleFiles(e) {
-
         var img = new Image();
-        img.src = URL.createObjectURL(e.target.files[0]);
+        var url = URL.createObjectURL(e.target.files[0]);
+        img.src = url;
 
         img.onload = function () {
             var myimg = new Konva.Image({
@@ -60,7 +60,36 @@ $(function () {
 
             var $sprite_list = $("#sprite_list");
             var title = document.getElementById("input").value.split("\\").pop().split(".").shift();
-            var $new_list = $("<li>").text(title).attr("id", myimg._id);
+            var $new_list = $("<li>").attr("id", myimg._id);
+
+            $new_list.on("click", function (ev) {
+                /*var shape = main_screen.imgs[myimg._id];
+                shape.moveToTop();
+                $("#sprite_list li").removeClass("selected");
+                $("#sprite_list li[id='" + shape._id + "']").addClass("selected");
+                console.log(shape._id)
+                main_screen.select(shape._id);
+                layer.draw();*/
+
+
+                $("#sprite_list li").removeClass("selected");
+                $new_list.addClass("selected");
+
+                var $shape = $(ev.target);
+                // shape에 id 프로퍼티가 없으므로 새로운 태그를 만들어 거기에 id를 넣었음.
+                // konvadiv.js의 120번쨰 줄부터
+                // select함수의 동작을 위해 select함수도 약간 고침.
+                // main_screen.js의 select함수와 konvadiv.js의 154번쨰 줄부터
+                console.log($new_list.attr("id"))
+                main_screen.select($new_list.attr("id"));
+            });
+            var list_img = new Image();
+            list_img.src = url;
+            $new_list.append(list_img);
+
+            var $title = $("<span>").addClass("sprite-title").text(title);
+            $new_list.append($title);
+
             var $close_bt = $("<span>").text("\u00D7").addClass("close");
 
             $close_bt.on("click", function () {
@@ -74,6 +103,7 @@ $(function () {
                 })
             });
             $new_list.append($close_bt);
+
             $sprite_list.append($new_list);
 
             $sprite_list.find("li").removeClass("selected");
@@ -128,6 +158,7 @@ $(function () {
         shape.moveToTop();
         $("#sprite_list li").removeClass("selected");
         $("#sprite_list li[id='" + shape._id + "']").addClass("selected");
+        console.log(shape._id)
         main_screen.select(shape._id);
         layer.draw();
     });

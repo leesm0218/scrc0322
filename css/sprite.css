@@ -62,7 +62,9 @@ ul#sprite_list li.selected {
     background: #888;
     color: #fff;
 }
+
 .close {
+    height: 100%;
     position: absolute;
     right: 0;
     top: 0;
@@ -85,3 +87,8 @@ ul#sprite_list li.selected {
     height:30px;
     /*overflow:hidden;*/
 }
+
+#sprite_list li { border: 1px solid black; }
+#sprite_list li img { width: 100px; height: 100px; z-index: 0; }
+
+.sprite-title { display: inline-block; position: relative; width: 100%; }
