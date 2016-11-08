@@ -8,7 +8,7 @@ scrc = scrc || {};
 
 $(function () {
     var main_screen = scrc.namespace("main_screen");
-    var variables = scrc.namespace("blocks.variables");
+    var blocks = scrc.namespace("blocks");
     //
     // 블럭 동작 정의
     //
@@ -136,6 +136,6 @@ $(function () {
         var $this = $(elmt);
         var variable_id = $this.attr("variable-id");
 
-        return variables[variable_id];
+        return blocks.variables[variable_id];
     }
 });

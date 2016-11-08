@@ -11,9 +11,13 @@ $(function () {
     var variables = scrc.namespace("blocks.variables");
 
     var uniqueVariableId = function(){
-        return "variable" + uniqueVariableId.id++;
+        var id = "variable" + uniqueVariableId.id;
+
+        uniqueVariableId.id = Math.floor(Math.random() * (Math.pow(2, 31)));
+
+        return id;
     };
-    uniqueVariableId.id=0;
+    uniqueVariableId.id = Math.floor(Math.random() * (Math.pow(2, 31)));
 
     var promptName = function () {
         var name = prompt("변수명을 입력하세요.", "변수" + uniqueVariableId.id);
@@ -37,13 +41,8 @@ $(function () {
         return name;
     };
 
-    $(".toolboxes").on("click", "#create_variable", function () {
-        console.log("변수 생성")
+    blocks.createVariable = function (name, callback) {
         util.loadTemplate(".scrc-template.code-piece.variable", function (template) {
-            var name = promptName();
-
-            if (name == null) return;
-
             var $div = $("<div>").append(template);
             var $elmt = $div.find(">.code-piece.variable.element");
             var id = uniqueVariableId();
@@ -59,6 +58,18 @@ $(function () {
                 blocks.resizing($elmt);
                 blocks.alignmentHeight($elmt);
             }
+
+            callback && callback(id);
         });
+    };
+
+    $(".toolboxes").on("click", "#create_variable", function () {
+        console.log("변수 생성");
+
+        var name = promptName();
+
+        if (name == null) return;
+
+        blocks.createVariable(name);
     });
 });

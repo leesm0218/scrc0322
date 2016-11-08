@@ -7,11 +7,34 @@ var load_data;
 $(function () {
     var blocks = scrc.namespace("blocks");
     var main_screen = scrc.namespace("main_screen");
+    var variables = scrc.namespace("blocks.variables");
+    var util = scrc.namespace("util");
 
 
-    $("#new_project").on("click", function () {
+    function InitProject () {
         main_screen.clear();
         $(".code").html("");
+        console.log("코드 지움")
+        $(".toolbox[value=09]").html("");
+        console.log("변수목록 지움")
+        blocks.variables = {};
+        console.log("변수정보 지움")
+        util.loadTemplate(".scrc-template.code-piece.data", function (template) {
+            var $div = $("<div>").append(template);
+
+            $div.find(">*").each(function (i, e) {
+                blocks.addUl(e, ".toolbox[value=09]");
+                if ($(e).is(".code-piece")) {
+                    blocks.draggable(e, ".toolbox");
+                    blocks.resizing($(e));
+                    blocks.alignmentHeight($(e));
+                }
+            });
+        })
+    }
+
+    $("#new_project").on("click", function () {
+        InitProject();
     });
 
     $("#save_project").on("click", function () {
@@ -31,18 +54,21 @@ $(function () {
         }
 
         var save_code = $(".code").html();
-        /*$(".code .code-piece").each(function (i, e) {
-            $($(e), $(".code")).draggable({
-                cursor: "move",
-                revert: "invalid",
-                helper: "original",
-                drag: blocks.drag
-            });
-        });*/
+
+        var save_vals = [];
+
+        for (var id in variables) {
+            save_vals.push({
+                id: id,
+                name: $(".toolbox .variable.element[variable-id=" + id + "]").attr("variable-name"),
+                value: variables[id]
+            })
+        }
 
         var save_data = {
             code : save_code,
-            imgs : save_imgs
+            imgs : save_imgs,
+            variables : save_vals
         };
         console.log(JSON.stringify(save_data));
 		//FileSaver.js 사용. 출처:https://github.com/eligrey/FileSaver.js/
@@ -60,7 +86,9 @@ $(function () {
                 load_data = JSON.parse(load_data);
             var load_code = load_data.code;
             var load_imgs = load_data.imgs;
+            var load_vals = load_data.variables;
             var id_link = {};
+            var val_link = {};
 
             $(".code").html(load_code);
             $(".code .code-piece").each(function (i, e) {
@@ -92,10 +120,28 @@ $(function () {
                     }
                 } ());
             }
+
+            for (var i = 0; i < load_vals.length; i++) {
+                console.log(load_vals[i]);
+                blocks.createVariable(load_vals[i].name, function () {
+                    var old_id = load_vals[i].id;
+                    var value = load_vals[i].value;
+                    var count = i;
+
+                    return function (new_id) {
+                        val_link[old_id] = new_id;
+                        blocks.variables[new_id] = value;
+
+                        if (count + 1 == load_vals.length) {
+                            val_linker(val_link);
+                        }
+                    }
+                } ());
+            }
 		};
+        console.log(e.target.files[0])
         if (e.target.files[0]) {
-            main_screen.clear();
-            $(".code").html("");
+            InitProject();
             reader.readAsText(e.target.files[0]);
         }
     });
@@ -109,6 +155,18 @@ $(function () {
 
         for (var old_id in id_link) {
             cps_list[old_id].attr("target-id", id_link[old_id]);
+        }
+    }
+
+    function val_linker (val_link) {
+        var val_list = {};
+
+        for (var old_id in val_link) {
+            val_list[old_id] = $(".workmenu .code-piece.variable.element[variable-id=" + old_id + "]");
+        }
+
+        for (var old_id in val_link) {
+            val_list[old_id].attr("variable-id", val_link[old_id]);
         }
     }
 });
