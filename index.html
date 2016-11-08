@@ -46,16 +46,16 @@
     <body class="body">
 		<div class="menubar">
 			<div class="menu">
-				<img class="menuLi scratchlogobutton"></img>
+				<!--<img class="menuLi scratchlogobutton"></img>-->
 				<img class="menuLi languageButtonbutton"></img>
 				<label class="menuLi">파일
 					<ul class="submenuUl">
 						<li class="submenuLi"><a id="new_project">새로만들기</a></li>
 						<li class="submenuLi"><a id="save_project">프로젝트 저장</a></li>
-						<li class="submenuLi">프로젝트 불러오기<label class="submenuLi" for="load_project"></label>
-						<input type="file" id="load_project" class ="file_input_hidden"></li>
+						<li class="submenuLi"><label for="load_project">프로젝트 불러오기</label></li>
 					</ul>
 				</label>
+				<input type="file" style="display:none;" id="load_project" class ="file_input_hidden">
 				<label class="menuLi">편집
 					<ul class="submenuUl">
 						<li class="submenuLi"><a>삭제 취소</a></li>

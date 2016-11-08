@@ -7,6 +7,10 @@
 			//class 가 $(this).attr( 'name' ) 이고 value 가 $(this).attr( 'value' ) 인 목표를 찾고 name 변수를 $(this).attr( 'name' ) + '-visible' 로 바꾼다.
 			.siblings()//바꾼것 이외의 목표들을 찾는다.
 			.attr( 'name' , $(this).attr( 'name' ) + '-hidden');//name 변수를 $(this).attr( 'name' ) + '-hidden' 으로 바꾼다.
+			$(".submenuUl").css("visibility", "hidden");
+			setTimeout(function () {
+				$(".submenuUl").css("visibility", "");
+			}, 16);
         });
     });
 

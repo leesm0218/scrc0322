@@ -52,53 +52,52 @@ $(function () {
     });
 
     $("#load_project").on("change", function (e) {
-        main_screen.clear();
-        $(".code").html("");
-
-
 		var reader = new FileReader();
 
 		reader.onload = function(e) {
-		var load_data = reader.result;
+            var load_data = reader.result;
 
-			load_data = JSON.parse(load_data);
-        var load_code = load_data.code;
-        var load_imgs = load_data.imgs;
-        var id_link = {};
+                load_data = JSON.parse(load_data);
+            var load_code = load_data.code;
+            var load_imgs = load_data.imgs;
+            var id_link = {};
 
-        $(".code").html(load_code);
-        $(".code .code-piece").each(function (i, e) {
-            $($(e), $(".code")).draggable({
-                cursor: "move",
-                revert: "invalid",
-                helper: "original",
-                drag: blocks.drag
+            $(".code").html(load_code);
+            $(".code .code-piece").each(function (i, e) {
+                $($(e), $(".code")).draggable({
+                    cursor: "move",
+                    revert: "invalid",
+                    helper: "original",
+                    drag: blocks.drag
+                });
             });
-        });
 
-        for (var i = 0; i < load_imgs.length; i++) {
-            //console.log(load_imgs[i]);
-            main_screen.addImage(load_imgs[i].src, function () {
-                var old_id = load_imgs[i].id;
-                var old_position = load_imgs[i].position;
-                var count = i;
+            for (var i = 0; i < load_imgs.length; i++) {
+                //console.log(load_imgs[i]);
+                main_screen.addImage(load_imgs[i].src, function () {
+                    var old_id = load_imgs[i].id;
+                    var old_position = load_imgs[i].position;
+                    var count = i;
 
-                return function (myimg) {
-                    var new_id = myimg._id;
+                    return function (myimg) {
+                        var new_id = myimg._id;
 
-                    id_link[old_id] = new_id;
-                    myimg.setPosition(old_position);
-                    main_screen.draw();
+                        id_link[old_id] = new_id;
+                        myimg.setPosition(old_position);
+                        main_screen.draw();
 
-                    if (count + 1 == load_imgs.length) {
-                        id_linker(id_link);
+                        if (count + 1 == load_imgs.length) {
+                            id_linker(id_link);
+                        }
                     }
-                }
-            } ());
+                } ());
+            }
+		};
+        if (e.target.files[0]) {
+            main_screen.clear();
+            $(".code").html("");
+            reader.readAsText(e.target.files[0]);
         }
-		}
-		reader.readAsText(e.target.files[0]);
-
     });
 
     function id_linker (id_link) {
