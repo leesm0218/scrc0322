@@ -2,6 +2,8 @@
  * Created by hwss on 2016-11-07.
  */
 
+var load_data;
+
 $(function () {
     var blocks = scrc.namespace("blocks");
     var main_screen = scrc.namespace("main_screen");
@@ -43,14 +45,23 @@ $(function () {
             imgs : save_imgs
         };
         console.log(JSON.stringify(save_data));
+		//FileSaver.js 사용. 출처:https://github.com/eligrey/FileSaver.js/
+		var blob = new Blob([JSON.stringify(save_data)], {type: "text/plain;charset=utf-8"});
+		saveAs(blob, "Scratch_save.txt");
+
     });
 
-    $("#load_project").on("click", function () {
+    $("#load_project").on("change", function (e) {
         main_screen.clear();
         $(".code").html("");
 
-        var load_data_text = prompt("af");
-        var load_data = JSON.parse(load_data_text);
+
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+		var load_data = reader.result;
+
+			load_data = JSON.parse(load_data);
         var load_code = load_data.code;
         var load_imgs = load_data.imgs;
         var id_link = {};
@@ -85,6 +96,9 @@ $(function () {
                 }
             } ());
         }
+		}
+		reader.readAsText(e.target.files[0]);
+
     });
 
     function id_linker (id_link) {

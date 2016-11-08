@@ -40,6 +40,7 @@
 		<script src="js/script.js"></script>
 		<script src="js/radioFunction.js"></script>
 		<script src="js/menu.js"></script>
+		<script src="js/FileSaver.js"></script>
     </head>
 
     <body class="body">
@@ -51,7 +52,8 @@
 					<ul class="submenuUl">
 						<li class="submenuLi"><a id="new_project">새로만들기</a></li>
 						<li class="submenuLi"><a id="save_project">프로젝트 저장</a></li>
-						<li class="submenuLi"><a id="load_project">프로젝트 불러오기</a></li>
+						<li class="submenuLi">프로젝트 불러오기<label class="submenuLi" for="load_project"></label>
+						<input type="file" id="load_project" class ="file_input_hidden"></li>
 					</ul>
 				</label>
 				<label class="menuLi">편집
