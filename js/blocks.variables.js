@@ -8,7 +8,6 @@ scrc = scrc || {};
 $(function () {
     var util = scrc.namespace("util");
     var blocks = scrc.namespace("blocks");
-    var variables = scrc.namespace("blocks.variables");
 
     var uniqueVariableId = function(){
         var id = "variable" + uniqueVariableId.id;
@@ -49,7 +48,7 @@ $(function () {
 
             $elmt.attr("variable-id", id);
             $elmt.attr("variable-name", name);
-            variables[id] = 0;
+            blocks.variables[id] = 0;
             $elmt.find(".text:first").text(name);
 
             blocks.addUl($elmt, ".toolbox[value=09]");

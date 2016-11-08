@@ -7,18 +7,14 @@ var load_data;
 $(function () {
     var blocks = scrc.namespace("blocks");
     var main_screen = scrc.namespace("main_screen");
-    var variables = scrc.namespace("blocks.variables");
     var util = scrc.namespace("util");
 
 
     function InitProject () {
         main_screen.clear();
         $(".code").html("");
-        console.log("코드 지움")
         $(".toolbox[value=09]").html("");
-        console.log("변수목록 지움")
         blocks.variables = {};
-        console.log("변수정보 지움")
         util.loadTemplate(".scrc-template.code-piece.data", function (template) {
             var $div = $("<div>").append(template);
 
@@ -57,11 +53,11 @@ $(function () {
 
         var save_vals = [];
 
-        for (var id in variables) {
+        for (var id in blocks.variables) {
             save_vals.push({
                 id: id,
                 name: $(".toolbox .variable.element[variable-id=" + id + "]").attr("variable-name"),
-                value: variables[id]
+                value: blocks.variables[id]
             })
         }
 
