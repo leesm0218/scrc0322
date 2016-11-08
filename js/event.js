@@ -18,4 +18,8 @@ $(function () {
             $this.attr("title", value);
         });
     });
+
+    $(".code").on("keyup", "input", function () {
+        $(this).attr("value", $(this).val());
+    });
 });
