@@ -40,7 +40,7 @@
     transition: 0.2s;
 	align-self:flex-start ;
 	background-color: #efefef;
-	
+
 	flex:0 0;
 	min-width:120px;
 	min-height:120px;
@@ -53,16 +53,18 @@
 }
 
 /* Darker background-color on hover */
-#sprite_list li:hover {
+ul#sprite_list li:hover {
     background: #ddd;
 }
 
 /* When clicked on, add a background color and strike out text */
-#sprite_list li.selected {
+ul#sprite_list li.selected {
     background: #888;
     color: #fff;
 }
+
 .close {
+    height: 100%;
     position: absolute;
     right: 0;
     top: 0;
@@ -85,3 +87,8 @@
     height:30px;
     /*overflow:hidden;*/
 }
+
+#sprite_list li { border: 1px solid black; }
+#sprite_list li img { width: 100px; height: 100px; z-index: 0; }
+
+.sprite-title { display: inline-block; position: relative; width: 100%; }

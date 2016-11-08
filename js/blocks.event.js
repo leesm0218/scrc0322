@@ -72,7 +72,8 @@ $(function () {
     $workmenu.on("dblclick",
         [
             ".code-piece.operator",
-            ".code-piece.movement.element"
+            ".code-piece.movement.element",
+            ".code-piece.variable.element"
         ].join(", "),
         function (event) {
             var $elmt = $(this);
@@ -87,7 +88,8 @@ $(function () {
         [
             ".code-piece.movement:not(.element)",
             ".code-piece.event:not(.element)",
-            ".code-piece.control:not(.element)"
+            ".code-piece.control:not(.element)",
+            ".code-piece.data:not(.element)"
         ].join(", "),
         function (event) {
             var $this = $(this);

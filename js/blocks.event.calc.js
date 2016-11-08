@@ -8,6 +8,7 @@ scrc = scrc || {};
 
 $(function () {
     var main_screen = scrc.namespace("main_screen");
+    var variables = scrc.namespace("blocks.variables");
     //
     // 블럭 동작 정의
     //
@@ -130,4 +131,11 @@ $(function () {
 
         return main_screen.imgs[id].rotation() * Math.PI / 180;
     };
+
+    scrc.namespace("blocks.calc.value").calc = function (elmt) {
+        var $this = $(elmt);
+        var variable_id = $this.attr("variable-id");
+
+        return variables[variable_id];
+    }
 });
